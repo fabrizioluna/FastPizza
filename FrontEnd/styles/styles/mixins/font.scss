@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'Westmeath';
+    src: url('../../../public/fonts/Westmeath.otf');
+}
+
+
+@mixin font(
+    $type, 
+    $size,
+    $color
+) {
+    @if $type == 'Sans' {
+        font-family: 'AlumniSans';
+    }
+    @else{
+        font-family: 'Westmeath';
+    }
+    font-size: $size;
+    color: $color;
+}
