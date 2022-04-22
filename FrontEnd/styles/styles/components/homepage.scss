@@ -27,7 +27,6 @@
     z-index: 10;
     height: 50rem;
     h1 {
-      font-size: 4rem;
       @include font('Bebas', 4rem, white);
     }
   }
@@ -39,6 +38,18 @@
   color: white;
   padding: 10rem;
   section{
-    display: flex;
+    text-align: center;
+    // background-color: aqua;
+    width: 100%;
+    // display: flex;
+    figure {
+      font-size: 3.5rem;
+    }
+    header {
+      @include font('Bebas', 3rem, white);
+    }
+    article {
+        
+    }
   }
 }
