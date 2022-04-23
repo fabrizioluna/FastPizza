@@ -1,16 +1,13 @@
 import { Delivery } from './components/delivery';
-import { Header } from './components/header';
-import { Navigation } from './components/navigation';
+import { HomeLayout } from './components/layout';
+import { Products } from './components/products';
 
 const Home = () => {
   return (
-    <div>
-      <Navigation />
-      <Header />
-
-
+    <HomeLayout>
       <Delivery />
-    </div>
+      <Products />
+    </HomeLayout>
   );
 };
 

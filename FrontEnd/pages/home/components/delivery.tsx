@@ -12,21 +12,36 @@ export const Delivery = () => {
         <figure>
           <FontAwesomeIcon icon={faLocationPin} />
         </figure>
-        <article>Haz tu pedido en nuestro página web.</article>
+        <header>
+          <h1>Haz tu pedido</h1>
+        </header>
+        <article>
+          Realiza tu pedido en nuestro sitio web desde cualquier parte de la
+          República Mexicana.
+        </article>
       </section>
       <section>
         <figure>
           <FontAwesomeIcon icon={faTruck} />
         </figure>
+        <header>
+          <h1>Recibe en tu casa</h1>
+        </header>
         <article>
-          Nosotros nos encargamos de llevarlo hasta tu domicilio.
+          Nosotros nos compremetemos en llevar tu pedido hasta la puerta de tu
+          casa en tiempo y forma.
         </article>
       </section>
       <section>
         <figure>
           <FontAwesomeIcon icon={faBurger} />
         </figure>
-        <article>¡Disfruta!</article>
+        <header>
+          <h1>¡Disfruta!</h1>
+        </header>
+        <article>
+          Todos nuestros productos hasta la puerta de tu casa con un solo clic.
+        </article>
       </section>
     </div>
   );
