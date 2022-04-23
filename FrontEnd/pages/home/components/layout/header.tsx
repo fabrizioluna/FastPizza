@@ -1,9 +1,12 @@
+import { Button } from "../../../../components/button";
+
 export const Header = () => {
   return (
     <div className='header__component'>
       <article>
         <h1>¡Haz tu pedido a domicilio!</h1>
-        <p>Haz tus pedidos a domicilio y obtén un 50% de descuento.</p>
+        <p>Haz tu primer pedido a domicilio y recibe un descuento del 40%.</p>
+        <Button config={{ type: false, color: 'primary', link: '/cart' }}>Registrate gratis</Button>
       </article>
       <figure>
         <img
