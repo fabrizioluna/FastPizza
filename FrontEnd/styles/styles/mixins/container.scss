@@ -1,0 +1,23 @@
+@mixin Container(
+        $w: 100%, 
+        $h: auto, 
+        $p: 0px, 
+        $bg: white, 
+        $mt: auto, 
+        $mb: auto, 
+        $mr: auto, 
+        $ml: auto,
+        $fz: 20px,
+        $cl: white
+    ) {
+    width: $w;
+    height: $h;
+    padding: $p;
+    background-color: $bg;
+    margin-top: $mt;
+    margin-bottom: $mb;
+    margin-right: $mr;
+    margin-left: $ml;
+    font-size: $fz;
+    color: $cl;
+}

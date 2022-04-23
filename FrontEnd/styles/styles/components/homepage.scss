@@ -1,14 +1,30 @@
 .header__component {
-  width: 90%;
-  margin: auto;
-  height: 50rem;
-  color: rgb(255, 255, 255);
   display: flex;
+  @include Container(
+    90%,
+    50rem,
+    0px,
+    transparent,
+    auto,
+    auto,
+    auto,
+    auto,
+    20px,
+    white
+  );
   figure {
-    width: 81%;
-    margin: 0;
-    height: 50rem;
-    padding: 0;
+    @include Container(
+    81%,
+    50rem,
+    0px,
+    transparent,
+    auto,
+    auto,
+    auto,
+    auto,
+    20px,
+    white
+  );
     img {
       object-fit: scale-down;
       height: 50rem;
@@ -19,13 +35,18 @@
     }
   }
   article {
-    width: 30%;
-    height: 10rem;
-    padding: 1rem;
-    background-color: rgb(35, 34, 34);
-    backdrop-filter: blur(1rem);
-    z-index: 10;
-    height: 50rem;
+    @include Container(
+    30%,
+    50rem,
+    1rem,
+    #232222,
+    auto,
+    auto,
+    auto,
+    auto,
+    20px,
+    white
+  );
     h1 {
       @include font('Bebas', 4rem, white);
     }
@@ -37,19 +58,14 @@
   display: flex;
   color: white;
   padding: 10rem;
-  section{
+  section {
     text-align: center;
-    // background-color: aqua;
     width: 100%;
-    // display: flex;
     figure {
       font-size: 3.5rem;
     }
     header {
       @include font('Bebas', 3rem, white);
-    }
-    article {
-        
     }
   }
 }
