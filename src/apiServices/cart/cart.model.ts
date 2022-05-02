@@ -10,7 +10,7 @@ const cartSchema = Schema({
         type: Schema.Types.ObjectId, 
         ref: 'product' 
     }],
-    product_createdAt: {
+    cart_createdAt: {
         type: Date
     }
 });

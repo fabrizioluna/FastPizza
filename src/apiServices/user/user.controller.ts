@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Role } from './role.model';
 import { userDao } from './user.dao';
 import { errorResponse, responseCreate, userTypes } from './user.types';
 
@@ -9,6 +10,12 @@ export const userController = {
       .then((user: responseCreate) => res.status(200).send(user))
       .catch((err: any) => res.status(400).send(err));
   },
+  login: (req: Request, res: Response) => {
+    userDao
+      .loginUser(req.body.name, req.body.password)
+      .then((user: userTypes) => res.status(200).send(user))
+      .catch((err: any) => res.status(400).send(err));
+  },
   get: (req: Request, res: Response) => {
     userDao
       .getUser(req.query.id as string)
@@ -16,3 +23,4 @@ export const userController = {
       .catch((err: errorResponse) => res.status(400).send(err));
   },
 };
+
