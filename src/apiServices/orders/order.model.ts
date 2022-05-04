@@ -8,7 +8,7 @@ const orderSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
-  order_Products: [
+  order_products: [
     {
       type: Schema.Types.ObjectId,
       ref: 'product',
@@ -31,14 +31,13 @@ const orderSchema = Schema({
   },
   order_deliveryDay: {
     type: Date,
-    require: true,
   },
   order_timeFinish: {
     type: Number,
   },
-  order_methodPay: {
-    type: String,
-  },
+  // order_methodPay: {
+  //   type: String,
+  // },
   order_discountCode: {
     type: Number,
   },
