@@ -15,7 +15,7 @@ export class User {
   user_password: string;
 
   @Prop()
-  user_adress: string;
+  user_address: string;
 
   @Prop()
   user_hasInitialDiscount: boolean;
@@ -26,11 +26,11 @@ export class User {
   @Prop()
   user_imageProfile: string;
 
-//   @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'roles' } })
-//   user_role: string;
+  // @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'role' } })
+  // user_role: string;
 
-//   @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'cart' } })
-//   user_cart: string;
+  @Prop([{ type: { type: mongoose.Schema.Types.ObjectId, ref: 'cart' } }])
+  user_cart: string;
 
   @Prop()
   user_createdAt: string;
