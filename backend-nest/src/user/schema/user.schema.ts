@@ -33,7 +33,7 @@ export class User {
   user_cart: string;
 
   @Prop()
-  user_createdAt: string;
+  user_createdAt: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

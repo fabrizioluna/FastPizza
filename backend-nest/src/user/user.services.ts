@@ -1,22 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { CustomException } from 'src/utils/responses/custom-exception/error.response';
-import { CustomResponse } from 'src/utils/responses/custom-success/success.response';
+import {
+  CustomResponse,
+  ResponseHttp,
+} from 'src/utils/responses/custom-success/success.response';
 import { UserCreateDto, UserGetDto } from './dto/user.dto';
 import { User, UserDoc } from './schema/user.schema';
-import { Adapter } from '../utils/adapter/adapters';
 const bcrypt = require('bcryptjs/dist/bcrypt');
 import { makeCodeEmail } from './utils/createCode.utils';
+import { MailServices } from 'src/service/mails/mail.services';
 
 @Injectable()
 export class UserServices {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDoc>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDoc>,
+    private mailService: MailServices,
+  ) {}
 
-  async create(
-    user: UserCreateDto,
-  ): Promise<{ message: string; response: any }> {
+  async create(user: UserCreateDto): Promise<ResponseHttp> {
     try {
+      const createCode: String = makeCodeEmail;
       const newUser: User = await this.userModel.create({
         user_name: user.user_name,
         user_email: user.user_email,
@@ -25,19 +30,21 @@ export class UserServices {
           bcrypt.genSaltSync(),
         ),
         user_createdAt: new Date(),
-        user_verifiedEmail: makeCodeEmail,
+        user_verifiedEmail: createCode,
         user_address: user.user_address,
         user_hasInitialDiscount: false,
         user_imageProfile: user.user_imageProfile,
-        // user_cart: user.hasOwnProperty('user_cart') &&
-        // await cartDao.create(user._id, props.user_cart)
       });
 
-      return new CustomResponse(
-        'User has been create.',
-        Adapter.User(newUser),
-      ).success();
+      await this.mailService.sendUserConfirmation(
+        newUser.user_name,
+        newUser.user_email,
+        createCode,
+      );
+
+      return CustomResponse.success('User has been create.', newUser);
     } catch (err) {
+      console.log(err);
       throw new CustomException(
         'We found errors in this fields, please check it',
         err,
@@ -45,53 +52,81 @@ export class UserServices {
     }
   }
 
-  login(
-    name: string,
-    password: string,
-  ): Promise<{ message: string; user?: User }> {
+  login(name: string, password: string): Promise<ResponseHttp> {
     return this.userModel
       .findOne({ user_name: name })
       .then((doc: User) => {
         const userPassword = bcrypt.compareSync(password, doc.user_password);
         if (!userPassword)
-          return new CustomException('Password has not match, please retry.');
-        return new CustomResponse(
-          'User has been logging',
-          Adapter.User(doc),
-        ).success();
+          return new CustomException(
+            'Password has not match, please retry.',
+          ) as unknown as ResponseHttp;
+
+        if (doc.user_verifiedEmail.length > 0) {
+          return new CustomException(
+            'This user has a pending email confirmation',
+          ) as unknown as ResponseHttp;
+        }
+        return CustomResponse.success('User has been logging', doc);
       })
       .catch(
         (error) =>
-          new CustomException('Username or password is incorrect.', error),
+          new CustomException(
+            'Username or password is incorrect.',
+            error,
+          ) as unknown as ResponseHttp,
       );
   }
 
-  async get(id: UserGetDto): Promise<{ message: string; user?: User }> {
+  confirmEmail(id: ObjectId, code: string) {
+    return this.userModel.findById(id).then(async (user: User) => {
+      if (user.user_verifiedEmail === code) {
+        const userUpdated: UserCreateDto =
+          await this.userModel.findByIdAndUpdate(
+            id,
+            { user_verifiedEmail: '' },
+            { new: true },
+          );
+        return CustomResponse.success(
+          'This user has been confirm',
+          userUpdated,
+        );
+      }
+      new CustomException(
+        'The code has been received is not valid',
+      ) as unknown as ResponseHttp;
+    });
+  }
+
+  async get(id: UserGetDto): Promise<ResponseHttp> {
     return await this.userModel
       .findById(id)
-      .then((doc: User) =>
-        new CustomResponse('Request succesfully', Adapter.User(doc)).success(),
-      )
+      .then((doc: User) => CustomResponse.success('Request succesfully', doc))
       .catch(
         () =>
-          new CustomException('This username is not exist in the database.'),
+          new CustomException(
+            'This username is not exist in the database.',
+          ) as unknown as ResponseHttp,
       );
   }
 
-  async getAll(): Promise<any> {
+  async getAll(): Promise<ResponseHttp> {
     return await this.userModel
       .find()
-      .then(
-        (docs) =>
-          new CustomResponse('All users in database', adapterAllElements(docs)),
-      )
-      .catch((err) => new CustomException('Something happend', err));
+      .then((docs) => CustomResponse.success('All users in database', docs))
+      .catch(
+        (err) =>
+          new CustomException(
+            'Something happend',
+            err,
+          ) as unknown as ResponseHttp,
+      );
   }
 }
 
-const adapterAllElements = (docs: Array<UserCreateDto>) => {
-  const usersAdapted = [] as Array<any>;
-  docs.map((user: UserCreateDto) => usersAdapted.push(Adapter.User(user)));
+// const adapterAllElements = (docs: Array<UserCreateDto>) => {
+//   const usersAdapted = [] as Array<any>;
+//   docs.map((user: UserCreateDto) => usersAdapted.push(Adapter.User(user)));
 
-  return usersAdapted;
-};
+//   return usersAdapted;
+// };

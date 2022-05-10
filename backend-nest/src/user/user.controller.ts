@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -30,6 +31,11 @@ export class UserController {
   @Get('/get/:id')
   getUser(@Param('id') id: UserGetDto) {
     return this.userServices.get(id);
+  }
+
+  @Post('/confirm_account')
+  confirmAccount(@Query('id') id: ObjectId, @Query('code') code: string){
+    return this.userServices.confirmEmail(id, code);
   }
 
   @Get('/getall')

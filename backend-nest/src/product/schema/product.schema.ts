@@ -15,10 +15,13 @@ export class Product {
   product_price: number;
 
   @Prop({ required: true })
-  product_discount: string;
+  product_discount: number;
 
   @Prop({ required: true })
   product_createdAt: Date;
+  
+  @Prop({ required: true })
+  product_category: string;
   
 }
 

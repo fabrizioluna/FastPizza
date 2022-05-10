@@ -5,7 +5,7 @@ export type EmployeeDoc = Employee & Document;
 
 @Schema()
 export class Employee {
-  @Prop()
+  @Prop({ unique: true })
   employee_name: string;
 
   @Prop()
@@ -17,12 +17,13 @@ export class Employee {
   @Prop()
   employee_payment: number;
 
-  @Prop({
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'schedule' },
-  })
-  employee_schedule: string;
+  // @Prop({
+  //   type: { type: mongoose.Schema.Types.ObjectId, ref: 'schedule' },
+  // })
+  // employee_schedule: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'role' }] })
+  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'role' }] })
+  @Prop()
   employee_role: string;
 }
 

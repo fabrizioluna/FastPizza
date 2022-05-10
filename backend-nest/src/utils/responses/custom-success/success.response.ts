@@ -1,7 +1,12 @@
-export class CustomResponse {
-  constructor(private message: string, private response: any) {}
+export interface ResponseHttp {
+  message: string;
+  response: any;
+}
 
-  success() {
-    return { message: this.message, response: this.response, status: 200 };
+export class CustomResponse {
+  constructor() {}
+
+  static success(message: string, response: any) {
+    return { message, response, status: 200 };
   }
 }
