@@ -28,10 +28,6 @@ export class UserCreateDto {
   @IsNotEmpty()
   user_address: string;
 
-  @IsArray()
-  @IsNotEmpty()
-  user_cart: string;
-
   user_hasInitialDiscount?: boolean;
   user_verifiedEmail?: string;
   user_createdAt?: string;

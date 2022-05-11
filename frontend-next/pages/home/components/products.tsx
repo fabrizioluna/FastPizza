@@ -1,19 +1,26 @@
 import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Products_Pizzas } from '../../../resources';
+import { useCallService } from 'hooks/useCallService';
+import { productAdapter } from '../adapters/product.adapter';
+import { getProducts } from '../services/product.service';
 import { ProductsCategories } from './products-categories';
 
-export const Products = () => {
+export const Products = ({ products }: { products: any }) => {
+
+  const { call } = useCallService(getProducts, productAdapter)
+
   const getPriceWithDiscount = (price: number, discount: number) => {
     const getResult = (discount / 100) * price;
     return price - getResult;
   };
 
+  console.log('Esto es con el custom hook', call)
+
   return (
     <div className='products'>
       <ProductsCategories />
       <main>
-        {Products_Pizzas.map((product, index) => (
+        {products.map((product: any, index: number) => (
           <section key={index}>
             <figure>
               <img src={product.image} />

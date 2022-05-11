@@ -21,6 +21,7 @@ export class ProductServices {
         product_discount: product.product_discount,
         product_category: product.product_category,
         product_createdAt: new Date(),
+        product_image: product.product_image
       });
 
       return CustomResponse.success(

@@ -7,6 +7,9 @@ export type ProductDoc = Product & Document;
 export class Product {
   @Prop({ required: true })
   product_name: string;
+  
+  @Prop({ required: true })
+  product_image: string;
 
   @Prop({ required: true })
   product_description: string;
