@@ -16,8 +16,7 @@ export const singup = (credentials: Credentials) => {
 };
 
 export const confirm_email = (id: string, code: { email_code: string }) => {
-    const { email_code } = code;
-    console.log('Lo que recibimos en la request', id, email_code)
+  const { email_code } = code;
   return client
     .post(`user/confirm_account?id=${id}&code=${email_code}`)
     .then((res) => res.data)

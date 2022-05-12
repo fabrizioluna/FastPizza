@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const Navigation = () => {
   return (
     <div className='navigation'>
@@ -5,10 +7,10 @@ export const Navigation = () => {
         <figure>
           <img alt='Home' src={'/images/LogoFastPizza.png'} />
         </figure>
-        <li>Inicio</li>
-        <li>Menu</li>
+        <Link href='/home'><li>Inicio</li></Link>
+        <Link href='/all-products'><li>Menu</li></Link>
         <li>¿Deseas unirte?</li>
-        <li>Pedidos a domicilio</li>
+        <Link href='/cart'><li>Pedidos a domicilio</li></Link>
         <div>
           <li>Tel +52 777 240 45 64</li>
           <li>Av. Vicente Guerrero Col. Cuernavaca Centro</li>

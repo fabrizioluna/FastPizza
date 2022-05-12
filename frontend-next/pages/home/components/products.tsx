@@ -1,27 +1,41 @@
+import { Notification } from '@/components/notification';
+import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallService } from 'hooks/useCallService';
+import { useState } from 'react';
 import { productAdapter } from '../adapters/product.adapter';
 import { getProducts } from '../services/product.service';
 import { ProductsCategories } from './products-categories';
 
 export const Products = ({ products }: { products: any }) => {
-
-  const { call } = useCallService(getProducts, productAdapter)
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const { call } = useCallService(getProducts, productAdapter);
 
   const getPriceWithDiscount = (price: number, discount: number) => {
     const getResult = (discount / 100) * price;
     return price - getResult;
   };
 
-  console.log('Esto es con el custom hook', call)
+  const addProduct = (product: any) => {
+    localStorageHandler.set('cartShop', product);
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3500);
+  };
 
   return (
     <div className='products'>
+      {showMessage && (
+        <Notification>
+          <p>Este producto se agrego a tu carrito de compras.</p>
+        </Notification>
+      )}
       <ProductsCategories />
       <main>
         {products.map((product: any, index: number) => (
-          <section key={index}>
+          <section key={index} onClick={() => addProduct(product)}>
             <figure>
               <img src={product.image} />
               <div className='products__hover'>

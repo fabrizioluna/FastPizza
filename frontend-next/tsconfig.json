@@ -52,6 +52,7 @@
       "@/adapaters/*": ["adapters/*"],
       "@/components/*": ["components/*"],
       "@/config/*": ["config/*"],
+      "@/utils/*": ["utils/*"],
       // "@/hooks/*": ["hooks/*"],
       // "@/interceptos/*": ["interceptos/*"],
       // "@/models/*": ["models/*"],
