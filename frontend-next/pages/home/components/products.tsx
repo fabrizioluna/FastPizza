@@ -1,21 +1,17 @@
 import { Notification } from '@/components/notification';
+import { getPriceWithDiscount } from '@/utils/getPrice/getPrice';
 import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useCallService } from 'hooks/useCallService';
 import { useState } from 'react';
-import { productAdapter } from '../adapters/product.adapter';
+import { Product, productAdapter } from '../adapters/product.adapter';
 import { getProducts } from '../services/product.service';
 import { ProductsCategories } from './products-categories';
 
 export const Products = ({ products }: { products: any }) => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const { call } = useCallService(getProducts, productAdapter);
-
-  const getPriceWithDiscount = (price: number, discount: number) => {
-    const getResult = (discount / 100) * price;
-    return price - getResult;
-  };
 
   const addProduct = (product: any) => {
     localStorageHandler.set('cartShop', product);
@@ -34,7 +30,7 @@ export const Products = ({ products }: { products: any }) => {
       )}
       <ProductsCategories />
       <main>
-        {products.map((product: any, index: number) => (
+        {products.map((product: Product, index: number) => (
           <section key={index} onClick={() => addProduct(product)}>
             <figure>
               <img src={product.image} />
