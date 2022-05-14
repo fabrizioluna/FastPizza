@@ -11,12 +11,14 @@ import { User, UserDoc } from './schema/user.schema';
 const bcrypt = require('bcryptjs/dist/bcrypt');
 import { makeCodeEmail } from './utils/createCode.utils';
 import { MailServices } from 'src/service/mails/mail.services';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserServices {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDoc>,
     private mailService: MailServices,
+    private jwtService: JwtService
   ) {}
 
   async create(user: UserCreateDto): Promise<ResponseHttp> {
@@ -67,7 +69,16 @@ export class UserServices {
             'This user has a pending email confirmation',
           ) as unknown as ResponseHttp;
         }
-        return CustomResponse.success('User has been logging', doc);
+
+        const payload = { name: doc.user_name, email: doc.user_email }
+        const jwToken = this.jwtService.sign(payload);
+
+        const data = {
+          user: doc,
+          token: jwToken
+        }
+
+        return CustomResponse.success('User has been logging', data);
       })
       .catch(
         (error) =>

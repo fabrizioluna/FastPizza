@@ -7,16 +7,17 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { FormatResponse } from 'src/decorators/FormatResponse/format-response.decorator';
+import { JwtGuard } from 'src/user/jwt-guard';
 import { OrderDtoCreate, OrderDtoDelete, OrderDtoGet, OrderDtoUpdate } from './dto/order.dto';
 import { OrderServices } from './order.services';
-import { OrderDoc } from './schema/order.schema';
 
 @Controller('/order')
+@UseGuards(JwtGuard)
 export class OrderController {
   constructor(private orderServices: OrderServices) {}
 

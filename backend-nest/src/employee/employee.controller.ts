@@ -6,11 +6,14 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
+import { JwtGuard } from 'src/user/jwt-guard';
 import { EmployeeServices } from './employee.services';
 import { EmployeeDoc } from './schema/employee.schema';
 
+@UseGuards(JwtGuard)
 @Controller('/employee')
 export class EmployeeController {
   constructor(private employeeServices: EmployeeServices) {}
