@@ -2,7 +2,7 @@ import { CustomForm } from '@/components/form/form.component';
 import { confirm_email } from '../services/singup.service';
 
 interface ConfirmProps {
-  setValuesSecond: (set: any) => void,
+  setValuesSecond: (set: any) => void;
   valuesSecond: any;
   previuosValues: any;
 }
@@ -10,19 +10,16 @@ interface ConfirmProps {
 export const ConfirmForm = ({
   setValuesSecond,
   valuesSecond,
-  previuosValues
+  previuosValues,
 }: ConfirmProps) => {
+  const enterCodeHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const enterCodeHandler = async (e: React.FormEvent) => {
-        e.preventDefault();
-    
-        const codeResponse = await confirm_email(
-          previuosValues?._id as string,
-          valuesSecond as any
-        );
-    
-        console.log(codeResponse);
-      };
+    const codeResponse = await confirm_email(
+      previuosValues?._id as string,
+      valuesSecond as any
+    );
+  };
   return (
     <div className='user_singup'>
       <h4>Confirmacion de correo</h4>

@@ -27,7 +27,14 @@ export class OrderDtoCreate {
 
   @IsArray()
   @IsNotEmpty()
-  order_products: Array<string>;
+  order_products: string[];
+
+  @IsNotEmpty()
+  order_buyer: ObjectId;
+
+  @IsNotEmpty()
+  @IsNumber()
+  order_totalAmount: number;
 }
 
 export class OrderDtoUpdate {

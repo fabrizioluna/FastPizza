@@ -14,13 +14,13 @@ import { makeInvoice } from './utils/makeEnvoice';
 export class OrderServices {
   constructor(@InjectModel(Order.name) private orderModel: Model<OrderDoc>) {}
 
-  createOrder(clientId: ObjectId, orderObject: OrderDtoCreate) {
+  createOrder(orderObject: OrderDtoCreate) {
+    console.log('En el servicio',orderObject)
     const Order = {
       ...orderObject,
       order_envoice: makeInvoice(),
       order_creationDay: new Date(),
       order_products: orderObject.order_products,
-      order_buyer: clientId,
       order_status: false,
     };
     return this.orderModel.create(Order);
@@ -48,6 +48,6 @@ export class OrderServices {
         order_creationDay:
           orderQuery.type.toLocaleLowerCase() === 'asc' ? 1 : -1,
       })
-      .populate('order_prducts');
+      .populate('order_products');
   }
 }

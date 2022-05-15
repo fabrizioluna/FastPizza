@@ -28,6 +28,9 @@ export class Order {
 
   @Prop({ required: true })
   order_addressClient: string;
+  
+  @Prop({ required: true })
+  order_totalAmount: number;
 
   //   @Prop()
   //   order_methodPay: string;

@@ -1,4 +1,4 @@
-import { statusCode } from '../responseStatus/responseStatus';
+import { STATUS_CODE } from '../responseStatus/responseStatus';
 
 export const localStorageHandler = {
   get(key: string) {
@@ -12,7 +12,7 @@ export const localStorageHandler = {
   set(key: string, element: any) {
     const { status, data } = this.get(key) as { status: number; data: any };
 
-    if (status === statusCode.NOT_FOUND) {
+    if (status === STATUS_CODE.NOT_FOUND) {
       localStorage.setItem(key, JSON.stringify([element]));
       return sendRes(200, element);
     }
@@ -24,7 +24,7 @@ export const localStorageHandler = {
   deleteRow(key: string, index: number) {
     const { status, data } = this.get(key);
     
-    if(status === statusCode.NOT_FOUND) return sendRes(404, 'No hay informacion para eliminar.')
+    if(status === STATUS_CODE.NOT_FOUND) return sendRes(404, 'No hay informacion para eliminar.')
 
     // const dataParse = JSON.parse(data);
     Array.isArray(data) ? data.splice(index, 1) : null;
@@ -39,7 +39,7 @@ export const localStorageHandler = {
     const Key = this.get(key);
 
     const { status } = Key;
-    if(status === statusCode.SUCCESS) return localStorage.clear()
+    if(status === STATUS_CODE.SUCCESS) return localStorage.clear()
 
   }
 };
@@ -51,3 +51,25 @@ export const sendRes = (status: number, response: any) => {
     ? { status: 200, data: response }
     : { status: 404, data: response };
 };
+
+export const authCookieStorage = () => {
+  if (typeof window !== 'undefined') {
+      const get = () => {
+          const authLocal = localStorage.getItem('authUser');
+          // Verificamos primero que exista la cookie.
+          if(authLocal === null) return { status: false, error: 'No existe la cookie en el localStorage.' }
+          // Si existe lo retornamos ya parseado.
+          return { status: true, data: JSON.parse(authLocal) }
+      }
+      
+      const set = (newJWT: string, id: string) => {
+          return localStorage.setItem('authUser', JSON.stringify({ jwt: newJWT, id }))
+      }
+      
+      const clear = () => {
+          return localStorage.setItem('authUser', JSON.stringify(null));
+      }
+      
+      return { get, set, clear };
+  }
+}

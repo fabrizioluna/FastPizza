@@ -5,7 +5,7 @@ import { HomeLayout } from './components/layout';
 import { Products } from './components/products';
 import { getProducts } from './services/product.service';
 
-const Home = ({ products }: { products: any }) => {
+const Home = ({ products }: { products: any }) => {  
   return (
     <HomeLayout>
       <Delivery />

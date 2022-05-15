@@ -23,8 +23,9 @@ export class OrderController {
 
   @Post('/create')
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  create(@Query('id') id: ObjectId, @Body() body: OrderDtoCreate) {
-    return this.orderServices.createOrder(id, body);
+  create(@Body() body: any) {
+    console.log(body)
+    return this.orderServices.createOrder(body);
   }
 
   @Put('/update')
@@ -39,7 +40,6 @@ export class OrderController {
     return this.orderServices.getAll(querys);
   }
 
-  @HttpCode(200)
   @Get('/get')
   async getOrder(@Query('id') id: ObjectId) {
     return this.orderServices.getOrder(id);

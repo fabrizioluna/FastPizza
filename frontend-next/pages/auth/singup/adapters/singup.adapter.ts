@@ -18,9 +18,10 @@ export interface UserAdapted {
   name: string;
   password: string;
   verifiedEmail: string;
+  token?: string
 }
 
-export const UserAdapter = (user: User): UserAdapted => {
+export const UserAdapter = (user: User, token: string): UserAdapted => {
   return {
     id: user._id,
     address: user.user_address,
@@ -30,5 +31,6 @@ export const UserAdapter = (user: User): UserAdapted => {
     name: user.user_name,
     password: user.user_password,
     verifiedEmail: user.user_verifiedEmail,
+    token
   };
 };
