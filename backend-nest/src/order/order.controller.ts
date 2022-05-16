@@ -12,18 +12,16 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { JwtGuard } from 'src/user/jwt-guard';
 import { OrderDtoCreate, OrderDtoDelete, OrderDtoGet, OrderDtoUpdate } from './dto/order.dto';
 import { OrderServices } from './order.services';
 
 @Controller('/order')
-@UseGuards(JwtGuard)
 export class OrderController {
   constructor(private orderServices: OrderServices) {}
 
   @Post('/create')
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  create(@Body() body: any) {
+  create(@Body() body: OrderDtoCreate) {
     console.log(body)
     return this.orderServices.createOrder(body);
   }

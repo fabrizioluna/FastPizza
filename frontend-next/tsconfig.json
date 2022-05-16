@@ -61,5 +61,5 @@
     } 
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/form/form.component.tss"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

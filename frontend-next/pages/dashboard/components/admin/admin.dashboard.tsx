@@ -1,9 +1,14 @@
-import { DashboardLayout } from "../dashboard.layout"
+import { useCallService } from '@/hooks/useCallService';
+import { Order, orderAdapter } from 'pages/dashboard/adapters/order.adapter';
+import { getAllOrders } from 'pages/dashboard/services/orders.service';
+import { DashboardLayout } from '../dashboard.layout';
+import { DashboardOrders } from '../orders/dashboard.order';
 
 export const AdminDashboard = () => {
+  const { call }: any = useCallService(getAllOrders, orderAdapter);
   return (
-      <DashboardLayout>
-        <h1>Bienvenido al dashboard</h1>
-      </DashboardLayout>
-  )
-}
+    <DashboardLayout>
+      {call !== null && <DashboardOrders order_data={call} />}
+    </DashboardLayout>
+  );
+};

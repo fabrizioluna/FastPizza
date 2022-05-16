@@ -5,11 +5,12 @@ export const useCallService = (
   callbackAdapter: (request: any) => any,
   request?: any
 ) => {
-  const [call, setCall] = useState({});
+  const [call, setCall] = useState<any>(null);
 
   useEffect(() => {
     const callService = async () => {
-      const data = await callback(request);
+      // Esto podria descomponer el de Products
+      const { data } = await callback(request);
 
       //   Si la data es un array... entonces hace un map del callback del Adapter.
       setCall(
