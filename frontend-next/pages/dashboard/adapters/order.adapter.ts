@@ -7,6 +7,9 @@ export interface InitialOrder {
   order_discountApplied: number;
   order_addressClient: string;
   order_totalAmount: number;
+  order_buyer: {
+    user_name: string
+  }
   order_products: InitialOrderProduct[];
 }
 
@@ -19,6 +22,7 @@ export interface Order {
   discountApplied: number;
   addressClient: string;
   totalAmount: number;
+  buyer: string,
   products: OrderProduct[];
 }
 
@@ -54,6 +58,7 @@ export const orderAdapter = (orderObject: InitialOrder) => {
     discountApplied: orderObject.order_discountApplied,
     addressClient: orderObject.order_addressClient,
     totalAmount: orderObject.order_totalAmount,
+    buyer: orderObject.order_buyer.user_name,
     products: orderObject.order_products.map((product) =>
       productAdapter(product)
     ),

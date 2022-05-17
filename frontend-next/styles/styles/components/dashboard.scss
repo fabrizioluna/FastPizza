@@ -27,6 +27,43 @@
   height: 45rem;
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  footer {
+    // background-color: #7faf8f;
+    box-shadow: 0px 0px 6px rgb(100, 100, 100, 0.8);
+    top: 14rem;
+    width: 100%;
+    height: 4rem;
+    position: relative;
+    display: flex;
+    header {
+      margin: 0;
+      padding: 0;
+      width: 20%;
+      text-align: center;
+      span {
+        font-size: 2.5rem;
+        font-weight: bolder;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        color: #fcca54;
+      }
+    }
+    div {
+      margin: 0;
+      padding: 0.5rem;
+      width: 80%;
+      text-align: left;
+      h4 {
+        margin: 0;
+        width: 100%;
+      }
+      p {
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
   section {
     box-shadow: 0px 0px 4px rgb(100, 100, 100, 0.4);
     background-color: white;
@@ -37,30 +74,78 @@
     &::-webkit-scrollbar {
       -webkit-appearance: none;
     }
-    // padding: 0.5rem;
     article {
-      // border-radius: 1rem;
+      box-shadow: 0px 0px 10px rgb(100, 100, 100, 0.5);
       margin-bottom: 1rem;
-      // background-color: white;
       padding: 1rem;
-      text-align: left;
+      display: block;
       span {
         font-weight: bolder;
         font-size: 14px;
         color: #5e5e5e;
       }
-      footer {
-        text-align: center;
+      p {
+        margin-bottom: 4px;
       }
-      header {
-        // display: flex;
-        font-size: 18px;
-        text-align: center;
+      div {
+        display: flex;
+      }
+      footer {
+        background-color: transparent;
+        box-shadow: none;
+        top: 0;
+        text-align: left;
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: right;
+        padding-right: 1.5rem;
+        button {
+          background-color: #3f6ad8;
+          color: rgb(255, 255, 255);
+          font-family: Arial, Helvetica, sans-serif;
+          // width: 5rem;
+          // height: 100%;
+          width: 6.5rem;
+          margin: 0;
+          margin-top: 1.5rem;
+          border-radius: 5px;
+          // padding-left: 1.5rem;
+          // padding-right: 1.5rem;
+          border-color: transparent;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+      section {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
         span {
           width: 100%;
+          text-align: right;
+          margin: 0;
+        }
+        p {
+          width: 100%;
+          margin: 0;
+          text-align: right;
+        }
+      }
+      header {
+        font-size: 18px;
+        text-align: right;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        span,
+        p {
+          width: 100%;
           font-size: 20px;
+          text-align: right;
         }
         main {
+          // background-color: #fcca54;
           p {
             font-size: 2.5rem;
             margin-left: 0.5rem;
@@ -68,22 +153,8 @@
             margin: 0;
             width: 100%;
             color: #3fbb68;
-            text-align: center;
           }
         }
-      }
-      button {
-        margin-bottom: 0;
-        margin-top: 0.5rem;
-        background-color: #4a76dd;
-        color: white;
-        width: auto;
-        border-radius: 5px;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        border-color: transparent;
-        font-size: 12px;
-        font-weight: 0;
       }
     }
     h2 {
@@ -123,6 +194,10 @@
       width: 100%;
       height: auto;
       text-align: left;
+      footer {
+        top: 0;
+        box-shadow: none;
+      }
       button {
         margin-bottom: 0;
         margin-top: 0.5rem;
@@ -139,9 +214,9 @@
         height: 34rem;
         margin-top: 0;
         overflow-y: scroll;
-          &::-webkit-scrollbar {
-            -webkit-appearance: none;
-          }
+        &::-webkit-scrollbar {
+          -webkit-appearance: none;
+        }
         header {
           margin-top: 0;
           display: flex;

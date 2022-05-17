@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
 
 export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [orderDetails, setOrderDetails] = useState<Order>();
 
   const socket = io('http://localhost:4000', {
     transports: ['websocket', 'polling'],
@@ -45,6 +46,15 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
               sendOrders={sendOrdersSocket}
             />
           )}
+          {/* <footer>
+            <header>
+              <span>{filterOrdersByStatus(false).length}</span>
+            </header>
+            <div>
+              <h4>Ordenes totales</h4>
+              <p>Ordenes totales pendientes</p>
+            </div>
+          </footer> */}
         </section>
         <section>
           <h3>Ordenes en proceso</h3>
@@ -52,12 +62,22 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
             <OrderStageTwo
               orders={filterOrdersByStatus(true)}
               sendOrders={sendOrdersSocket}
+              sendDetails={setOrderDetails}
             />
           )}
+          {/* <footer>
+            <header>
+              <span>{filterOrdersByStatus(true).length}</span>
+            </header>
+            <div>
+              <h4>Ordenes totales</h4>
+              <p>Ordenes totales en proceso</p>
+            </div>
+          </footer> */}
         </section>
         <aside>
           <h3>Detalle de la orden</h3>
-          <OrderDetails />
+          <OrderDetails details={orderDetails as unknown as Order} />
         </aside>
       </div>
     </Fragment>

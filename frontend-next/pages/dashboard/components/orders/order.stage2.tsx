@@ -4,27 +4,28 @@ import { Fragment } from 'react';
 export const OrderStageTwo = ({
   orders,
   sendOrders,
+  sendDetails,
 }: {
   orders: Order[];
   sendOrders: (client: string, status: boolean) => any;
+  sendDetails: (set: Order) => void;
 }) => {
   return (
     <Fragment>
       {orders.map((order, index: number) => (
         <article key={index}>
           <header>
-            <span>
-              <strong>{order.envoice}</strong>
-            </span>
             <main>
+              Total orden
               <p>${order.totalAmount}</p>
             </main>
-            {/* TODO: Agregar el nombre del cliente */}
-            {/* <p>{order.}</p> */}
-            <span>{order.creationDay.toString()}</span>
+            <section>
+              <span>{order.envoice}</span>
+            <p>{order.buyer}</p>
+            </section>
           </header>
           <footer>
-            <button>Ver detalles</button>
+            <button onClick={() => sendDetails(order)}>Ver detalles</button>
           </footer>
         </article>
       ))}

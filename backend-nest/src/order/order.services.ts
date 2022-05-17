@@ -8,6 +8,7 @@ import {
   OrderDtoUpdate,
 } from './dto/order.dto';
 import { Order, OrderDoc } from './schema/order.schema';
+import { FormatDate } from './utils/formatdate.utils';
 import { makeInvoice } from './utils/makeEnvoice';
 
 @Injectable()
@@ -15,11 +16,11 @@ export class OrderServices {
   constructor(@InjectModel(Order.name) private orderModel: Model<OrderDoc>) {}
 
   createOrder(orderObject: OrderDtoCreate) {
-    console.log('En el servicio',orderObject)
     const Order = {
       ...orderObject,
       order_envoice: makeInvoice(),
-      order_creationDay: new Date(),
+      order_creationDay: FormatDate.getRealDate(),
+      order_creationDayNow: Date.now(),
       order_products: orderObject.order_products,
       order_status: false,
     };
@@ -48,6 +49,6 @@ export class OrderServices {
         order_creationDay:
           orderQuery.type.toLocaleLowerCase() === 'asc' ? 1 : -1,
       })
-      .populate('order_products');
+      .populate({ path: 'order_products' }).populate({ path: 'order_buyer', select: 'user_name' })
   }
 }

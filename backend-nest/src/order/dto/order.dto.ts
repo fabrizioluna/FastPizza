@@ -30,7 +30,7 @@ export class OrderDtoCreate {
   order_products: string[];
 
   @IsNotEmpty()
-  order_buyer: ObjectId;
+  order_buyer: string;
 
   @IsNotEmpty()
   @IsNumber()
@@ -43,10 +43,10 @@ export class OrderDtoUpdate {
   order_status: boolean;
 
   @IsDate()
-  order_deliveryDay: Date;
+  order_deliveryDay: string;
 
   @IsNumber()
-  order_timeFinish: Date;
+  order_timeFinish: string;
 
   @IsNumber()
   @IsNotEmpty()

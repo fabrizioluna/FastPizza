@@ -1,5 +1,5 @@
 import { Order } from 'pages/dashboard/adapters/order.adapter';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 
 export const OrderStageOne = ({
   orders,
@@ -13,19 +13,20 @@ export const OrderStageOne = ({
       {orders.map((order, index: number) => (
         <article key={index}>
           <header>
-            <span>
-              <strong>{order.envoice}</strong>
-            </span>
             <main>
+              Total orden
               <p>${order.totalAmount}</p>
             </main>
-            {/* TODO: Agregar el nombre del cliente */}
+            <section>
+              <span>
+                <strong>{order.envoice}</strong>
+              </span>
+              <p>{order.buyer}</p>
+            </section>
           </header>
           <footer>
-            <button
-              onClick={() => sendOrders(order._id, true)}
-            >
-              Tomar orden
+            <button onClick={() => sendOrders(order._id, true)}>
+              Tomar orden ⇒
             </button>
           </footer>
         </article>
