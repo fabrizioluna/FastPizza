@@ -1,20 +1,37 @@
+import { Notification } from '@/components/notification';
+import { getPriceWithDiscount } from '@/utils/getPrice/getPrice';
+import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Products_Pizzas } from '../../../resources';
+import { useCallService } from 'hooks/useCallService';
+import { useState } from 'react';
+import { Product, productAdapter } from '../adapters/product.adapter';
+import { getProducts } from '../services/product.service';
 import { ProductsCategories } from './products-categories';
 
-export const Products = () => {
-  const getPriceWithDiscount = (price: number, discount: number) => {
-    const getResult = (discount / 100) * price;
-    return price - getResult;
+export const Products = ({ products }: { products: any }) => {
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const { call } = useCallService(getProducts, productAdapter);
+
+  const addProduct = (product: any) => {
+    localStorageHandler.set('cartShop', product);
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 3500);
   };
 
   return (
     <div className='products'>
+      {showMessage && (
+        <Notification>
+          <p>Este producto se agrego a tu carrito de compras.</p>
+        </Notification>
+      )}
       <ProductsCategories />
       <main>
-        {Products_Pizzas.map((product, index) => (
-          <section key={index}>
+        {products.map((product: Product, index: number) => (
+          <section key={index} onClick={() => addProduct(product)}>
             <figure>
               <img src={product.image} />
               <div className='products__hover'>

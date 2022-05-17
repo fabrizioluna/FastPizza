@@ -1,3 +1,36 @@
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "lib": ["dom", "dom.iterable", "esnext"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "strict": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "noEmit": true,
+//     "esModuleInterop": true,
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "jsx": "preserve",
+//     "incremental": true
+//   },
+//   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+//   "exclude": ["node_modules"],
+//   "baseUrl": ".",
+//   "paths": {
+//     "@/pages/*": ["pages/*"],
+//     "@/config/*": ["config/*"]
+//     // "@/components/*": ["components/*"],
+//     // "@/hooks/*": ["hooks/*"],
+//     // "@/interceptos/*": ["interceptos/*"],
+//     // "@/models/*": ["models/*"],
+//     // "@/redux/*": ["redux/*"],
+//     // "@/services/*": ["services/*"],
+//     // "@/utilities/*": ["utilities/*"],
+//   } 
+// }
+
 {
   "compilerOptions": {
     "target": "es5",
@@ -13,18 +46,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/adapaters/*": ["adapters/*"],
+      "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
+      "@/utils/*": ["utils/*"],
+      "@/hooks/*": ["hooks/*"],
+      // "@/interceptos/*": ["interceptos/*"],
+      // "@/models/*": ["models/*"],
+      "@/redux/*": ["redux/*"],
+      // "@/services/*": ["services/*"],
+    } 
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/form/form.component.tss"],
   "exclude": ["node_modules"],
-  "paths": {
-    "@/pages/*": ["pages/*"],
-    // "@/components/*": ["components/*"],
-    // "@/hooks/*": ["hooks/*"],
-    // "@/interceptos/*": ["interceptos/*"],
-    // "@/models/*": ["models/*"],
-    // "@/redux/*": ["redux/*"],
-    // "@/services/*": ["services/*"],
-    // "@/utilities/*": ["utilities/*"],
-  } 
 }

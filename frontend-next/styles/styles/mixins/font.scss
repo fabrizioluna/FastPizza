@@ -3,6 +3,16 @@
     src: url('../../../public/fonts/Westmeath.otf');
 }
 
+@font-face {
+    font-family: 'JAVA';
+    src: url('../../../public/fonts/JAVATA.ttf');
+}
+
+@font-face {
+    font-family: 'America';
+    src: url('../../../public/fonts/America.otf');
+}
+
 
 @mixin font(
     $type, 
@@ -11,6 +21,9 @@
 ) {
     @if $type == 'Sans' {
         font-family: 'AlumniSans';
+    }
+    @else if $type == 'America' {
+        font-family: 'America';
     }
     @else{
         font-family: 'Westmeath';

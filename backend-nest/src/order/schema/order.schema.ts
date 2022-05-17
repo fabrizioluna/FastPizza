@@ -12,13 +12,16 @@ export class Order {
   order_status: boolean;
 
   @Prop()
-  order_creationDay: Date;
+  order_creationDay: string;
 
   @Prop()
-  order_deliveryDay: Date;
+  order_creationDayNow: number;
 
   @Prop()
-  order_timeFinish: Date;
+  order_deliveryDay: string;
+
+  @Prop()
+  order_timeFinish: string;
 
   @Prop()
   order_discountCode: number;
@@ -29,24 +32,28 @@ export class Order {
   @Prop({ required: true })
   order_addressClient: string;
 
+  @Prop({ required: true })
+  order_totalAmount: number;
+
   //   @Prop()
   //   order_methodPay: string;
 
-  @Prop({
-    // required: true,
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+  @Prop({ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User' 
   })
-  order_buyer: string;
+  order_buyer: mongoose.Schema.Types.ObjectId;
 
   @Prop({
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'employee' },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
   })
-  order_employeeDelivery: ObjectId;
+  order_employeeDelivery: mongoose.Types.ObjectId;
 
   @Prop({
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'employee' },
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Employee' },
   })
-  order_employeeCreation: ObjectId;
+  order_employeeCreation: mongoose.Types.ObjectId;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] })
   order_products: Array<mongoose.Types.ObjectId>;

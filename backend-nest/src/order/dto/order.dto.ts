@@ -27,7 +27,14 @@ export class OrderDtoCreate {
 
   @IsArray()
   @IsNotEmpty()
-  order_products: Array<string>;
+  order_products: string[];
+
+  @IsNotEmpty()
+  order_buyer: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  order_totalAmount: number;
 }
 
 export class OrderDtoUpdate {
@@ -36,10 +43,10 @@ export class OrderDtoUpdate {
   order_status: boolean;
 
   @IsDate()
-  order_deliveryDay: Date;
+  order_deliveryDay: string;
 
   @IsNumber()
-  order_timeFinish: Date;
+  order_timeFinish: string;
 
   @IsNumber()
   @IsNotEmpty()

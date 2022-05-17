@@ -26,6 +26,10 @@ export class ProductCreateDto {
   @IsNotEmpty()
   product_category: string;
   
+  @IsString()
+  @IsNotEmpty()
+  product_image: string
+
   product_createdAt?: Date;
 }
 

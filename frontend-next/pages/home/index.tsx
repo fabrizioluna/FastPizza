@@ -1,14 +1,29 @@
+import { GetServerSideProps } from 'next';
+import { productAdapter } from './adapters/product.adapter';
 import { Delivery } from './components/delivery';
 import { HomeLayout } from './components/layout';
 import { Products } from './components/products';
+import { getProducts } from './services/product.service';
 
-const Home = () => {
+const Home = ({ products }: { products: any }) => {  
   return (
     <HomeLayout>
       <Delivery />
-      <Products />
+      <Products products={products} />
     </HomeLayout>
   );
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products = await getProducts();
+
+  const productsAdapted = products.map((product: any) => productAdapter(product));
+
+  return {
+    props: {
+      products: productsAdapted,
+    },
+  };
+};
