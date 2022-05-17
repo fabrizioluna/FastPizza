@@ -1,23 +1,60 @@
 @mixin Container(
-        $w: 100%, 
-        $h: auto, 
-        $p: 0px, 
-        $bg: white, 
-        $mt: auto, 
-        $mb: auto, 
-        $mr: auto, 
-        $ml: auto,
-        $fz: 20px,
-        $cl: white
-    ) {
-    width: $w;
-    height: $h;
-    padding: $p;
-    background-color: $bg;
-    margin-top: $mt;
-    margin-bottom: $mb;
-    margin-right: $mr;
-    margin-left: $ml;
-    font-size: $fz;
-    color: $cl;
+  $w: 100%,
+  $h: auto,
+  $p: 0px,
+  $bg: white,
+  $mt: auto,
+  $mb: auto,
+  $mr: auto,
+  $ml: auto,
+  $fz: 20px,
+  $cl: white
+) {
+  width: $w;
+  height: $h;
+  padding: $p;
+  background-color: $bg;
+  margin-top: $mt;
+  margin-bottom: $mb;
+  margin-right: $mr;
+  margin-left: $ml;
+  font-size: $fz;
+  color: $cl;
 }
+
+@mixin ContainerDashboard(
+  $w: 100%,
+  $h: auto,
+  $cl: white,
+  $bg: white,
+  $pt: 0px,
+  $pb: 0px,
+  $pr: 0px,
+  $pl: 0px,
+  $mt: auto,
+  $mb: auto,
+  $mr: auto,
+  $ml: auto,
+  $fz: 20px,
+  $bs: 4px,
+  $bso: 0.4
+) {
+  width: $w;
+  height: $h;
+  padding-top: $pt;
+  padding-bottom: $pb;
+  padding-right: $pr;
+  padding-left: $pl;
+  background-color: $bg;
+  margin-top: $mt;
+  margin-bottom: $mb;
+  margin-right: $mr;
+  margin-left: $ml;
+  font-size: $fz;
+  color: $cl;
+  box-shadow: 0px 0px $bs rgb(196, 196, 196, $bso);
+}
+
+// body {
+//   box-shadow: rgb(196, 196, 196);
+// }

@@ -1,0 +1,25 @@
+%button-Dashboard {
+  background-color: #3f6ad8;
+  color: rgb(255, 255, 255);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  width: 6.5rem;
+  margin: 0;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  border-color: transparent;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+%button-Dashboard-green {
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+  background-color: #3fbb68;
+  color: white;
+  border-color: transparent;
+  border-radius: 5px;
+  padding: 1.5rem;
+  height: auto;
+  font-size: 14px;
+  font-weight: 0;
+}

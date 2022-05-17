@@ -1,7 +1,7 @@
 export const NavigationDashboard = () => {
   return (
     <div className='dashboardNav'>
-      <h1>Dashboard FastPizza</h1>
+      {/* <h1>Dashboard FastPizza</h1> */}
       <li>Estadisticas</li>
       <li>Finanzas</li>
       <li>Inventario</li>

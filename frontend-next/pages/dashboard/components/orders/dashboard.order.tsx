@@ -57,7 +57,7 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
           </footer> */}
         </section>
         <section>
-          <h3>Ordenes en proceso</h3>
+          <h2>Ordenes en proceso</h2>
           {orders.length > 0 && (
             <OrderStageTwo
               orders={filterOrdersByStatus(true)}
