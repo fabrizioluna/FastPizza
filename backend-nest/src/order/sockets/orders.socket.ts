@@ -18,13 +18,36 @@ export class OrderSocket {
   @WebSocketServer()
   server: Server;
 
-  @SubscribeMessage('ordersUpdate')
+  @SubscribeMessage('orderChangeKitchen')
   async updateOrders(client, data) {
-    console.log('La data que recibe el backend', data);
-    await this.orderServices.updateOrder(data._id, {
-      order_status: data.order_status,
-    } as any);
-    const getOrdersUpdated = await this.orderServices.getAll({ type: 'asc' });
-    this.server.emit('ordersUpdate', getOrdersUpdated);
+    await this.orderServices.updateOrder(data._id, data);
+    data.hasOwnProperty('order_statusKitchenFinished')
+      ? this.sendOrderToDelivery()
+      : this.sendAllOrders();
+  }
+
+  async sendAllOrders() {
+    const getOrdersUpdated = await this.orderServices.getAllOrdersByStatus();
+    this.server.emit('orderChangeKitchen', getOrdersUpdated);
+  }
+
+  async sendOrderToDelivery() {
+    const getDeliverys = await this.orderServices.getAllByStatusDelivery();
+    const getOrders = await this.orderServices.getAllOrdersByStatus();
+    this.server.emit('orderChangeDelivery', getDeliverys);
+    this.server.emit('orderChangeKitchen', getOrders);
+  }
+
+  @SubscribeMessage('orderChangeDelivery')
+  async updateOrderDelivery(client, data) {
+    await this.orderServices.updateOrder(data._id, data);
+    const getOrdersUpdated = await this.orderServices.getAllByStatusDelivery();
+    this.server.emit('orderChangeDelivery', getOrdersUpdated);
+  }
+
+  @SubscribeMessage('sendOrder')
+  async sendOrder() {
+    const getOrders = await this.orderServices.getAllOrdersByStatus();
+    this.server.emit('orderChangeKitchen', getOrders);
   }
 }

@@ -1,8 +1,15 @@
 import { Order, OrderProduct } from 'pages/dashboard/adapters/order.adapter';
 import { Fragment } from 'react';
 
-export const OrderDetails = ({ details }: { details: Order }) => {
-  console.log(details);
+export const OrderDetails = ({
+  details,
+  resetDetails,
+  sendCompleteOrder,
+}: {
+  details: Order;
+  resetDetails: (set: any) => void;
+  sendCompleteOrder: (idOrder: string, statusKitchenFinished: boolean) => any;
+}) => {
   return (
     <Fragment>
       {details !== undefined ? (
@@ -25,7 +32,14 @@ export const OrderDetails = ({ details }: { details: Order }) => {
             </article>
           </main>
           <footer>
-            <button>Terminar orden</button>
+            <button
+              onClick={() => {
+                sendCompleteOrder(details._id, true);
+                resetDetails(undefined);
+              }}
+            >
+              Terminar orden
+            </button>
             {/* <button>Cancelar orden</button> */}
           </footer>
         </section>

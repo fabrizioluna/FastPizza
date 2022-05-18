@@ -35,6 +35,8 @@ export class OrderDtoCreate {
   @IsNotEmpty()
   @IsNumber()
   order_totalAmount: number;
+
+  order_statusDelivery?: boolean;
 }
 
 export class OrderDtoUpdate {
@@ -71,6 +73,8 @@ export class OrderDtoUpdate {
   @IsNotEmpty()
   @IsString()
   order_employeeCreation: ObjectId;
+
+  order_statusDelivery?: boolean;
 }
 
 export class OrderDtoGet {

@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { Product } from 'pages/home/adapters/product.adapter';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { io } from 'socket.io-client';
 import { OrderTypes, sendOrder } from '../services/order.service';
 import { ListProductsProps } from './listProducts';
 
@@ -40,6 +41,10 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
     status !== 404 && generateTotalAmount(products);
   }, [products]);
 
+  const socket = io('http://localhost:4000', {
+    transports: ['websocket', 'polling'],
+  });
+
   const processOrder = async () => {
     setShowSpinner(true);
 
@@ -62,6 +67,7 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
     };
 
     await sendOrder(orderObject);
+    socket.emit('sendOrder');
     // if(Order.statusCode === STATUS_CODE.BAD_REQUEST)  
   };
 

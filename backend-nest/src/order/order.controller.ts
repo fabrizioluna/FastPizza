@@ -22,7 +22,6 @@ export class OrderController {
   @Post('/create')
   @UsePipes(new ValidationPipe({ whitelist: true }))
   create(@Body() body: OrderDtoCreate) {
-    console.log(body)
     return this.orderServices.createOrder(body);
   }
 
@@ -36,6 +35,16 @@ export class OrderController {
   @UsePipes(new ValidationPipe({ whitelist: true }))
   get(@Query() querys: OrderDtoGet) {
     return this.orderServices.getAll(querys);
+  }
+
+  @Get('/getallordersbystatus')
+  getAllOrdersNotComplete() {
+    return this.orderServices.getAllOrdersByStatus();
+  }
+
+  @Get('/getallbydelivery')
+  getAllDelivery() {
+    return this.orderServices.getAllByStatusDelivery();
   }
 
   @Get('/get')

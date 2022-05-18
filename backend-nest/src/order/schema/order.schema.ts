@@ -10,6 +10,15 @@ export class Order {
 
   @Prop()
   order_status: boolean;
+  
+  @Prop()
+  order_statusDelivery: boolean;
+  
+  @Prop()
+  order_statusKitchen: boolean;
+  
+  @Prop()
+  order_statusKitchenFinished: boolean;
 
   @Prop()
   order_creationDay: string;

@@ -10,9 +10,11 @@ export interface ListProductsProps {
 
 export const ListProducts = ({ status, products }: ListProductsProps) => {
   const [productValues, setProductsValues] = useState(products);
+
   useEffect(() => {
     status === 200 && setProductsValues(products);
   }, [products]);
+
   return (
     <main className='cart'>
       <article>
