@@ -4,6 +4,8 @@ import { OrderDetails } from './order.details';
 import { OrderStageOne } from './order.stage1';
 import { OrderStageTwo } from './order.stage2';
 import { io } from 'socket.io-client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKitchenSet } from '@fortawesome/free-solid-svg-icons';
 
 export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -13,20 +15,27 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
     transports: ['websocket', 'polling'],
   });
 
-  socket.on('ordersUpdate', async (ordersUpdated) => {
+  socket.on('orderChangeKitchen', async (ordersUpdated) => {
     const Orders = ordersUpdated.map((order: any) => orderAdapter(order));
     return setOrders(Orders);
   });
 
   const sendOrdersSocket = (orderId: string, newStatus: boolean) => {
-    socket.emit('ordersUpdate', {
+    socket.emit('orderChangeKitchen', {
       _id: orderId,
-      order_status: newStatus,
+      order_statusKitchen: newStatus,
+    });
+  };
+
+  const sendOrderComplete = (orderId: string, newStatus: boolean) => {
+    socket.emit('orderChangeKitchen', {
+      _id: orderId,
+      order_statusKitchenFinished: newStatus,
     });
   };
 
   const filterOrdersByStatus = (status: boolean) =>
-    orders.filter((order) => order.status == status);
+    orders.filter((order) => order.statusKitchen == status);
 
   useEffect(() => {
     order_data.length > 0 && setOrders(order_data);
@@ -34,8 +43,14 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
 
   return (
     <Fragment>
-      <header>
-        <span>Lista de las ordenes en tiempo real.</span>
+      <header className='dashboardHeader'>
+        <div>
+          <FontAwesomeIcon icon={faKitchenSet} />
+        </div>
+        <main>
+          <span>Ordenes entrantes</span>
+          <p>Lista de todas las ordenes para gestionar.</p>
+        </main>
       </header>
       <div className='dashboardOrderCook'>
         <section>
@@ -77,7 +92,11 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
         </section>
         <aside>
           <h3>Detalle de la orden</h3>
-          <OrderDetails details={orderDetails as unknown as Order} />
+          <OrderDetails
+            details={orderDetails as unknown as Order}
+            resetDetails={setOrderDetails}
+            sendCompleteOrder={sendOrderComplete}
+          />
         </aside>
       </div>
     </Fragment>

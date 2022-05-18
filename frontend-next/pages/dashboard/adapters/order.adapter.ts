@@ -7,9 +7,12 @@ export interface InitialOrder {
   order_discountApplied: number;
   order_addressClient: string;
   order_totalAmount: number;
+  order_statusKitchen: boolean;
+  order_statusKitchenFinished: boolean;
+  order_statusDelivery: boolean;
   order_buyer: {
-    user_name: string
-  }
+    user_name: string;
+  };
   order_products: InitialOrderProduct[];
 }
 
@@ -22,7 +25,10 @@ export interface Order {
   discountApplied: number;
   addressClient: string;
   totalAmount: number;
-  buyer: string,
+  statusKitchen: boolean;
+  statusDelivery: boolean;
+  statusKitchenFinished: boolean;
+  buyer: string;
   products: OrderProduct[];
 }
 
@@ -56,7 +62,10 @@ export const orderAdapter = (orderObject: InitialOrder) => {
     creationDay: orderObject.order_creationDay,
     discountCode: orderObject.order_discountCode,
     discountApplied: orderObject.order_discountApplied,
+    statusKitchenFinished: orderObject.order_statusKitchenFinished,
     addressClient: orderObject.order_addressClient,
+    statusKitchen: orderObject.order_statusKitchen,
+    statusDelivery: orderObject.order_statusDelivery,
     totalAmount: orderObject.order_totalAmount,
     buyer: orderObject.order_buyer.user_name,
     products: orderObject.order_products.map((product) =>
