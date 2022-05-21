@@ -1,0 +1,57 @@
+.dashboardFinance {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    box-sizing: content-box;
+    justify-content: space-between;
+    section {
+      width: 38%;
+      @extend %card-Dashboard;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      h2 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+    }
+    aside {
+      width: 20%;
+      @extend %card-Dashboard;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      h2 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+    }
+    article {
+      width: 100%;
+      display: flex;
+      margin-top: 2rem;
+      justify-content: space-between;
+      section {
+        width: 78%;
+        @extend %card-Dashboard;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        h2 {
+          @include font('RebotoBold', 1rem, #878787);
+          border-bottom: 1px solid #bebebe;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          font-weight: bold !important;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  

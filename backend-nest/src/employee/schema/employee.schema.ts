@@ -10,6 +10,9 @@ export class Employee {
 
   @Prop()
   employee_lastname: string;
+  
+  @Prop()
+  employee_profileImg: string;
 
   @Prop()
   employee_joined: Date;

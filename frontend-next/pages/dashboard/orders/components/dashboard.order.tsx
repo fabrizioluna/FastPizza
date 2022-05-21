@@ -6,6 +6,7 @@ import { OrderStageTwo } from './order.stage2';
 import { io } from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKitchenSet } from '@fortawesome/free-solid-svg-icons';
+import { DashboardContainer } from '@/components/containerDashboard/container';
 
 export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -53,8 +54,8 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
         </main>
       </header>
       <div className='dashboardOrderCook'>
-        <section>
-          <h2>Ordenes pendientes</h2>
+        <DashboardContainer title='Ordenes pendientes'>
+          {/* <h2>Ordenes pendientes</h2> */}
           {orders.length > 0 && (
             <OrderStageOne
               orders={filterOrdersByStatus(false)}
@@ -70,9 +71,9 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
               <p>Ordenes totales pendientes</p>
             </div>
           </footer> */}
-        </section>
-        <section>
-          <h2>Ordenes en proceso</h2>
+        </DashboardContainer>
+        <DashboardContainer title='Ordenes en proceso'>
+          {/* <h2>Ordenes en proceso</h2> */}
           {orders.length > 0 && (
             <OrderStageTwo
               orders={filterOrdersByStatus(true)}
@@ -89,7 +90,7 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
               <p>Ordenes totales en proceso</p>
             </div>
           </footer> */}
-        </section>
+        </DashboardContainer>
         <aside>
           <h3>Detalle de la orden</h3>
           <OrderDetails

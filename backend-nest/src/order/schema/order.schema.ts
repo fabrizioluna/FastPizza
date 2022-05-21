@@ -21,7 +21,16 @@ export class Order {
   order_statusKitchenFinished: boolean;
 
   @Prop()
-  order_creationDay: string;
+  order_creationDay: number;
+  
+  @Prop()
+  order_creationMonth: string;
+  
+  @Prop()
+  order_creationYear: number;
+  
+  @Prop()
+  order_creationTime: string;
 
   @Prop()
   order_creationDayNow: number;
