@@ -1,0 +1,99 @@
+.dashboardEmployees {
+  width: 95%;
+  margin: auto;
+  margin-top: 5rem;
+  header {
+    display: flex;
+    height: 18rem;
+    justify-content: space-between;
+    section {
+      @extend %card-Dashboard;
+      height: 18rem;
+      width: 49%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    margin-bottom: 3rem;
+  }
+  main {
+    @extend %card-Dashboard;
+    height: 25rem;
+    margin-bottom: 5rem;
+    section {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      h2 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+      table {
+        width: 100%;
+        text-align: left;
+        font-size: 1rem;
+        height: auto;
+        th {
+          @include font('RebotoBold', 1rem, #606060);
+        }
+        td {
+          @include font('Reboto', 1rem, #606060);
+          height: 5rem;
+          // background-color: aqua;
+          font-weight: bold;
+          border-bottom: 1px solid #dddddd;
+          div {
+            display: flex;
+            img {
+              margin-right: 1rem;
+              width: 2.5rem;
+              height: 2.5rem;
+              border-radius: 10rem;
+              object-fit: cover;
+              aspect-ratio: 16/9;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dashboardEmployeeEmploy {
+  form {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    input {
+      width: 48%;
+      height: 1.8rem;
+      margin-top: 1rem;
+      font-size: 14px;
+      border-radius: 7px;
+      padding-left: 0.5rem;
+      color: #7a7a7a;
+      border-color: transparent;
+      border: 1px solid rgb(173, 173, 173, 0.5);
+      // border-bottom-color: rgba(84, 188, 252, 0.4);
+      background-color: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      width: 100%;
+      margin-top: 2.5rem;
+      margin-bottom: 2rem;
+      height: 2.5rem;
+      border-color: transparent;
+      background-color: #546dfc;
+      font-size: 17px;
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+    }
+  }
+}

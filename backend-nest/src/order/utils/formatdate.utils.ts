@@ -15,7 +15,12 @@ export class FormatDate {
   }
 }
 
-function formatMonth() {
+export function formatTime(): string {
+  const getTime = new Date();
+  return getTime.getHours() + ':' + getTime.getMinutes();
+}
+
+export function formatMonth(): string {
   let getRealDate = new Date();
   let month = getRealDate.getMonth() + 1;
 

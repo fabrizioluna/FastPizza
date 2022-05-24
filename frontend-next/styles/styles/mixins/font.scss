@@ -9,8 +9,13 @@
 }
 
 @font-face {
-    font-family: 'America';
-    src: url('../../../public/fonts/America.otf');
+    font-family: 'Reboto';
+    src: url('../../../public/fonts/Roboto-Thin.ttf');
+}
+
+@font-face {
+    font-family: 'RebotoBold';
+    src: url('../../../public/fonts/Roboto-Bold.ttf');
 }
 
 
@@ -19,14 +24,14 @@
     $size,
     $color
 ) {
-    @if $type == 'Sans' {
-        font-family: 'AlumniSans';
+    @if $type == 'Reboto' {
+        font-family: 'Reboto';
     }
-    @else if $type == 'America' {
-        font-family: 'America';
-    }
+    // @else if $type == 'America' {
+    //     font-family: 'America';
+    // }
     @else{
-        font-family: 'Westmeath';
+        font-family: 'RebotoBold';
     }
     font-size: $size;
     color: $color;

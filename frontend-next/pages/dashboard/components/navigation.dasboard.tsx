@@ -22,6 +22,15 @@ export const NavigationDashboard = () => {
       <Link href='/dashboard/employees'>
         <li>Gestion de Empleados</li>
       </Link>
+      <Link href='/dashboard/products'>
+        <li>Gestion de Productos</li>
+      </Link>
+      <Link href='/dashboard/discounts'>
+        <li>Gestion de Descuentos</li>
+      </Link>
+      <Link href='/dashboard/logs'>
+        <li>Registros generales</li>
+      </Link>
       <footer>
         <li>EI7690 | Fabrizio Luna</li>
         <li>Salir</li>

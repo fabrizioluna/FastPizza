@@ -12,7 +12,12 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { OrderDtoCreate, OrderDtoDelete, OrderDtoGet, OrderDtoUpdate } from './dto/order.dto';
+import {
+  OrderDtoCreate,
+  OrderDtoDelete,
+  OrderDtoGet,
+  OrderDtoUpdate,
+} from './dto/order.dto';
 import { OrderServices } from './order.services';
 
 @Controller('/order')
@@ -50,6 +55,15 @@ export class OrderController {
   @Get('/get')
   async getOrder(@Query('id') id: ObjectId) {
     return this.orderServices.getOrder(id);
+  }
+
+  @Get('/getstadistics')
+  async getStadistis(
+    @Query('day') day: number,
+    @Query('month') month: string,
+    @Query('year') year: number,
+  ) {
+    return this.orderServices.getStadistics(day, month, year);
   }
 
   @Delete('/delete')
