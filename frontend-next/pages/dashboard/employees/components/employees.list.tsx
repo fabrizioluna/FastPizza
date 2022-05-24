@@ -30,6 +30,7 @@ export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
             <td>${employee.payment}</td>
             <td>
               <button>Ver información</button>
+              <button>Editar empleado</button>
             </td>
           </tr>
         ))}
