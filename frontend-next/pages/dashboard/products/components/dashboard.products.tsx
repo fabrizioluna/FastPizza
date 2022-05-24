@@ -1,7 +1,13 @@
+import { useCallService } from "@/hooks/useCallService";
 import { faBurger } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { productAdapter } from "pages/home/adapters/product.adapter";
+import { getDashboardProducts } from "../services/product.service";
+import { ListProducts } from "./dashboard.listProducts";
 
 export const DashboardProducts = () => {
+  const { call } = useCallService(getDashboardProducts, productAdapter);
+
   return (
     <div>
       <header className='dashboardHeader'>
@@ -29,8 +35,10 @@ export const DashboardProducts = () => {
           <aside>
             <h2></h2>
           </aside>
+          {/* Component list products */}
           <section>
-            <h2></h2>
+            <h2>Productos</h2>
+           {call !== null && <ListProducts products={call} />}
           </section>
         </article>
       </div>
