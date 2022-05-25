@@ -3,7 +3,17 @@ import { Fragment } from 'react';
 interface Inputs {
   name: string;
   type: string;
-  placeholder: string,
+  placeholder: string;
+  prevValue?: any;
+}
+
+interface FormProps {
+  setValueInputs: (set: any) => void;
+  values: any;
+  inputs: any;
+  submitCallback: (e: React.FormEvent) => Promise<void>;
+  buttonMessage: string;
+  isEditingForm: boolean;
 }
 
 export const CustomForm = ({
@@ -12,30 +22,40 @@ export const CustomForm = ({
   inputs,
   submitCallback,
   buttonMessage,
-}: {
-  setValueInputs: (set: any) => void;
-  values: any;
-  inputs: any;
-  submitCallback: (e: React.FormEvent) => Promise<void>;
-  buttonMessage: string
-}) => {
+  isEditingForm
+}: FormProps) => {
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValueInputs({...values, [event.target.name]: event.target.value });
+    setValueInputs({ ...values, [event.target.name]: event.target.value });
   };
 
   return (
     <Fragment>
-      <form onSubmit={submitCallback}>
-        {inputs.map((Input: Inputs) => (
-          <input
-            name={`${Input.name}`}
-            type={`${Input.type}`}
-            placeholder={`${Input.placeholder}`}
-            onChange={onChangeInputs}
-          />
-        ))}
-        <button>{buttonMessage}</button>
-      </form>
+      {!isEditingForm ? (
+        <form onSubmit={submitCallback}>
+          {inputs.map((Input: Inputs) => (
+            <input
+              name={`${Input.name}`}
+              type={`${Input.type}`}
+              placeholder={`${Input.placeholder}`}
+              onChange={onChangeInputs}
+            />
+          ))}
+          <button>{buttonMessage}</button>
+        </form>
+      ) : (
+        <form onSubmit={submitCallback}>
+          {inputs.map((Input: Inputs) => (
+            <input
+              name={`${Input.name}`}
+              type={`${Input.type}`}
+              defaultValue={`${Input.prevValue}`}
+              placeholder={`${Input.placeholder}`}
+              onChange={onChangeInputs}
+            />
+          ))}
+          <button>{buttonMessage}</button>
+        </form>
+      )}
     </Fragment>
   );
 };

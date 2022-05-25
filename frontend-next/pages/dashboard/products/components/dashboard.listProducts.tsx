@@ -1,8 +1,9 @@
+import Link from 'next/link';
 import { Product } from 'pages/home/adapters/product.adapter';
 import { Fragment } from 'react';
 
 export const ListProducts = ({ products }: { products: Product[] }) => {
-    console.log(products)
+  console.log(products);
   return (
     <table>
       <thead>
@@ -23,8 +24,13 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
           <td>{product.discount}</td>
           <td>{product.description}</td>
           <td>
-            <button>Ir</button>
-            <button>Editar Producto</button>
+            {/* TODO: Cuando este lista la vista de Producto de client, agregarlo. */}
+            <Link href={``}>
+              <button>Ir</button>
+            </Link>
+            <Link href={`products/${product._id}`}>
+              <button>Editar Producto</button>
+            </Link>
           </td>
         </tbody>
       ))}
