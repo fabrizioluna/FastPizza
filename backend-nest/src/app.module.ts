@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CartModule } from './cart/cart.module';
+import { DiscountModule } from './discounts/discount.module';
 import { EmployeeModule } from './employee/employee.module';
 import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
@@ -17,6 +18,7 @@ import { UserModule } from './user/user.module';
     OrderModule,
     EmployeeModule,
     CartModule,
+    DiscountModule
   ],
   controllers: [AppController],
   providers: [AppService],
