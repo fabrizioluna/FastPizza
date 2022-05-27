@@ -18,10 +18,9 @@ export class DiscountService {
     this.addCronDiscount.create(
       discountObject.discount_expiresIn,
       discountObject.discount_specialKey,
-      // this.destroyDiscount,
     );
 
-    return this.discountModel.create(discountObject);
+    return this.discountModel.create({ ...discountObject, discount_status: false });
   }
 
   getAll() {
@@ -32,8 +31,12 @@ export class DiscountService {
     return this.discountModel.findById(discountId);
   }
 
+  getByName(discountName: string) {
+    return this.discountModel.findOne({ discount_specialKey: discountName });
+  }
+
   update(discountId: ObjectId, discountObject: DiscountDoc) {
-    return this.discountModel.findByIdAndUpdate(discountId, discountObject);
+    return this.discountModel.findByIdAndUpdate(discountId, discountObject, { new: true });
   }
 
   delete(discountId: ObjectId) {

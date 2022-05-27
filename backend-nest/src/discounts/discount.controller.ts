@@ -30,6 +30,11 @@ export class DiscountController {
     return this.discountServices.get(discountId);
   }
 
+  @Get('/getbyname')
+  getDiscountByName(@Query('name') getByName: string) {
+    return this.discountServices.getByName(getByName);
+  }
+
   @Put('/update')
   updateDiscount(@Query('id') discountId, @Body() discountObject) {
     return this.discountServices.update(discountId, discountObject);

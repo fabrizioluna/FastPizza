@@ -1,6 +1,6 @@
 import { CustomForm } from '@/components/form/form.component';
 import { useState } from 'react';
-import { AdminDashboard } from './components/admin/admin.dashboard';
+// import { AdminDashboard } from './components/admin/admin.dashboard';
 
 const Dashboard = () => {
   const [values, setValues] = useState();
@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
 
     <div className='dashboard'>
-        <AdminDashboard />
+        {/* <AdminDashboard /> */}
       {/* <section>
         <h1>Bievenido al Panel de FastPizza. Por favor inicia sesión.</h1>
         <CustomForm
