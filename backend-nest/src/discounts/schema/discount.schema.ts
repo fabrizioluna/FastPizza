@@ -21,7 +21,7 @@ export class Discount {
   discount_priceFloor: number;
 
   @Prop()
-  discount_expiresIn: Date;
+  discount_expiresIn: string;
 
 }
 
