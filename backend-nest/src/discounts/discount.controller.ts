@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { DiscountService } from './discount.services';
+import { DiscountService } from './discount.service';
 import { DiscountDoc } from './schema/discount.schema';
 
 @Controller('/discount')

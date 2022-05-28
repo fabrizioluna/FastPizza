@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { ProductGet } from './dto/product.dto';
-import { ProductServices } from './product.services';
+import { ProductServices } from './product.service';
 import { ProductDoc } from './schema/product.schema';
 
 @Controller('/product')

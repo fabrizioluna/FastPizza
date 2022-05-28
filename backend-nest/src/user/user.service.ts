@@ -7,6 +7,7 @@ import { makeCodeEmail } from './utils/createCode.utils';
 import { MailServices } from 'src/service/mails/mail.services';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcryptjs';
+import { UserLog } from './user.log';
 
 @Injectable()
 export class UserServices {
@@ -14,6 +15,7 @@ export class UserServices {
     @InjectModel(User.name) private userModel: Model<UserDoc>,
     private mailService: MailServices,
     private jwtService: JwtService,
+    private userLog: UserLog,
   ) {}
 
   async create(userObject: UserCreateDto) {
@@ -32,6 +34,13 @@ export class UserServices {
       user_email,
       createCode,
     );
+
+    this.userLog.triggerLog(
+      'INSERT',
+      `Se creo una nuevo usuario con el nombre ${userObject.user_name}`,
+      userObject,
+    );
+
     return this.userModel.create(userObject);
   }
 

@@ -3,11 +3,9 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   Post,
   Put,
   Query,
-  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,7 +16,7 @@ import {
   OrderDtoGet,
   OrderDtoUpdate,
 } from './dto/order.dto';
-import { OrderServices } from './order.services';
+import { OrderServices } from './order.service';
 
 @Controller('/order')
 export class OrderController {

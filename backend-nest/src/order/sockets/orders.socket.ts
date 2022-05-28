@@ -6,7 +6,7 @@ import {
   WsResponse,
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
-import { OrderServices } from '../order.services';
+import { OrderServices } from '../order.service';
 
 @WebSocketGateway({
   cors: {

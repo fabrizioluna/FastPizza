@@ -7,6 +7,7 @@ import {
   OrderDtoGet,
   OrderDtoUpdate,
 } from './dto/order.dto';
+import { OrderLog } from './order.log';
 import { Order, OrderDoc } from './schema/order.schema';
 import { defaultMonths, defaultYears } from './utils/defaultPropsStadistics';
 import { formatMonth, formatTime } from './utils/formatdate.utils';
@@ -14,7 +15,10 @@ import { makeInvoice } from './utils/makeEnvoice';
 
 @Injectable()
 export class OrderServices {
-  constructor(@InjectModel(Order.name) private orderModel: Model<OrderDoc>) {}
+  constructor(
+    @InjectModel(Order.name) private orderModel: Model<OrderDoc>,
+    private orderLog: OrderLog,
+  ) {}
 
   createOrder(orderObject: OrderDtoCreate) {
     const getDate = new Date();
@@ -32,17 +36,40 @@ export class OrderServices {
       order_statusKitchen: false,
       order_statusKitchenFinished: false,
     };
+
+    this.orderLog.triggerLog(
+      'INSERT',
+      `Se creo una nueva order con el folio ${Order.order_envoice}`,
+      Order,
+    );
+
     return this.orderModel.create(Order);
   }
 
-  updateOrder(clientId: ObjectId, orderObject: OrderDtoUpdate) {
-    return this.orderModel.findByIdAndUpdate(clientId, orderObject, {
+  async updateOrder(clientId: ObjectId, orderObject: OrderDtoUpdate) {
+    const Order = await this.orderModel.findByIdAndUpdate(clientId, orderObject, {
       new: true,
     });
+
+    this.orderLog.triggerLog(
+      'UPDATE',
+      `Se actualizo la orden con el folio ${Order.order_envoice}`,
+      Order,
+    );
+
+    return Order;
   }
 
-  deleteOrder(orderId: OrderDtoDelete) {
-    return this.orderModel.findByIdAndDelete(orderId.id);
+  async deleteOrder(orderId: OrderDtoDelete) {
+    const Order = await this.orderModel.findByIdAndDelete(orderId.id);
+
+    this.orderLog.triggerLog(
+      'DELETE',
+      `Se elimino la order con el folio ${Order.order_envoice}`,
+      Order,
+    );
+
+    return Order;
   }
 
   getOrder(orderId: ObjectId) {
