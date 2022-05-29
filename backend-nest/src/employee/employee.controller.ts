@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { JwtGuard } from 'src/user/jwt-guard';
-import { EmployeeServices } from './employee.services';
+import { EmployeeServices } from './employee.service';
 import { EmployeeDoc } from './schema/employee.schema';
 
 // @UseGuards(JwtGuard)

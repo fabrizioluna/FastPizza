@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { UserCreateDto, UserGetDto, UserLoginDto } from './dto/user.dto';
-import { UserServices } from './user.services';
+import { UserServices } from './user.service';
 
 @Controller('/user')
 export class UserController {
