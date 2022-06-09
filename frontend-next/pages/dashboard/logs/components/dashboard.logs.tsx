@@ -1,5 +1,5 @@
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const DashboardLogs = () => {
   return (
@@ -10,7 +10,7 @@ export const DashboardLogs = () => {
         </div>
         <main>
           <span>Registros generales</span>
-        <p>Lista de todos los registros de la aplicación.</p>
+          <p>Lista de todos los registros de la aplicación.</p>
         </main>
       </header>
       <main className='dashboardFinance'>
