@@ -69,4 +69,14 @@ export class OrderController {
   delete(@Query() query: OrderDtoDelete) {
     return this.orderServices.deleteOrder(query);
   }
+
+  @Get('/get_products_sold')
+  // @UsePipes(new ValidationPipe({ whitelist: true }))
+  getProductsSold(
+    @Query('day') day: string,
+    @Query('month') month: string,
+    @Query('year') year: string,
+  ) {
+    return this.orderServices.getProductsSold(parseInt(day), month, parseInt(year));
+  }
 }

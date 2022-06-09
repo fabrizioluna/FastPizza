@@ -8,6 +8,7 @@ import { EmployeeModule } from './employee/employee.module';
 import { LogsModule } from './log/logs.module';
 import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
+import { StatisticsModule } from './statistics/statistics.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -19,7 +20,8 @@ import { UserModule } from './user/user.module';
     EmployeeModule,
     CartModule,
     DiscountModule,
-    LogsModule
+    LogsModule,
+    StatisticsModule
   ],
   controllers: [AppController],
   providers: [AppService],

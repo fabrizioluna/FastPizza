@@ -36,20 +36,22 @@ export class OrderServices {
       order_statusKitchen: false,
       order_statusKitchenFinished: false,
     };
-
     this.orderLog.triggerLog(
       'INSERT',
       `Se creo una nueva order con el folio ${Order.order_envoice}`,
       Order,
     );
-
     return this.orderModel.create(Order);
   }
 
   async updateOrder(clientId: ObjectId, orderObject: OrderDtoUpdate) {
-    const Order = await this.orderModel.findByIdAndUpdate(clientId, orderObject, {
-      new: true,
-    });
+    const Order = await this.orderModel.findByIdAndUpdate(
+      clientId,
+      orderObject,
+      {
+        new: true,
+      },
+    );
 
     this.orderLog.triggerLog(
       'UPDATE',
@@ -119,5 +121,61 @@ export class OrderServices {
       .equals(true)
       .populate({ path: 'order_products' })
       .populate({ path: 'order_buyer', select: 'user_name' });
+  }
+
+  getProductsSold(day: number, month: string, year: number) {
+    return this.orderModel.aggregate([
+      {
+        $match: {
+          order_creationDay: day,
+          order_creationMonth: month,
+          order_creationYear: year,
+        }
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'order_products',
+          foreignField: '_id',
+          as: 'order_products',
+        },
+      },
+      {
+        $group: {
+          _id: '$order_products',
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          children: {
+            $concatArrays: ['$_id'],
+          },
+        },
+      },
+      {
+        $unwind: '$children',
+      },
+      {
+        $group: {
+          _id: '$children.product_name',
+          totalSells: {
+            $sum: 1,
+          },
+          products: {
+            $push: {
+              product: '$_id',
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: '$_id',
+          product_id: "$_id",
+          totalSells: '$totalSells',
+        },
+      },
+    ]);
   }
 }
