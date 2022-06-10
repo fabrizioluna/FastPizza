@@ -8,6 +8,7 @@ import { Order, OrderSchema } from 'src/order/schema/order.schema';
 import { StatisticsCron } from './cron/statistics.cron';
 import { Statistics, StatisticsSchema } from './schema/statistics.schema';
 import { StatisticsService } from './statistics.service';
+import { StatisticsController } from './statistics.controller';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StatisticsService } from './statistics.service';
     MongooseModule.forFeature([{ name: Logs.name, schema: LogsSchema }]),
   ],
   exports: [StatisticsService],
+  controllers: [StatisticsController],
   providers: [StatisticsService, StatisticsCron, LogsService, OrderServices, OrderLog],
 })
 export class StatisticsModule {}

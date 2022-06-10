@@ -23,18 +23,14 @@ export class StatisticsCron {
     this.logger.debug(
       'The statistics cron has registered all data in the db successfully.',
     );
-    const a = await this.statisticsModel.findOneAndUpdate(
+    await this.statisticsModel.findOneAndUpdate(
       { statistics_completeDate: `${todayDateForSave.day}/${todayDateForSave.month}/${todayDateForSave.year}` },
       await this.statisticsRegisterModel(),
       {
         upsert: true,
         returnOriginal: false,
-        new: true,
-        setDefaultsOnInsert: true,
       },
     );
-
-    console.log(a, todayDateForSave)
   }
 
   private async statisticsRegisterModel() {
@@ -90,7 +86,6 @@ export class StatisticsCron {
   private async productsStatistics(orderData: OrderDoc[]) {
     const todayDate = this.getCurrentDate();
     let totalAmount: number = 0;
-    const totalProductsSells = [];
     const productsSold = await this.recoverProductsSold(
       todayDate.day,
       todayDate.month,
@@ -98,7 +93,6 @@ export class StatisticsCron {
     );
 
     orderData.filter((order) => (totalAmount += order.order_totalAmount));
-    orderData.map((order) => totalProductsSells.push(order.order_products));
 
     return {
       totalOrders: orderData.length,
