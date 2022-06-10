@@ -103,7 +103,7 @@ export class StatisticsService {
       {
         $project: {
           _id: 0,
-          totalEarnedMonth: '$totalAmount',
+          totalEarnedYear: '$totalAmount',
         },
       },
     ]);

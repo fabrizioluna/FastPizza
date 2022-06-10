@@ -1,7 +1,7 @@
-import { client } from "@/config/axios.config";
+import { client } from '@/config/axios.config';
 
 export const getAllLogs = () => {
-    return client
+  return client
     .get('logs/getall')
     .then((data) => {
       return { data: data.data, statusCode: 200 };
@@ -9,4 +9,4 @@ export const getAllLogs = () => {
     .catch((err) => {
       return { data: err.code, statusCode: err.response.status };
     });
-}
+};

@@ -55,7 +55,7 @@ export class FinanceController {
     return {
       totalEarnedYear: byYear[0],
       totalEarnedMonth: byMonth[0],
-      totalEarnedDay: byDay[0],
+      totalEarnedDay: byDay.length > 1 ? byDay[0] : { totalEarnedDay: 0 },
       totalExpenses: expenses,
     };
   }
