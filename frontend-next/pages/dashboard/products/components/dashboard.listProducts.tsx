@@ -3,7 +3,6 @@ import { Product } from 'pages/home/adapters/product.adapter';
 import { Fragment } from 'react';
 
 export const ListProducts = ({ products }: { products: Product[] }) => {
-  console.log(products);
   return (
     <table>
       <thead>
