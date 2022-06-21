@@ -11,7 +11,7 @@ export const OrderStageTwo = ({
   sendDetails: (set: Order) => void;
 }) => {
   return (
-    <Fragment>
+    <div className='dashboardOrder'>
       {orders.map((order, index: number) => (
         <article key={index}>
           <header>
@@ -29,6 +29,6 @@ export const OrderStageTwo = ({
           </footer>
         </article>
       ))}
-    </Fragment>
+    </div>
   );
 };

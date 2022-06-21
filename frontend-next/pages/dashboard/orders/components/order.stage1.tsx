@@ -9,7 +9,7 @@ export const OrderStageOne = ({
   sendOrders: (client: string, status: boolean) => any;
 }) => {
   return (
-    <Fragment>
+    <div className='dashboardOrder'>
       {orders.map((order, index: number) => (
         <article key={index}>
           <header>
@@ -31,6 +31,6 @@ export const OrderStageOne = ({
           </footer>
         </article>
       ))}
-    </Fragment>
+    </div>
   );
 };

@@ -1,12 +1,13 @@
 import { Order, orderAdapter } from 'pages/dashboard/adapters/order.adapter';
-import { Fragment, useEffect, useState } from 'react';
-import { OrderDetails } from './order.details';
-import { OrderStageOne } from './order.stage1';
-import { OrderStageTwo } from './order.stage2';
+import { useEffect, useState } from 'react';
+import { OrderDetails } from './components/order.details';
+import { OrderStageOne } from './components/order.stage1';
+import { OrderStageTwo } from './components/order.stage2';
 import { io } from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKitchenSet } from '@fortawesome/free-solid-svg-icons';
-import { DashboardContainer } from '@/components/containerDashboard/container';
+import { DashboardLayout } from '../components/dashboard.layout';
+import { DashboardContainer } from '../components/dashboard.container';
 
 export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -43,7 +44,7 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   }, []);
 
   return (
-    <Fragment>
+    <DashboardLayout>
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faKitchenSet} />
@@ -53,27 +54,16 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
           <p>Lista de todas las ordenes para gestionar.</p>
         </main>
       </header>
-      <div className='dashboardOrderCook'>
+      <main className='dashboardContainers'>
         <DashboardContainer title='Ordenes pendientes'>
-          {/* <h2>Ordenes pendientes</h2> */}
           {orders.length > 0 && (
             <OrderStageOne
               orders={filterOrdersByStatus(false)}
               sendOrders={sendOrdersSocket}
             />
           )}
-          {/* <footer>
-            <header>
-              <span>{filterOrdersByStatus(false).length}</span>
-            </header>
-            <div>
-              <h4>Ordenes totales</h4>
-              <p>Ordenes totales pendientes</p>
-            </div>
-          </footer> */}
         </DashboardContainer>
         <DashboardContainer title='Ordenes en proceso'>
-          {/* <h2>Ordenes en proceso</h2> */}
           {orders.length > 0 && (
             <OrderStageTwo
               orders={filterOrdersByStatus(true)}
@@ -81,25 +71,15 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
               sendDetails={setOrderDetails}
             />
           )}
-          {/* <footer>
-            <header>
-              <span>{filterOrdersByStatus(true).length}</span>
-            </header>
-            <div>
-              <h4>Ordenes totales</h4>
-              <p>Ordenes totales en proceso</p>
-            </div>
-          </footer> */}
         </DashboardContainer>
-        <aside>
-          <h3>Detalle de la orden</h3>
+        <DashboardContainer title='Detalle de la orden'>
           <OrderDetails
             details={orderDetails as unknown as Order}
             resetDetails={setOrderDetails}
             sendCompleteOrder={sendOrderComplete}
           />
-        </aside>
-      </div>
-    </Fragment>
+        </DashboardContainer>
+      </main>
+    </DashboardLayout>
   );
 };

@@ -15,8 +15,8 @@ const Dashboard_Delivery = () => {
           <FontAwesomeIcon icon={faTruck} />
         </div>
         <main>
-          <span>Finanzas globales</span>
-          <p>Lista de todas tus finanzas globales.</p>
+          <span>Entregas pendientes</span>
+          <p>Lista de todas las entregas por realizar.</p>
         </main>
       </header>
       {call !== null && <DashboardDelivery delivery_data={call} /> }

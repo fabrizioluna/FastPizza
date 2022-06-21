@@ -26,8 +26,8 @@ export const DashboardEmployees = () => {
           <FontAwesomeIcon icon={faKitchenSet} />
         </div>
         <main>
-          <span>Estadisticas globales</span>
-          <p>Lista de todas tus estadisticas del sitio globales.</p>
+          <span>Empleados generales</span>
+          <p>Lista y gestion de todos tus empleados.</p>
         </main>
       </header>
       <main className='dashboardContainers'>
