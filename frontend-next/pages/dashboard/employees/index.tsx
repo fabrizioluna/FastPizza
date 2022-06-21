@@ -1,12 +1,7 @@
-import { DashboardLayout } from '../components/dashboard.layout';
-import { DashboardEmployees } from './components/dashboard.employees';
+import { DashboardEmployees } from './dashboard.employees';
 
 const Dashboard_Employees = () => {
-  return (
-    <DashboardLayout>
-      <DashboardEmployees />
-    </DashboardLayout>
-  );
+  return <DashboardEmployees />;
 };
 
 export default Dashboard_Employees;

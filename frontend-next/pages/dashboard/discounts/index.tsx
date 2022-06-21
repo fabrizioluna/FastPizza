@@ -1,5 +1,6 @@
-import { DashboardLayout } from '../components/dashboard.layout';
-import { DashboardDiscounts } from './components/dashboard.discounts';
+import { DashboardLayout } from "../components/dashboard.layout";
+import { DashboardDiscounts } from "./dashboard.discounts";
+
 
 const Dashboard_Discounts = () => {
   return (

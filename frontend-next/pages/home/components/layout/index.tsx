@@ -5,7 +5,7 @@ import { Navigation } from './navigation';
 export const HomeLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Fragment>
-      <header>
+      <header style={{backgroundColor: '#14141c'}}>
         <nav>
           <Navigation />
         </nav>

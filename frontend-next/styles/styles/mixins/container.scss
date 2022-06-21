@@ -2,7 +2,7 @@
   $w: 100%,
   $h: auto,
   $p: 0px,
-  $bg: white,
+  $bg: #14141c,
   $mt: auto,
   $mb: auto,
   $mr: auto,
@@ -26,7 +26,7 @@
   $w: 100%,
   $h: auto,
   $cl: white,
-  $bg: white,
+  $bg: #14141c,
   $pt: 0px,
   $pb: 0px,
   $pr: 0px,
@@ -52,9 +52,5 @@
   margin-left: $ml;
   font-size: $fz;
   color: $cl;
-  box-shadow: 0px 0px $bs rgb(196, 196, 196, $bso);
+  // box-shadow: 0px 0px $bs rgb(196, 196, 196, $bso);
 }
-
-// body {
-//   box-shadow: rgb(196, 196, 196);
-// }

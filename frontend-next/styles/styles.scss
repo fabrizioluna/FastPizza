@@ -1,3 +1,4 @@
+@import './styles/config.scss';
 @import './styles/globals.scss';
 
 @import './styles/mixins/button.scss';
@@ -8,16 +9,16 @@
 
 @import './styles/presets/dashboard.scss';
 
-@import './styles/components/button-component.scss';
 @import './styles/components/homepage.scss';
-@import './styles/components/navigation.scss';
+@import './styles/components/button-component.scss';
 @import './styles/components/products.scss';
 @import './styles/components/cart.scss';
 @import './styles/components/auth.scss';
+@import './styles/components/navigation.scss';
+@import './styles/components/dashboard-containers.scss';
 @import './styles/components/show_products.scss';
 @import './styles/components/dashboard.scss';
 @import './styles/components/progressbar.scss';
-@import './styles/components/dashboard.employees.scss';
-@import './styles/components/dashboard.finance.scss';
-@import './styles/components/dashboard.stadistics.scss';
 @import './styles/components/dashboard-global.scss';
+@import './styles/components/forms.scss';
+@import './styles/components/tables.scss';

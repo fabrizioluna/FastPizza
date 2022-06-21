@@ -36,3 +36,23 @@
     }
   }
 }
+
+.auth_dashboard {
+  width: 20%;
+  margin: auto;
+  padding: 1rem;
+  h2 {
+    @include font('Bebas', 4rem, white);
+  }
+  p {
+    @include font('Reboto', 1rem, white);
+    text-align: center;
+  }
+  &-login{
+    background-color: #1c1c26;
+    width: 20%;
+    margin: auto;
+    padding: 1rem;
+  }
+}
+

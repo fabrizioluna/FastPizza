@@ -1,5 +1,6 @@
 import { DashboardLayout } from '../components/dashboard.layout';
-import { DashboardLogs } from './components/dashboard.logs';
+import { DashboardLogs } from './dashboard.logs';
+
 
 const Dashboard_Logs = () => {
   return (

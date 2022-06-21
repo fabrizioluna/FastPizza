@@ -1,5 +1,6 @@
 import { faWarehouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DashboardContainer } from "pages/dashboard/components/dashboard.container";
 
 export const DashboardInvetory = () => {
   return (
@@ -13,27 +14,12 @@ export const DashboardInvetory = () => {
           <p>Lista de todos tus insumos.</p>
         </main>
       </header>
-      <main className='dashboardFinance'>
-        <section>
-          <h2></h2>
-        </section>
-        <section>
-          <h2></h2>
-        </section>
-        <aside>
-          <h2></h2>
-        </aside>
+      <main className='dashboardContainers'>
+        <DashboardContainer title='Insumos totales'>
+        </DashboardContainer>
+        <DashboardContainer title='Piezas por insumo'>
+        </DashboardContainer>
       </main>
-      <div className='dashboardFinance'>
-        <article>
-          <aside>
-            <h2></h2>
-          </aside>
-          <section>
-            <h2></h2>
-          </section>
-        </article>
-      </div>
     </div>
   );
 };

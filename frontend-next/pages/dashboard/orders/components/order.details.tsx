@@ -10,8 +10,9 @@ export const OrderDetails = ({
   resetDetails: (set: any) => void;
   sendCompleteOrder: (idOrder: string, statusKitchenFinished: boolean) => any;
 }) => {
+  console.log(details)
   return (
-    <Fragment>
+    <div className='dashboardOrder-details'>
       {details !== undefined ? (
         <section>
           <main>
@@ -46,6 +47,6 @@ export const OrderDetails = ({
       ) : (
         <p>No se ha seleccionado ningún producto.</p>
       )}
-    </Fragment>
+    </div>
   );
 };

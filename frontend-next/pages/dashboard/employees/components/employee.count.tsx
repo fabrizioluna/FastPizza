@@ -5,8 +5,8 @@ export const CountEmployees = ({
 }) => {
   return (
     <div>
-      <p>Numero de empleados registrados</p>
-      <p>{countEmployees}</p>
+      <h4>Numero de empleados registrados</h4>
+      <h1>{countEmployees}</h1>
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const NewExpense = () => {
   };
 
   return (
-    <Fragment>
+    <div className='dashboardForm'>
       <CustomForm
         setValueInputs={setValues}
         values={values}
@@ -37,8 +37,8 @@ export const NewExpense = () => {
           },
         ]}
         submitCallback={newExpenseHandler}
-        buttonMessage={'Generar'}
+        buttonMessage={'Registrar nuevo gasto'}
       />
-    </Fragment>
+    </div>
   );
 };

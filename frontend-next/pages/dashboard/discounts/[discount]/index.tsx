@@ -1,3 +1,4 @@
+import { DashboardContainer } from '@/components/containerDashboard/container';
 import { CustomForm } from '@/components/form/form.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,8 @@ import {
   getSpecificDiscount,
   updateDiscount,
 } from '../services/discount.service';
+
+// TODO: Esta vista tiene problemas de estilos.
 
 const DiscountPage = () => {
   const { query } = useRouter();
@@ -48,7 +51,8 @@ const DiscountPage = () => {
   const deleteDiscountHandler = async (discountId: string) => {
     const { data, statusCode } = await deleteDiscount(discountId);
 
-    if(statusCode === STATUS_CODE.SUCCESS) return Router.push('/dashboard/discounts')
+    if (statusCode === STATUS_CODE.SUCCESS)
+      return Router.push('/dashboard/discounts');
     //   TODO: Manejar excepeciones
   };
 
@@ -65,60 +69,63 @@ const DiscountPage = () => {
       </header>
       {loading && <p>Cargando...</p>}
       {discount?.specialKey !== undefined && !loading && (
-        <main className='dashboardFinance'>
-          <section>
-            <h2>Editar este producto</h2>
-            <CustomForm
-              setValueInputs={setValues}
-              values={values}
-              isEditingForm={true}
-              inputs={[
-                {
-                  name: 'discount_specialKey',
-                  type: 'text',
-                  placeholder: 'Nombre del Descuento',
-                  prevValue: discount.specialKey,
-                },
-                {
-                  name: 'discount_percentage',
-                  type: 'text',
-                  placeholder: 'Porcentaje de descuento',
-                  prevValue: discount.percentage,
-                },
-                {
-                  name: 'discount_priceFloor',
-                  type: 'number',
-                  placeholder: 'Compra minima',
-                  prevValue: discount.priceFloor,
-                },
-                {
-                  name: 'discount_limitToApply',
-                  type: 'number',
-                  placeholder: 'Limitar usos',
-                  prevValue: discount.limitToApply,
-                },
-                {
-                  name: 'discount_expiresIn',
-                  type: 'text',
-                  placeholder: 'Fecha de expiración',
-                  prevValue: discount.expiresIn,
-                },
-              ]}
-              submitCallback={discountHandler}
-              buttonMessage={'Guardar cambios'}
-            />
-            <button onClick={() => deleteDiscountHandler(discount.id as string)}>
-              Borrar Descuento
-            </button>
-          </section>
-          <section>
-            <h2>Grafica de Usos</h2>
-          </section>
-          <aside>
-            <h2>Usos totales</h2>
-            <p>500</p>
-          </aside>
-        </main>
+        <>
+          <main className='dashboardContainers'>
+            <DashboardContainer title='Editar este descuento'>
+              <div className='dashboardForm'>
+                <CustomForm
+                  setValueInputs={setValues}
+                  values={values}
+                  isEditingForm={true}
+                  inputs={[
+                    {
+                      name: 'discount_specialKey',
+                      type: 'text',
+                      placeholder: 'Nombre del Descuento',
+                      prevValue: discount.specialKey,
+                    },
+                    {
+                      name: 'discount_percentage',
+                      type: 'text',
+                      placeholder: 'Porcentaje de descuento',
+                      prevValue: discount.percentage,
+                    },
+                    {
+                      name: 'discount_priceFloor',
+                      type: 'number',
+                      placeholder: 'Compra minima',
+                      prevValue: discount.priceFloor,
+                    },
+                    {
+                      name: 'discount_limitToApply',
+                      type: 'number',
+                      placeholder: 'Limitar usos',
+                      prevValue: discount.limitToApply,
+                    },
+                    {
+                      name: 'discount_expiresIn',
+                      type: 'text',
+                      placeholder: 'Fecha de expiración',
+                      prevValue: discount.expiresIn,
+                    },
+                  ]}
+                  submitCallback={discountHandler}
+                  buttonMessage={'Guardar cambios'}
+                />
+                <button
+                  onClick={() => deleteDiscountHandler(discount.id as string)}
+                >
+                  Borrar Descuento
+                </button>
+              </div>
+            </DashboardContainer>
+          </main>
+          <main className='dashboardContainers'>
+            <DashboardContainer title='Usos totales del Descuento'>
+              <p>500</p>
+            </DashboardContainer>
+          </main>
+        </>
       )}
       {discount?.specialKey === undefined && !loading && (
         <p>No se encontro este descuento</p>
