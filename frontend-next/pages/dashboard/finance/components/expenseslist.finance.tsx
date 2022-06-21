@@ -1,3 +1,4 @@
+import { CustomTable } from '@/components/tables/table.component';
 import { Fragment } from 'react';
 import { Expense } from '../types/finance.types';
 
@@ -39,27 +40,42 @@ export const ExpensesList = ({ expenses }: { expenses: Expense[] }) => {
     getDays = getDays - dias * days;
     const horas = Math.floor(getDays / hours);
 
-    return `Creado hace ${meses} meses, ${dias} dia y ${horas} horas`;
+    return `${meses} meses, ${dias} dia y ${horas} horas`;
   };
 
   return (
     <Fragment>
-      <ul>
+      <CustomTable
+        fields={[
+          {
+            nameField: 'Tiulo',
+          },
+          {
+            nameField: 'Descripción',
+          },
+          {
+            nameField: 'Gasto',
+          },
+          {
+            nameField: 'Fecha de Registro',
+          },
+        ]}
+      >
         {expenses.map((expense: Expense) => (
-          <li key={expense.id}>
-            <p>{expense.title}</p>
-            <p>{expense.description}</p>
-            <p>${expense.amount}</p>
-            <p>
+          <tr key={expense.id}>
+            <td>{expense.title}</td>
+            <td>{expense.description}</td>
+            <td>${expense.amount}</td>
+            <td>
               {getExpenseDay(
                 expense.creationDay,
                 expense.creationMonth,
                 expense.creationYear
               )}
-            </p>
-          </li>
+            </td>
+          </tr>
         ))}
-      </ul>
+      </CustomTable>
     </Fragment>
   );
 };

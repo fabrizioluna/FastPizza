@@ -1,46 +1,46 @@
 .show_products {
-    color: white;
-    width: 80%;
-    margin: auto;
-    display: flex;
-    aside {
-        background-color: #1c1c26;
-        padding-left: 3rem;
-        padding-right: 3rem;
-        height: 30rem;
-        width: 100rem;
-        p {
-            margin-bottom: 0;
-        }
-        input {
-            width: 100%;
-            height: 2.5rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            border-color: #fcca54;
-            background-color: transparent;
-            color: white;
-            font-weight: bolder;
-        }
-        select {
-            width: 100%;
-            height: 2.5rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            border-color: #fcca54;
-            background-color: transparent;
-            color: white;
-            font-weight: bolder;
-        }
-        button {
-            width: 100%;
-            margin-top: 1rem;
-            height: 2.5rem;
-            border-color: transparent;
-            background-color: #fcca54;
-            font-size: 17px;
-            font-weight: bolder;
-            color: rgb(0, 0, 0);
-        }
+  color: white;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  aside {
+    background-color: #1c1c26;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: 30rem;
+    width: 100rem;
+    p {
+      margin-bottom: 0;
     }
+    input {
+      width: 100%;
+      height: 2.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-color: #fcca54;
+      background-color: transparent;
+      color: white;
+      font-weight: bolder;
+    }
+    select {
+      width: 100%;
+      height: 2.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-color: #fcca54;
+      background-color: transparent;
+      color: white;
+      font-weight: bolder;
+    }
+    button {
+      width: 100%;
+      margin-top: 1rem;
+      height: 2.5rem;
+      border-color: transparent;
+      background-color: #fcca54;
+      font-size: 17px;
+      font-weight: bolder;
+      color: rgb(0, 0, 0);
+    }
+  }
 }

@@ -16,7 +16,7 @@ export const EmployEmployee = ({ curretListEmployees, setEmployees }: { curretLi
   }
 
   return (
-    <div className='dashboardEmployeeEmploy'>
+    <div className='dashboardForm'>
       <CustomForm
         setValueInputs={setValues}
         values={values}
@@ -54,7 +54,7 @@ export const EmployEmployee = ({ curretListEmployees, setEmployees }: { curretLi
           },
         ]}
         submitCallback={employEmployeeHandler}
-        buttonMessage={'Contratar'}
+        buttonMessage={'Registrar nuevo empleado'}
       />
     </div>
   );

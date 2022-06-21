@@ -42,7 +42,7 @@ export const RegisterDiscount = ({
   };
 
   return (
-    <Fragment>
+    <div className='dashboardForm'>
       <CustomForm
         setValueInputs={setValues}
         values={values}
@@ -77,6 +77,6 @@ export const RegisterDiscount = ({
         submitCallback={createDiscountHandler}
         buttonMessage={'Registrar cupón'}
       />
-    </Fragment>
+    </div>
   );
 };

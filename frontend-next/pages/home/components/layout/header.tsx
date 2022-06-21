@@ -1,4 +1,4 @@
-import { Button } from "../../../../components/button";
+import { Button } from '../../../../components/button';
 
 export const Header = () => {
   return (
@@ -6,13 +6,12 @@ export const Header = () => {
       <article>
         <h1>¡Haz tu pedido a domicilio!</h1>
         <p>Haz tu primer pedido a domicilio y recibe un descuento del 40%.</p>
-        <Button config={{ type: false, color: 'primary', link: '/cart' }}>Registrate gratis</Button>
+        <Button config={{ type: false, color: 'primary', link: '/cart' }}>
+          Registrate gratis
+        </Button>
       </article>
       <figure>
-        <img
-          alt='Home'
-          src={'/images/home_image.png'}
-        />
+        <img alt='Home' src={'/images/home_image.png'} />
       </figure>
     </div>
   );

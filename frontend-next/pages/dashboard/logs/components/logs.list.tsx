@@ -1,26 +1,39 @@
-import { LogAdapted } from "../types/logs.types";
+import { CustomTable } from '@/components/tables/table.component';
+import { Fragment } from 'react';
+import { LogAdapted } from '../types/logs.types';
 
 export const LogsList = ({ logs }: { logs: LogAdapted[] }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Acción</th>
-          <th>Descripción</th>
-          <th>Tabla</th>
-          <th>Controlador</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      { logs.map((log: LogAdapted) => (
-        <tbody key={log.id}>
-          <td>{log.action}</td>
-          <td>{log.description}</td>
-          <td>{log.table}</td>
-          <td>{log.controller}</td>
-          <td>{log.timestamps}</td>
-        </tbody>
-      ))}
-    </table>
+    <Fragment>
+      <CustomTable
+        fields={[
+          {
+            nameField: 'Acción',
+          },
+          {
+            nameField: 'Descripción',
+          },
+          {
+            nameField: 'Tabla',
+          },
+          {
+            nameField: 'Controlador',
+          },
+          {
+            nameField: 'Fecha',
+          },
+        ]}
+      >
+        {logs.map((log: LogAdapted) => (
+          <tr key={log.id}>
+            <td>{log.action}</td>
+            <td>{log.description}</td>
+            <td>{log.table}</td>
+            <td>{log.controller}</td>
+            <td>{log.timestamps}</td>
+          </tr>
+        ))}
+      </CustomTable>
+    </Fragment>
   );
 };

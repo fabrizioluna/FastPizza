@@ -1,0 +1,31 @@
+.dashboardTable {
+  width: 100%;
+  text-align: left;
+  height: auto;
+  th {
+    @include font('RebotoBold', 1rem, #606060);
+  }
+  td {
+    @include font('Reboto', .8rem, #ffffff);
+    height: 2rem;
+    font-weight: bold;
+    div {
+      display: flex;
+      img {
+        margin-right: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 10rem;
+        object-fit: cover;
+        aspect-ratio: 16/9;
+      }
+    }
+  }
+  button {
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+    font-weight: bolder;
+    @include font('Reboto', 1rem, rgb(162, 162, 162));
+  }
+}

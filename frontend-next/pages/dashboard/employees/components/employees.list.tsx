@@ -1,23 +1,34 @@
+import { CustomTable } from '@/components/tables/table.component';
+import { Fragment } from 'react';
 import { Employee } from '../adapters/employee.adapter';
 
 export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          {/* <th>Empleado</th> */}
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Cargo</th>
-          <th>Fecha ingreso</th>
-          <th>Pago</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Fragment>
+      <CustomTable
+        fields={[
+          {
+            nameField: 'Nombre',
+          },
+          {
+            nameField: 'Apellidos',
+          },
+          {
+            nameField: 'Cargo',
+          },
+          {
+            nameField: 'Fecha de Ingreso',
+          },
+          {
+            nameField: 'Pago',
+          },
+          {
+            nameField: 'Acciones',
+          },
+        ]}
+      >
         {employees.map((employee: Employee, index: number) => (
           <tr key={index}>
-            {/* <td>1</td> */}
             <td>
               <div>
                 <img src='https://imagenes.heraldo.es/files/image_654_v1/uploads/imagenes/2017/08/12/_zidanejpg_bae27af8.jpg' />{' '}
@@ -34,7 +45,7 @@ export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
             </td>
           </tr>
         ))}
-      </tbody>
-    </table>
+      </CustomTable>
+    </Fragment>
   );
 };

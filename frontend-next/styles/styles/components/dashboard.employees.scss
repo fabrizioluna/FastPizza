@@ -61,6 +61,36 @@
   }
 }
 
+.tableEmployees {
+  // table {
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    height: auto;
+    th {
+      @include font('RebotoBold', 1rem, #606060);
+    }
+    td {
+      @include font('Reboto', 1rem, #606060);
+      height: 5rem;
+      // background-color: aqua;
+      font-weight: bold;
+      border-bottom: 1px solid #dddddd;
+      div {
+        display: flex;
+        img {
+          margin-right: 1rem;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 10rem;
+          object-fit: cover;
+          aspect-ratio: 16/9;
+        }
+      }
+    }
+  // }
+}
+
 .dashboardEmployeeEmploy {
   form {
     width: 100%;
