@@ -1,5 +1,6 @@
-import { DashboardLayout } from "../components/dashboard.layout"
-import { DashboardProducts } from "./components/dashboard.products"
+import { DashboardLayout } from "../components/dashboard.layout";
+import { DashboardProducts } from "./dashboard.products";
+
 
 const Dashboard_Products = () => {
   return (
