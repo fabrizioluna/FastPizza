@@ -145,7 +145,7 @@
 
 
 .dashboardNav {
-  color: rgb(255, 255, 255);
+  color: rgb(161, 161, 161);
   background-color: #1c1c26;
   height: 100vh;
   position: fixed;
@@ -153,19 +153,34 @@
   list-style: none;
   h1 {
     margin: 0;
-    padding-top: 2.5rem;
-    margin-bottom: 5rem;
-    text-align: center;
-    @include font('Bebas', 2rem, rgb(48, 48, 48));
+    padding: 1rem 1rem 1.5rem;
+    @include font('Bebas', 1.5rem, rgb(161, 161, 161));
   }
   li {
-    padding: 1rem;
+    padding: 0rem 1rem .2rem;
     margin-bottom: 5px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    margin: auto;
+    transition: all 1.5s;
+    div {
+      cursor: pointer;
+      padding-top: 1rem;
+      display: flex;
+      font-size: 1rem;
+      p {
+        padding-left: .5rem;
+      }
+    }
     &:hover {
-      background-color: #fcca54;
-      color: #1c1c26;
+      background-color: #3fbb68;
+      color: #ffffff;
+    }
+  }
+  footer {
+    p {
+      padding: 0rem 1rem .2rem;
+      @include font('Bebas', 1rem, rgb(161, 161, 161));
     }
   }
 }

@@ -46,11 +46,14 @@ const DashboardShowProduct = () => {
     if (statusCode == STATUS_CODE.BAD_REQUEST) return;
   };
 
-  const deleteProductHandler = async() => {
-    const { statusCode } = await deleteDashboardProduct(query.productId as string)
-  
-    if(statusCode == STATUS_CODE.SUCCESS) return Router.push('/dashboard/products')
-  }
+  const deleteProductHandler = async () => {
+    const { statusCode } = await deleteDashboardProduct(
+      query.productId as string
+    );
+
+    if (statusCode == STATUS_CODE.SUCCESS)
+      return Router.push('/dashboard/products');
+  };
 
   return (
     <DashboardLayout>
@@ -67,53 +70,57 @@ const DashboardShowProduct = () => {
       {product?.title !== undefined && !loading && (
         <main className='dashboardFinance'>
           <section>
-            <h2>Editar este producto</h2>
-            <CustomForm
-              setValueInputs={setValues}
-              values={values}
-              isEditingForm={true}
-              inputs={[
-                {
-                  name: 'product_name',
-                  type: 'text',
-                  placeholder: 'Nombre del Producto',
-                  prevValue: product.title,
-                },
-                {
-                  name: 'product_description',
-                  type: 'text',
-                  placeholder: 'Descripción del Producto',
-                  prevValue: product.description,
-                },
-                {
-                  name: 'product_price',
-                  type: 'number',
-                  placeholder: 'Precio del Producto',
-                  prevValue: product.price,
-                },
-                {
-                  name: 'product_discount',
-                  type: 'number',
-                  placeholder: 'Descuento del Producto',
-                  prevValue: product.discount,
-                },
-                {
-                  name: 'product_category',
-                  type: 'text',
-                  placeholder: 'Categoria del Producto',
-                  prevValue: product.category,
-                },
-                {
-                  name: 'product_image',
-                  type: 'text',
-                  placeholder: 'URL de la image',
-                  prevValue: product.image,
-                },
-              ]}
-              submitCallback={productHandler}
-              buttonMessage={'Guardar cambios'}
-            />
-            <button onClick={() => deleteProductHandler()}>Borrar Producto</button>
+            <h2>Editar producto {product.title}</h2>
+            <div className='dashboardForm'>
+              <CustomForm
+                setValueInputs={setValues}
+                values={values}
+                isEditingForm={true}
+                inputs={[
+                  {
+                    name: 'product_name',
+                    type: 'text',
+                    placeholder: 'Nombre del Producto',
+                    prevValue: product.title,
+                  },
+                  {
+                    name: 'product_description',
+                    type: 'text',
+                    placeholder: 'Descripción del Producto',
+                    prevValue: product.description,
+                  },
+                  {
+                    name: 'product_price',
+                    type: 'number',
+                    placeholder: 'Precio del Producto',
+                    prevValue: product.price,
+                  },
+                  {
+                    name: 'product_discount',
+                    type: 'number',
+                    placeholder: 'Descuento del Producto',
+                    prevValue: product.discount,
+                  },
+                  {
+                    name: 'product_category',
+                    type: 'text',
+                    placeholder: 'Categoria del Producto',
+                    prevValue: product.category,
+                  },
+                  {
+                    name: 'product_image',
+                    type: 'text',
+                    placeholder: 'URL de la image',
+                    prevValue: product.image,
+                  },
+                ]}
+                submitCallback={productHandler}
+                buttonMessage={'Guardar cambios'}
+              />
+              <button onClick={() => deleteProductHandler()}>
+                Borrar Producto
+              </button>
+            </div>
           </section>
           <section>
             <h2>Grafica de Ventas</h2>

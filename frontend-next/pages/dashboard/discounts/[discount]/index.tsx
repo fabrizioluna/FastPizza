@@ -1,9 +1,9 @@
-import { DashboardContainer } from '@/components/containerDashboard/container';
 import { CustomForm } from '@/components/form/form.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Router, { useRouter } from 'next/router';
+import { DashboardContainer } from 'pages/dashboard/components/dashboard.container';
 import { DashboardLayout } from 'pages/dashboard/components/dashboard.layout';
 import React, { useEffect, useState } from 'react';
 import { Discount, discountAdapter } from '../adapters/discount.adapter';
@@ -114,7 +114,7 @@ const DiscountPage = () => {
                 />
                 <button
                   onClick={() => deleteDiscountHandler(discount.id as string)}
-                >
+                id='buttonDeleteDiscount'>
                   Borrar Descuento
                 </button>
               </div>
