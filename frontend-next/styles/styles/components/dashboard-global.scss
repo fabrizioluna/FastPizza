@@ -19,6 +19,20 @@
       text-transform: uppercase;
     }
   }
+  button {
+    width: 100%;
+    margin-bottom: 2rem;
+    height: 2.5rem;
+    border-color: transparent;
+    background-color: #bb3f3f;
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    transition: all 1.2s;
+    &:hover {
+      background-color: #822d2d;
+    }
+  }
   aside {
     width: 20%;
     @extend %card-Dashboard;

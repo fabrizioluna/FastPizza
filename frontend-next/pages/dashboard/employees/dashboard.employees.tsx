@@ -1,5 +1,5 @@
 import { useCallService } from "@/hooks/useCallService";
-import { faKitchenSet } from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { DashboardContainer } from "../components/dashboard.container";
@@ -23,7 +23,7 @@ export const DashboardEmployees = () => {
     <DashboardLayout>
       <header className='dashboardHeader'>
         <div>
-          <FontAwesomeIcon icon={faKitchenSet} />
+          <FontAwesomeIcon icon={faBriefcase} />
         </div>
         <main>
           <span>Empleados generales</span>
