@@ -1,8 +1,23 @@
-import { faBriefcase, faBurger, faChartLine, faCopy, faKitchenSet, faTags, faTruck, faWallet, faWarehouse } from '@fortawesome/free-solid-svg-icons';
+import { AppStore } from '@/redux/store';
+import { authSessionCookieStorage } from '@/utils/sessionStorage/localSessionStorage';
+import {
+  faBriefcase,
+  faBurger,
+  faChartLine,
+  faCopy,
+  faKitchenSet,
+  faTags,
+  faTruck,
+  faWallet,
+  faWarehouse,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import Router from 'next/router';
+import { useSelector } from 'react-redux';
 
 export const NavigationDashboard = () => {
+  const employee = useSelector((store: AppStore) => store.employee);
   return (
     <div className='dashboardNav'>
       <h1>Dashboard FastPizza</h1>
@@ -79,8 +94,15 @@ export const NavigationDashboard = () => {
         </li>
       </Link>
       <footer>
-        <p>EI7690 | Fabrizio Luna</p>
-        <p>Salir</p>
+        {!!employee && <p>{employee.name} {employee.lastname}</p>}
+        <p
+          onClick={() => {
+            authSessionCookieStorage()?.destroy();
+            Router.push('/dashboard/auth');
+          }}
+        >
+          Salir
+        </p>
       </footer>
     </div>
   );

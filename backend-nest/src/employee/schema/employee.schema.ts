@@ -20,6 +20,12 @@ export class Employee {
   @Prop()
   employee_payment: number;
 
+  @Prop()
+  employee_uniqueCode: string;
+  
+  @Prop()
+  employee_password: string;
+
   // @Prop({
   //   type: { type: mongoose.Schema.Types.ObjectId, ref: 'schedule' },
   // })

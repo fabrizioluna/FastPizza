@@ -22,7 +22,7 @@ export const CustomForm = ({
   inputs,
   submitCallback,
   buttonMessage,
-  isEditingForm
+  isEditingForm,
 }: FormProps) => {
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValueInputs({ ...values, [event.target.name]: event.target.value });
@@ -32,8 +32,9 @@ export const CustomForm = ({
     <Fragment>
       {!isEditingForm ? (
         <form onSubmit={submitCallback}>
-          {inputs.map((Input: Inputs) => (
+          {inputs.map((Input: Inputs, key: number) => (
             <input
+              key={key}
               name={`${Input.name}`}
               type={`${Input.type}`}
               placeholder={`${Input.placeholder}`}
@@ -44,8 +45,9 @@ export const CustomForm = ({
         </form>
       ) : (
         <form onSubmit={submitCallback}>
-          {inputs.map((Input: Inputs) => (
+          {inputs.map((Input: Inputs, key: number) => (
             <input
+              key={key}
               name={`${Input.name}`}
               type={`${Input.type}`}
               defaultValue={`${Input.prevValue}`}

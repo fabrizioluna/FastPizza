@@ -6,10 +6,10 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
+  // UseGuards,
 } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { JwtGuard } from 'src/user/jwt-guard';
+// import { JwtGuard } from 'src/user/jwt-guard';
 import { EmployeeServices } from './employee.service';
 import { EmployeeDoc } from './schema/employee.schema';
 
@@ -21,6 +21,16 @@ export class EmployeeController {
   @Post('/create')
   create(@Body() body: EmployeeDoc) {
     return this.employeeServices.createEmployee(body);
+  }
+
+  @Post('/login')
+  login(@Body() body: EmployeeDoc) {
+    return this.employeeServices.loginEmployee(body);
+  }
+
+  @Post('/refreshtoken')
+  refreshToken(@Query('token') token: string) {
+    return this.employeeServices.refreshTokenEmployee(token);
   }
 
   @Get('/get')
