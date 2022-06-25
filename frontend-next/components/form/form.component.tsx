@@ -67,7 +67,7 @@ export const CustomForm = ({
                           name={`${radioInput.name}`}
                           type='radio'
                           style={radioInput.radioInputStyles}
-                          value={`${radioInput.value}`}
+                          value={radioInput.value}
                           onChange={onChangeInputs}
                         />
                       </div>

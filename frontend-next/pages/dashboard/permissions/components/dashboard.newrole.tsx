@@ -1,22 +1,38 @@
 import { CustomForm } from '@/components/form/form.component';
+import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { useState } from 'react';
+import { Roles, rolesAdapter } from '../adapters/permissions.adapter';
+import { createRole } from '../service/permissions.service';
 
-export const NewRole = () => {
+export const NewRole = ({
+  currentRolesList,
+  setNewRolesList,
+}: {
+  currentRolesList: Roles[];
+  setNewRolesList: (set: any) => void;
+}) => {
   const [values, setValues] = useState();
+  const [error, setError] = useState<boolean>(false);
 
-  const employEmployeeHandler = async (e: React.FormEvent) => {
+  const createRoleHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TODO: Manejar las exepciones
-    //   const { data, statusCode } = await registerEmployee(values as unknown as InitialEmployee);
-    //   const employeeAdapted = employeeAdapter(data);
-    //   setEmployees([ ...curretListEmployees, employeeAdapted ]);
-  };
+    const { data, statusCode } = await createRole(values as unknown as any);
+    if (statusCode === STATUS_CODE.BAD_REQUEST) return setError(true);
 
-  console.log(values);
+    // Is all is cool... we pushed the new role 
+    // in the roles Array to refresh the component RolesList.
+    setNewRolesList([...currentRolesList, rolesAdapter(data)]);
+  };
 
   return (
     <div className='dashboardForm'>
+      {error && (
+        <h4>
+          Ocurrió un error al registrar este Rol. Verifica que este marcadas
+          todas las casillas
+        </h4>
+      )}
       <CustomForm
         setValueInputs={setValues}
         values={values}
@@ -389,7 +405,7 @@ export const NewRole = () => {
             ],
           },
         ]}
-        submitCallback={employEmployeeHandler}
+        submitCallback={createRoleHandler}
         buttonMessage={'Registrar nuevo rol'}
       />
     </div>
