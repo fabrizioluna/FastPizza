@@ -1,4 +1,14 @@
+import { useDashboardLogin } from '@/hooks/useDashboardLogin';
+import Router from 'next/router';
+import { useEffect } from 'react';
+
 export const Sidenav = () => {
+  const [loading, employeeData, hasPayload] = useDashboardLogin();
+
+  useEffect(() => {
+    if (!loading && !hasPayload && !employeeData.status) Router.push('/dashboard/auth');
+  }, [loading]);
+
   return (
     <div className='dashboardSidebar'>
       <figure>
@@ -8,7 +18,9 @@ export const Sidenav = () => {
         />
       </figure>
       <ul>
-        <li>Alex Fabrisio Luna Toledo</li>
+        {!loading && (
+          <li> {`${employeeData.data.name} ${employeeData.data.lastname}`} </li>
+        )}
         <li>Programador FrontEnd</li>
       </ul>
     </div>

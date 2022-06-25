@@ -75,6 +75,7 @@ const DashboardShowProduct = () => {
               <CustomForm
                 setValueInputs={setValues}
                 values={values}
+                formStyles={{ display: 'block' }}
                 isEditingForm={true}
                 inputs={[
                   {

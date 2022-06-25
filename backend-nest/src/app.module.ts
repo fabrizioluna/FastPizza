@@ -9,6 +9,7 @@ import { FinanceModule } from './finance/finance.module';
 import { LogsModule } from './log/logs.module';
 import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
+import { RolesModule } from './roles/roles.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { UserModule } from './user/user.module';
 
@@ -23,7 +24,8 @@ import { UserModule } from './user/user.module';
     DiscountModule,
     LogsModule,
     StatisticsModule,
-    FinanceModule
+    FinanceModule,
+    RolesModule
   ],
   controllers: [AppController],
   providers: [AppService],

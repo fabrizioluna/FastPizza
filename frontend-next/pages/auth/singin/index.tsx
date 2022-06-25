@@ -34,6 +34,7 @@ const SingIn = () => {
         <p>{errors}</p>
         <CustomForm
           setValueInputs={setValues}
+          isEditingForm={false}
           values={values}
           inputs={[
             {
