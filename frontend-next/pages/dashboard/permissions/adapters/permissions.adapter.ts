@@ -1,4 +1,5 @@
 export interface InitialRoles {
+  _id: string;
   role_name: string;
   role_permissionsDelivery: boolean;
   role_permissionsDiscounts: boolean;
@@ -13,6 +14,7 @@ export interface InitialRoles {
 }
 
 export interface Roles {
+  id: string;
   name: string;
   permissionsDelivery: boolean;
   permissionsDiscounts: boolean;
@@ -28,6 +30,7 @@ export interface Roles {
 
 export const rolesAdapter = (rolObject: InitialRoles): Roles => {
   return {
+    id: rolObject._id,
     name: rolObject.role_name,
     permissionsDelivery: rolObject.role_permissionsDelivery,
     permissionsDiscounts: rolObject.role_permissionsDiscounts,
