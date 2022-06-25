@@ -31,9 +31,8 @@ export class Employee {
   // })
   // employee_schedule: string;
 
-  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'role' }] })
-  @Prop()
-  employee_role: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Rol' })
+  employee_role: mongoose.Schema.Types.ObjectId;
 }
 
 export const EmployeeSchema = SchemaFactory.createForClass(Employee);

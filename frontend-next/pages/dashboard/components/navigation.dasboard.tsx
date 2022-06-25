@@ -6,6 +6,7 @@ import {
   faChartLine,
   faCopy,
   faKitchenSet,
+  faShield,
   faTags,
   faTruck,
   faWallet,
@@ -82,6 +83,14 @@ export const NavigationDashboard = () => {
           <div>
             <FontAwesomeIcon icon={faTags} />
             <p>Descuentos</p>
+          </div>
+        </li>
+      </Link>
+      <Link href='/dashboard/permissions'>
+        <li>
+          <div>
+            <FontAwesomeIcon icon={faShield} />
+            <p>Privilegios</p>
           </div>
         </li>
       </Link>

@@ -22,6 +22,7 @@ export class EmployeeServices {
   ) {}
 
   async createEmployee(employeeObject: EmployeeDoc) {
+    console.log(employeeObject)
     const Employee = {
       ...employeeObject,
       employee_joined: new Date(),
@@ -63,9 +64,9 @@ export class EmployeeServices {
   }
 
   async refreshTokenEmployee(token: string) {
-    const employeeDecode: EmployeeToken = await this.jwtService.decode(
+    const employeeDecode: EmployeeToken = (await this.jwtService.decode(
       token,
-    ) as unknown as EmployeeToken;
+    )) as unknown as EmployeeToken;
     const employee = await this.employeeModel.findOne({
       employee_uniqueCode: employeeDecode.employee_id,
     });
@@ -82,11 +83,14 @@ export class EmployeeServices {
   }
 
   getEmployee(employeeId: ObjectId) {
-    return this.employeeModel.findById(employeeId);
+    return this.employeeModel.findById(employeeId).populate('employee_role');
   }
 
   getAllEmployees(limit) {
-    return this.employeeModel.find().limit(limit !== 0 ? limit : 0);
+    return this.employeeModel
+      .find()
+      .limit(limit !== 0 ? limit : 0)
+      .populate('employee_role');
   }
 
   async updateEmployee(employeeId: ObjectId, employeeObject: EmployeeDoc) {

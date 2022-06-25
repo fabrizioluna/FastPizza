@@ -46,6 +46,7 @@ export const RegisterDiscount = ({
       <CustomForm
         setValueInputs={setValues}
         values={values}
+        formStyles={{ display: 'block' }}
         isEditingForm={false}
         inputs={[
           {

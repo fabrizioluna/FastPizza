@@ -18,6 +18,7 @@ export const NewExpense = () => {
       <CustomForm
         setValueInputs={setValues}
         values={values}
+        formStyles={{ display: 'block' }}
         isEditingForm={false}
         inputs={[
           {

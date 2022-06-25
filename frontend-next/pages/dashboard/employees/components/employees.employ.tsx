@@ -21,6 +21,7 @@ export const EmployEmployee = ({ curretListEmployees, setEmployees }: { curretLi
         setValueInputs={setValues}
         values={values}
         isEditingForm={false}
+        formStyles={{ display: 'block' }}
         inputs={[
           {
             name: 'employee_name',
