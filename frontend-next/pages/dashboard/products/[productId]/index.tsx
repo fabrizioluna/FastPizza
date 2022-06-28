@@ -3,6 +3,7 @@ import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faBurger } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Router, { useRouter } from 'next/router';
+import { CUstomChartLine } from 'pages/dashboard/components/dashboard.customChart';
 import { DashboardLayout } from 'pages/dashboard/components/dashboard.layout';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
 import { useEffect, useState } from 'react';
@@ -125,6 +126,7 @@ const DashboardShowProduct = () => {
           </section>
           <section>
             <h2>Grafica de Ventas</h2>
+            <CUstomChartLine values={[2, 4, 7, 28, 10]} />
           </section>
           <aside>
             <h2>Ventas totales</h2>

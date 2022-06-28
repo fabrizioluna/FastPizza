@@ -6,6 +6,7 @@ import { CartModule } from './cart/cart.module';
 import { DiscountModule } from './discounts/discount.module';
 import { EmployeeModule } from './employee/employee.module';
 import { FinanceModule } from './finance/finance.module';
+import { InventoryModule } from './inventory/inventory.module';
 import { LogsModule } from './log/logs.module';
 import { OrderModule } from './order/order.module';
 import { ProductModule } from './product/product.module';
@@ -25,7 +26,8 @@ import { UserModule } from './user/user.module';
     LogsModule,
     StatisticsModule,
     FinanceModule,
-    RolesModule
+    RolesModule,
+    InventoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

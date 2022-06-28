@@ -274,3 +274,19 @@ section .dashboardDeliveryTruck {
   background-color: red;
 }
 
+#chartButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+#chartButtonStyle {
+  background-color: rgb(128, 128, 128, 0.2);
+  border-radius: 6px;
+  margin-left: .5rem;
+  font-size: 12px;
+  color: #c0c0c0;
+  transition: all 3s;
+  &:hover{
+    background-color: rgb(128, 128, 128, 0.5);
+  }
+}
