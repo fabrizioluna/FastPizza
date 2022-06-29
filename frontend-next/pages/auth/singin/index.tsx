@@ -17,7 +17,9 @@ const SingIn = () => {
   const loginUserHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { data, statusCode } = await singin(values as unknown as SinginCredentials);
+    const { data, statusCode } = await singin(
+      values as unknown as SinginCredentials
+    );
     if (statusCode === STATUS_CODE.BAD_REQUEST)
       return setErrors('Nombre de Usuario o Contraseña incorrectos.');
 
@@ -33,6 +35,7 @@ const SingIn = () => {
         <h4>Inicia sesión</h4>
         <p>{errors}</p>
         <CustomForm
+          formStyles={{}}
           setValueInputs={setValues}
           isEditingForm={false}
           values={values}

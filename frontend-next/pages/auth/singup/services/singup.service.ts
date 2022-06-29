@@ -11,14 +11,22 @@ export interface Credentials {
 export const singup = (credentials: Credentials) => {
   return client
     .post('user/create', credentials)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .then((data) => {
+      return { data: data.data, statusCode: 200 };
+    })
+    .catch((err) => {
+      return { data: err.code, statusCode: err.response.status };
+    });
 };
 
 export const confirm_email = (id: string, code: { email_code: string }) => {
   const { email_code } = code;
   return client
     .post(`user/confirm_account?id=${id}&code=${email_code}`)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+    .then((data) => {
+      return { data: data.data, statusCode: 200 };
+    })
+    .catch((err) => {
+      return { data: err.code, statusCode: err.response.status };
+    });
 };

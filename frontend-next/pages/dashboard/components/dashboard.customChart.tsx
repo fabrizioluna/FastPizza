@@ -60,30 +60,61 @@ const labels: any = {
   ],
 };
 
+interface Buttons {
+  nameButton: string;
+  valueButton: string;
+}
+
+interface CustomButtons {
+  buttons: Buttons[];
+}
+
+interface Slices {
+  sliceLength: number;
+  sliceLabel: string[];
+}
+
+interface ChartProps {
+  typeChart: string;
+  values: any[];
+  customButtons?: CustomButtons[];
+  withButtons?: boolean;
+  slices?: Slices[];
+}
+
 export const CUstomChart = ({
   typeChart = 'Line',
   values,
-}: {
-  typeChart: string;
-  values: any[];
-}) => {
-  const [chartDate, setChartDate] = useState<number>(typesDateChart.LAST_MONTH);
+  customButtons,
+  withButtons = true,
+  slices = [],
+}: ChartProps) => {
+  const [chartDate, setChartDate] = useState<number>(
+    slices.length >= 1
+      ? typesDateChart.LAST_SEVENDAYS
+      : typesDateChart.LAST_MONTH
+  );
 
   const getValuesByType = (): ValuesResult => {
     if (chartDate === typesDateChart.LAST_SEVENDAYS) {
       return {
-        values: values.slice(0, 7),
-        labels: labels.LAST_SEVENDAYS,
+        values: values.slice(0, slices.length >= 1 ? slices[0].sliceLength : 7),
+        labels:
+          slices.length >= 1 ? slices[0].sliceLabel : labels.LAST_SEVENDAYS,
       };
     } else if (chartDate === typesDateChart.LAST_2WEEK) {
       return {
-        values: values.slice(0, 14),
-        labels: labels.LAST_2WEEK,
+        values: values.slice(
+          0,
+          slices.length >= 1 ? slices[1].sliceLength : 14
+        ),
+        labels: slices.length >= 1 ? slices[1].sliceLabel : labels.LAST_2WEEK,
       };
     } else if (chartDate === typesDateChart.LAST_MONTH) {
       return {
-        values: values,
-        labels: labels.LAST_MONTH,
+        values:
+          slices.length >= 1 ? values.slice(0, slices[2].sliceLength) : values,
+        labels: slices.length >= 1 ? slices[2].sliceLabel : labels.LAST_MONTH,
       };
     }
     return {
@@ -112,48 +143,56 @@ export const CUstomChart = ({
         <>
           <Line data={config} options={options} />
           <div id='chartButtons'>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_SEVENDAYS)}
-            >
-              Últimos 7 dias
-            </button>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_2WEEK)}
-            >
-              Últimas 2 semanas
-            </button>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_MONTH)}
-            >
-              Último mes
-            </button>
+            {withButtons && (
+              <>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_SEVENDAYS)}
+                >
+                  Últimos 7 dias
+                </button>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_2WEEK)}
+                >
+                  Últimas 2 semanas
+                </button>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_MONTH)}
+                >
+                  Último mes
+                </button>
+              </>
+            )}
           </div>
         </>
       ) : (
         <>
           <Bar data={config} options={options} />
           <div id='chartButtons'>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_SEVENDAYS)}
-            >
-              Últimos 7 dias
-            </button>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_2WEEK)}
-            >
-              Últimas 2 semanas
-            </button>
-            <button
-              id='chartButtonStyle'
-              onClick={() => setChartDate(typesDateChart.LAST_MONTH)}
-            >
-              Último mes
-            </button>
+            {withButtons && (
+              <>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_SEVENDAYS)}
+                >
+                  Últimos 7 dias
+                </button>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_2WEEK)}
+                >
+                  Últimas 2 semanas
+                </button>
+                <button
+                  id='chartButtonStyle'
+                  onClick={() => setChartDate(typesDateChart.LAST_MONTH)}
+                >
+                  Último mes
+                </button>
+              </>
+            )}
           </div>
         </>
       )}

@@ -15,15 +15,19 @@ export const ConfirmForm = ({
   const enterCodeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const codeResponse = await confirm_email(
+    const { data, statusCode } = await confirm_email(
       previuosValues?._id as string,
       valuesSecond as any
     );
+
+    // TODO: Enviar el login cuando haya terminado de confirmar
   };
   return (
     <div className='user_singup'>
       <h4>Confirmacion de correo</h4>
       <CustomForm
+        isEditingForm={false}
+        formStyles={{}}
         setValueInputs={setValuesSecond}
         values={valuesSecond}
         inputs={[
