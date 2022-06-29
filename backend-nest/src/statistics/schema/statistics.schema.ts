@@ -24,6 +24,9 @@ export class Statistics {
   statistics_collectionMonth: string;
   
   @Prop()
+  statistics_collectionMonthNumber: number;
+  
+  @Prop()
   statistics_completeDate: string;
   
   @Prop()

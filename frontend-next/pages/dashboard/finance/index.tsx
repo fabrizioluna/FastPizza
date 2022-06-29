@@ -2,14 +2,17 @@ import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetServerSideProps } from 'next';
 import { DashboardContainer } from '../components/dashboard.container';
+import { CUstomChart } from '../components/dashboard.customChart';
 import { DashboardLayout } from '../components/dashboard.layout';
-import { financeAdapter } from './adapters/finance.adapter';
+import { expenseAdapter, financeAdapter } from './adapters/finance.adapter';
 import { ExpensesList } from './components/expenseslist.finance';
+import { FinanceCharts } from './components/finance.charts';
 import { NewExpense } from './components/newexpense.finance';
 import { getAllFinance } from './service/finance.service';
 import { Finance } from './types/finance.types';
 
 const Dashboard_Finance = ({ financeObject }: { financeObject: Finance }) => {
+  console.log(financeObject);
   return (
     <DashboardLayout>
       <header className='dashboardHeader'>
@@ -21,17 +24,7 @@ const Dashboard_Finance = ({ financeObject }: { financeObject: Finance }) => {
           <p>Lista de todas tus finanzas globales.</p>
         </main>
       </header>
-      <main className='dashboardContainers'>
-        <DashboardContainer title='Ganancias totales'>
-          <h5>${financeObject.totalEarnedYear}</h5>
-        </DashboardContainer>
-        <DashboardContainer title='Ganancias por mes'>
-          <h5>${financeObject.totalEarnedMonth}</h5>
-        </DashboardContainer>
-        <DashboardContainer title='Ganancias del dìa'>
-          <h5>${financeObject.totalEarnedDay}</h5>
-        </DashboardContainer>
-      </main>
+      <FinanceCharts financeObject={financeObject.completeStatistics} />
       <main className='dashboardContainers'>
         <DashboardContainer title='Agregar un gasto nuevo'>
           <NewExpense />
@@ -46,11 +39,16 @@ const Dashboard_Finance = ({ financeObject }: { financeObject: Finance }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await getAllFinance();
-  const financeAdapted = financeAdapter(data);
+  const expenseAdapted = financeAdapter(data);
+  const financeAdapted = {
+    ...data,
+    totalExpenses: expenseAdapted.totalExpenses,
+  };
 
   return {
     props: {
       financeObject: financeAdapted,
+      expenseAdapted,
     },
   };
 };

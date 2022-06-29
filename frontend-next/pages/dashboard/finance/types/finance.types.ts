@@ -22,6 +22,7 @@ export interface InitialFinance {
       expense_customExpense: boolean;
     }
   ];
+  totalStatistics: [];
 }
 
 export interface InitialExpense {
@@ -50,10 +51,25 @@ export interface Expense {
   customExpense: boolean;
 }
 
+export interface TotalStatistics {
+  completeStatistics: MonthStatistics[];
+}
+
+export interface MonthStatistics {
+  month: number;
+  totalEarnedThisMonth: number;
+  totalOrdersThisMonth: number;
+  totalOrdersByMonth: Month[];
+} 
+
+export interface Month {
+  day: number;
+  monthString: string;
+  totalEarnedByDay: number;
+  totalOrdersByDay: number;
+}
+
 export interface Finance {
-  totalEarnedYear: number;
-  totalEarnedMonth: number;
-  totalEarnedDay: number;
   totalExpenses: [
     {
       id: string;
@@ -68,4 +84,5 @@ export interface Finance {
       customExpense: boolean;
     }
   ];
+  completeStatistics: MonthStatistics[];
 }

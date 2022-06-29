@@ -3,4 +3,5 @@ export interface DateCron {
   month: string;
   year: number;
   now: number;
+  monthNum: number;
 }
