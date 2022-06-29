@@ -16,16 +16,20 @@ export const RegisterForm = ({
 }: RegisterProps) => {
   const registerUserHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    const singUpResponse = await singup(values as unknown as Credentials);
-    if (singUpResponse.status === 200) {
-      setPreviuosValues({ _id: singUpResponse.response._id });
+    const { data, statusCode } = await singup(values as unknown as Credentials);
+    if (statusCode === 200) {
+      setPreviuosValues({ _id: data._id });
       return setEnterCode(true);
     }
+
+    console.log(data, statusCode)
   };
   return (
     <div className='user_singup'>
       <h4>Registro de cuenta</h4>
       <CustomForm
+        isEditingForm={false}
+        formStyles={{}}
         setValueInputs={setValues}
         values={values}
         inputs={[

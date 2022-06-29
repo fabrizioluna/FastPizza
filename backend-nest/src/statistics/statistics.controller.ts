@@ -10,6 +10,11 @@ export class StatisticsController {
     return this.statisticsServices.getLogToday();
   }
 
+  @Get('/get')
+  get() {
+    return this.statisticsServices.get();
+  }
+
   @Get('/getlog_month')
   async getLogsThisMonth(
     @Query('month') month: string,
@@ -30,7 +35,12 @@ export class StatisticsController {
   }
 
   @Get('/getlog_year_earned')
-  async getLogsThisYEarEarned(@Query('year') year: string) {
+  async getLogsThisYearEarned(@Query('year') year: string) {
     return await this.statisticsServices.getTotalEarnedYear(parseInt(year));
+  }
+
+  @Get('/getlog_year')
+  async getLogsThisYear(@Query('year') year: string) {
+    return await this.statisticsServices.getLogYear(parseInt(year));
   }
 }

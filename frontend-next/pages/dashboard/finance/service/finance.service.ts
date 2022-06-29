@@ -3,7 +3,7 @@ import { Expense } from "../types/finance.types";
 
 export const getAllFinance = () => {
   return client
-    .get('finance/getfinance')
+    .get('finance/getallfinance')
     .then((data) => {
       return { data: data.data, statusCode: 200 };
     })

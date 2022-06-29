@@ -2,16 +2,17 @@ import { InitialExpense, InitialFinance } from '../types/finance.types';
 
 export const financeAdapter = (financeObject: InitialFinance) => {
   return {
-    totalEarnedDay: financeObject.totalEarnedDay.totalEarnedDay,
-    totalEarnedMonth: financeObject.totalEarnedMonth.totalEarnedMonth,
-    totalEarnedYear: financeObject.totalEarnedYear.totalEarnedYear,
+    // totalEarnedDay: financeObject.totalEarnedDay.totalEarnedDay,
+    // totalEarnedMonth: financeObject.totalEarnedMonth.totalEarnedMonth,
+    // totalEarnedYear: financeObject.totalEarnedYear.totalEarnedYear,
+    // totalStatistics: financeObject.totalStatistics,
     totalExpenses: financeObject.totalExpenses.map((expense: InitialExpense) =>
       expenseAdapter(expense)
     ),
   };
 };
 
-const expenseAdapter = (expenseAdapter: InitialExpense) => {
+export const expenseAdapter = (expenseAdapter: InitialExpense) => {
   return {
     id: expenseAdapter._id,
     update: expenseAdapter.expense_update,

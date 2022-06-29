@@ -48,6 +48,7 @@ export class StatisticsCron {
       statistics_lastUpdate: todayDate.now,
       statistics_collectionDay: todayDate.day,
       statistics_collectionMonth: todayDate.month,
+      statistics_collectionMonthNumber: todayDate.monthNum, 
       statistics_collectionYear: todayDate.year,
       statistics_totalAmount: allStatistics.totalAmount,
       statistics_soldProducts: allStatistics.productsSold,
@@ -79,7 +80,8 @@ export class StatisticsCron {
       day: currentDate.getDate(),
       month: getCurrentMonth(currentDate.getMonth()),
       year: currentDate.getFullYear(),
-      now: Date.now()
+      now: Date.now(),
+      monthNum: currentDate.getMonth()+1
     };
   }
 

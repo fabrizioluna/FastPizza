@@ -35,6 +35,18 @@ export class FinanceController {
     return this.financeServices.deleteExpense(id);
   }
 
+  @Get('/getallfinance')
+  async getTotalFinance() {
+    return {
+      completeStatistics: await this.statisticsServices.getAllStatistics(),
+      totalExpenses: await this.financeServices.getExpenseByDate(
+        0,
+        'empty',
+        Today.year(),
+      ),
+    };
+  }
+
   @Get('/getfinance')
   async getTotalEarned() {
     //   TODO: Hacer todo esto en una sola consulta.
@@ -45,6 +57,7 @@ export class FinanceController {
       Today.monthAsString(),
       Today.year(),
     );
+    const allYear = await this.statisticsServices.getLogYear(Today.year());
     const byDay = await this.statisticsServices.getTotalEarnedToday();
     const expenses = await this.financeServices.getExpenseByDate(
       0,
@@ -57,6 +70,7 @@ export class FinanceController {
       totalEarnedMonth: byMonth[0],
       totalEarnedDay: byDay.length > 1 ? byDay[0] : { totalEarnedDay: 0 },
       totalExpenses: expenses,
+      totalStatistics: allYear,
     };
   }
 }
