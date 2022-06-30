@@ -31,6 +31,13 @@ export const DashboardEmployees = () => {
         </main>
       </header>
       <main className='dashboardContainers'>
+        <DashboardContainer title='Lista de empleados activos'>
+          {call !== null && employeeList.length > 0 && (
+            <ListEmployees employees={employeeList as any} />
+          )}
+        </DashboardContainer>
+      </main>
+      <main className='dashboardContainers'>
         <DashboardContainer title='Contratar nuevo empleado'>
           {call !== null && (
             <EmployEmployee
@@ -41,13 +48,6 @@ export const DashboardEmployees = () => {
         </DashboardContainer>
         <DashboardContainer title='Total de empleados'>
           {call !== null && <CountEmployees countEmployees={call.length} />}
-        </DashboardContainer>
-      </main>
-      <main className='dashboardContainers'>
-        <DashboardContainer title='Lista de empleados activos'>
-          {call !== null && employeeList.length > 0 && (
-            <ListEmployees employees={employeeList as any} />
-          )}
         </DashboardContainer>
       </main>
     </DashboardLayout>

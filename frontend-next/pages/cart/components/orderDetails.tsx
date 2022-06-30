@@ -1,15 +1,20 @@
+import { CustomMessage } from '@/components/message/message.component';
 import { AppStore } from '@/redux/store';
-import { authCookieStorage } from '@/utils/localStorage/localStorageHandler';
+import {
+  authCookieStorage,
+  localStorageHandler,
+} from '@/utils/localStorage/localStorageHandler';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import Router from 'next/router';
 import { Product } from 'pages/home/adapters/product.adapter';
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { OrderTypes, sendOrder } from '../services/order.service';
+import { ApplyDiscount } from './applyDiscount';
 import { ListProductsProps } from './listProducts';
 
-interface Amounts {
+export interface Amounts {
   productsAmount: number;
   deliveryPay: number;
   totalAmount: number;
@@ -48,9 +53,9 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
   const processOrder = async () => {
     setShowSpinner(true);
 
-    if(user.address.length < 0) {
+    if (user.address.length < 0) {
       setShowSpinner(false);
-      return Router.push('/auth/singin')
+      return Router.push('/auth/singin');
     }
 
     const cookie = await authCookieStorage()?.get();
@@ -63,12 +68,13 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
       order_addressClient: user.address,
       order_products: orderProducts,
       order_buyer: cookie?.data.id,
-      order_status: false
+      order_status: false,
     };
 
     await sendOrder(orderObject);
+    localStorageHandler.clear('cartShop');
     socket.emit('sendOrder');
-    // if(Order.statusCode === STATUS_CODE.BAD_REQUEST)  
+    // if(Order.statusCode === STATUS_CODE.BAD_REQUEST)
   };
 
   return (
@@ -86,24 +92,37 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
         <p>Total</p>
         <span>${values.totalAmount} MXN</span>
       </section>
-      <section>
-        <p>Dirección</p>
-        <span>Av Degollado, Cuernavaca, Morelos.</span>
-      </section>
-      {/* TODO: Este formulario da error, cambiarlo por mi custom form */}
-      <input type='text' value='Aplica tu descuento' />
-      <button>Aplicar</button>
-      <footer>
-        {showSpinner ? (
-          <button>
-            <div className='spinner'></div>
-          </button>
-        ) : (
-          // <p>Procesando pago</p>
-          <button onClick={() => processOrder()}>Realizar pago</button>
-        )}
-        <button>Cambiar lugar de entrega</button>
-      </footer>
+      {user.address.length >= 1 ? (
+        <Fragment>
+          <section>
+            <p>Dirección</p>
+            <span>Av Degollado, Cuernavaca, Morelos.</span>
+          </section>
+          <ApplyDiscount
+            orderAmount={values.totalAmount}
+            changeTotalAmount={setValues}
+            initialOrderPrice={values}
+          />
+          <footer>
+            {showSpinner ? (
+              <button>
+                <div className='spinner'></div>
+              </button>
+            ) : (
+              // <p>Procesando pago</p>
+              <button onClick={() => processOrder()}>Realizar pago</button>
+            )}
+            <button>Cambiar lugar de entrega</button>
+          </footer>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <CustomMessage
+            type='INFO'
+            message='Antes de poder procesar tu orden, por favor inicia sesión o registrate para proceder.'
+          />
+        </Fragment>
+      )}
     </aside>
   );
 };

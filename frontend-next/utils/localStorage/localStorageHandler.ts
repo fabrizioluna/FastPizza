@@ -16,8 +16,6 @@ export const localStorageHandler = {
       localStorage.setItem(key, JSON.stringify([element]));
       return sendRes(200, element);
     }
-
-    // const dataParse = JSON.parse(data)
     localStorage.setItem(key, JSON.stringify([ ...data, element ]));
     return sendRes(200, element);
   },
@@ -25,28 +23,22 @@ export const localStorageHandler = {
     const { status, data } = this.get(key);
     
     if(status === STATUS_CODE.NOT_FOUND) return sendRes(404, 'No hay informacion para eliminar.')
-
-    // const dataParse = JSON.parse(data);
     Array.isArray(data) ? data.splice(index, 1) : null;
 
     // TODO: Queda pendiente cambiar esto por x indice.
     localStorage.setItem(key, JSON.stringify(data))
-
-    // console.log('El data despues del pop', nextArray, dataParse)
 
   },
   clear(key: string) {
     const Key = this.get(key);
 
     const { status } = Key;
-    if(status === STATUS_CODE.SUCCESS) return localStorage.clear()
+    if(status === STATUS_CODE.SUCCESS) return localStorage.setItem(key, JSON.stringify([]))
 
   }
 };
 
 export const sendRes = (status: number, response: any) => {
-    // let res = null;
-    // typeof response === 'string' ? res = response : res = JSON.parse(response)
   return status === 200
     ? { status: 200, data: response }
     : { status: 404, data: response };

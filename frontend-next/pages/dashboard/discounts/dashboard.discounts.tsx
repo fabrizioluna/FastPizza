@@ -28,6 +28,13 @@ export const DashboardDiscounts = () => {
         </main>
       </header>
       <main className='dashboardContainers'>
+        <DashboardContainer title='Lista de todos tus descuentos'>
+          {call !== null && discountList.length > 0 && (
+            <ListDiscounts discounts={discountList as any} />
+          )}
+        </DashboardContainer>
+      </main>
+      <main className='dashboardContainers'>
         <DashboardContainer title='Registra un nuevo descuento global'>
           <RegisterDiscount
             currentListDiscounts={discountList}
@@ -36,13 +43,6 @@ export const DashboardDiscounts = () => {
         </DashboardContainer>
         <DashboardContainer title='Registros'>
           Info para rellenar
-        </DashboardContainer>
-      </main>
-      <main className='dashboardContainers'>
-        <DashboardContainer title='Lista de todos tus descuentos'>
-          {call !== null && discountList.length > 0 && (
-            <ListDiscounts discounts={discountList as any} />
-          )}
         </DashboardContainer>
       </main>
     </div>

@@ -15,12 +15,8 @@ export const Navigation = () => {
         <Link href='/all-products'>
           <li>Menu</li>
         </Link>
-        <li>¿Deseas unirte?</li>
         <Link href='/cart'>
-          <li>Pedidos a domicilio</li>
-        </Link>
-        <Link href='/dashboard/employee'>
-          <li>Panel de Empleado</li>
+          <li>Carrito de compras</li>
         </Link>
         <div>
           <li>Tel +52 777 240 45 64</li>

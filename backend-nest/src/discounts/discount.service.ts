@@ -1,9 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { AddCronDiscount } from './cron/discount.cron';
 import { DiscountLog } from './discount.log';
 import { Discount, DiscountDoc } from './schema/discount.schema';
+import { DiscountObject } from './types/discount.types';
 
 @Injectable()
 export class DiscountService {
@@ -41,6 +42,24 @@ export class DiscountService {
 
   get(discountId: ObjectId) {
     return this.discountModel.findById(discountId);
+  }
+
+  async validateDiscount(discountObject: DiscountObject) {
+    const Discount = await this.discountModel.findOne({
+      discount_specialKey: discountObject.discount_specialKey,
+    });
+
+    if (!Discount) return new HttpException('INVALID_DISCOUNT', 404);
+    if (!Discount.discount_status)
+      return new HttpException('DISCOUNT_EXPIRE', 400);
+    if (Discount.discount_priceFloor > discountObject.order_amount)
+      return new HttpException('DISCOUNT_PRICEFLOOR_NOT_VALID', 400);
+
+    return {
+      message: 'DISCOUNT_SUCCESS',
+      amountWithDiscount:
+        (Discount.discount_percentage / 100) * discountObject.order_amount,
+    };
   }
 
   getByName(discountName: string) {

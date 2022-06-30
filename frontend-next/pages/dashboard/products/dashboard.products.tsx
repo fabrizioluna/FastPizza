@@ -33,13 +33,13 @@ export const DashboardProducts = () => {
         </DashboardContainer>
       </main>
       <main className='dashboardContainers'>
-        <DashboardContainer title='Registrar nuevo producto'>
-          <CreateProduct />
+        <DashboardContainer title='Lista de todos los productos'>
+          {call !== null && <ListProducts products={call} />}
         </DashboardContainer>
       </main>
       <main className='dashboardContainers'>
-        <DashboardContainer title='Lista de todos los productos'>
-          {call !== null && <ListProducts products={call} />}
+        <DashboardContainer title='Registrar nuevo producto'>
+          <CreateProduct />
         </DashboardContainer>
       </main>
     </div>

@@ -30,6 +30,11 @@ export class DiscountController {
     return this.discountServices.get(discountId);
   }
 
+  @Post('/validate_discount')
+  validate(@Body() body: any){
+    return this.discountServices.validateDiscount(body)
+  }
+
   @Get('/getbyname')
   getDiscountByName(@Query('name') getByName: string) {
     return this.discountServices.getByName(getByName);
