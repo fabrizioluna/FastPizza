@@ -71,9 +71,13 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
       order_status: false,
     };
 
-    await sendOrder(orderObject);
-    localStorageHandler.clear('cartShop');
+    const { data, statusCode } = await sendOrder(orderObject);
     socket.emit('sendOrder');
+    localStorageHandler.clear('cartShop');
+
+    if(statusCode === STATUS_CODE.SUCCESS){
+      return Router.push(`/order-status/${data._id}`);
+    }
     // if(Order.statusCode === STATUS_CODE.BAD_REQUEST)
   };
 

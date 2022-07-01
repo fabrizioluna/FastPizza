@@ -24,3 +24,21 @@ export const useCallService = (
 
   return { call };
 };
+
+export const useSimpleCallService = (
+  callback: (requestService: any) => Promise<any>,
+  callbackAdapter: (request: any) => any,
+  request?: any
+) => {
+  const [call, setCall] = useState<any>(null);
+
+  useEffect(() => {
+    const callService = async () => {
+      const { data } = await callback(request);
+      setCall(callbackAdapter(data));
+    };
+    callService();
+  }, []);
+
+  return { call };
+};

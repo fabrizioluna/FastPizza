@@ -25,7 +25,7 @@ export class OrderServices {
     const Order = {
       ...orderObject,
       order_envoice: makeInvoice(),
-      order_creationDay: getDate.getDay(),
+      order_creationDay: getDate.getDate(),
       order_creationMonth: formatMonth(),
       order_creationYear: getDate.getFullYear(),
       order_creationTime: formatTime(),
@@ -75,7 +75,10 @@ export class OrderServices {
   }
 
   getOrder(orderId: ObjectId) {
-    return this.orderModel.findById(orderId).populate('order_products');
+    return this.orderModel
+      .findById(orderId)
+      .populate({ path: 'order_products' })
+      .populate({ path: 'order_buyer', select: 'user_name' });
   }
 
   getAll(orderQuery: OrderDtoGet) {
@@ -130,7 +133,7 @@ export class OrderServices {
           order_creationDay: day,
           order_creationMonth: month,
           order_creationYear: year,
-        }
+        },
       },
       {
         $lookup: {
@@ -172,7 +175,7 @@ export class OrderServices {
       {
         $project: {
           _id: '$_id',
-          product_id: "$_id",
+          product_id: '$_id',
           totalSells: '$totalSells',
         },
       },

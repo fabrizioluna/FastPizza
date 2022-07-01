@@ -1,0 +1,53 @@
+.showOrderClient {
+  width: 80%;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  header {
+    padding-top: 2rem;
+    // padding-bottom: 2rem;
+  }
+  article {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    background-color: #1c1c26;
+  }
+  footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    section {
+      padding: 1rem;
+      background-color: #1c1c26;
+      width: 49.5%;
+      h2 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+      h4 {
+        @include font('RebotoBold', 1.2rem, #468aff);
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+      p {
+        color: #878787;
+      }
+      div {
+        margin-top: 1rem;
+        display: flex;
+        figure {
+          width: 20%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
