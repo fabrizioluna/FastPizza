@@ -4,7 +4,6 @@ import { ShowOrderClient } from './components/showOrder.orderStatus';
 
 const ShowStatusOrder = () => {
   const { query } = useRouter();
-  console.log(query)
   return (
     <Layout>
       {query.hasOwnProperty('orderId') ? (

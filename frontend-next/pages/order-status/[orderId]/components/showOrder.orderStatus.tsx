@@ -7,7 +7,6 @@ import { OrderErrorClient } from './orderError.orderStatus';
 
 export const ShowOrderClient = ({ orderId }: { orderId: any }) => {
   const { call } = useSimpleCallService(getOrder, orderAdapter, orderId);
-  console.log(call);
   return (
     <Fragment>
       {call !== null && (
