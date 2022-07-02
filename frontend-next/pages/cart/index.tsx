@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { useEffect, useState } from 'react';
 import { Layout } from '../../components/layout';
@@ -19,6 +20,7 @@ const Cart = () => {
 
   return (
     <Layout>
+      <PageHead titlePage='Tu carrito de Compras' />
       <ListProducts status={cart.status} products={cart.data} />
     </Layout>
   );

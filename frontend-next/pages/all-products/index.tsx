@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { GetServerSideProps } from 'next';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
 import { useState } from 'react';
@@ -58,6 +59,7 @@ const AllProducts = ({ products }: { products: Product[] }) => {
 
   return (
     <Layout>
+      <PageHead titlePage='Productos disponibles' />
       <div className='show_products'>
         <aside>
           <form onSubmit={initializeFilter}>

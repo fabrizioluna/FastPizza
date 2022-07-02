@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { employeeWithTokenAdapter } from '../employees/adapters/employee.adapter';
 import { loginDashboard } from './service/dashboardAuth.service';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 
 const DashboardAuth = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const DashboardAuth = () => {
 
     const { data, statusCode } = await loginDashboard(values);
 
-    if(statusCode === STATUS_CODE.BAD_REQUEST) return setErrorAuth(true);
+    if (statusCode === STATUS_CODE.BAD_REQUEST) return setErrorAuth(true);
 
     const employeeAdapted = employeeWithTokenAdapter(data.employee, data.token);
     dispatch(createDashboardUser(employeeAdapted));
@@ -31,12 +32,18 @@ const DashboardAuth = () => {
 
   return (
     <div className='auth_dashboard'>
+      <PageHead titlePage='Recursos protegidos. Inicia sesión' />
       <h2>Recursos protegidos.</h2>
       <p>Por favor autenticate para continuar.</p>
-      {errorAuth && <p style={{ color: 'red', fontWeight: 'bold' }}>Credenciales no válidas.</p>}
+      {errorAuth && (
+        <p style={{ color: 'red', fontWeight: 'bold' }}>
+          Credenciales no válidas.
+        </p>
+      )}
       <article>
         <div className='dashboardFormAuth'>
           <CustomForm
+            formStyles={{}}
             setValueInputs={setValues}
             values={values}
             isEditingForm={false}

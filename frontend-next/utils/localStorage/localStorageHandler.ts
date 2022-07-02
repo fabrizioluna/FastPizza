@@ -59,7 +59,7 @@ export const authCookieStorage = () => {
       }
       
       const clear = () => {
-          return localStorage.setItem('authUser', JSON.stringify(null));
+          return localStorage.clear('authUser')
       }
       
       return { get, set, clear };

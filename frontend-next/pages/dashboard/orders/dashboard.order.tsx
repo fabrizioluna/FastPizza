@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKitchenSet } from '@fortawesome/free-solid-svg-icons';
 import { DashboardLayout } from '../components/dashboard.layout';
 import { DashboardContainer } from '../components/dashboard.container';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 
 export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -45,6 +46,7 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
 
   return (
     <DashboardLayout>
+      <PageHead titlePage='Panel de Empleado: Ordenes' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faKitchenSet} />

@@ -1,3 +1,4 @@
+import { PageHead } from "@/components/pageHead/pageHead.component";
 import { useCallService } from "@/hooks/useCallService";
 import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +22,7 @@ export const DashboardEmployees = () => {
 
   return (
     <DashboardLayout>
+      <PageHead titlePage='Panel de Empleado: Empleados' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faBriefcase} />

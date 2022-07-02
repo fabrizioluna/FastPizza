@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { createUser } from 'redux/states/user';
 import { UserAdapter } from '../singup/adapters/singup.adapter';
 import { singin, SinginCredentials } from './services/singin.service';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 
 const SingIn = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const SingIn = () => {
 
   return (
     <Layout>
+      <PageHead titlePage='Iniciar sesión' />
       <div className='user_singup'>
         <h4>Inicia sesión</h4>
         <p>{errors}</p>
@@ -47,7 +49,7 @@ const SingIn = () => {
             },
             {
               name: 'user_password',
-              type: 'text',
+              type: 'password',
               placeholder: 'Ingresa tu Contraseña',
             },
           ]}

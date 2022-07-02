@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import {
   faCalendarCheck,
   faLocationDot,
@@ -43,6 +44,7 @@ export const OrderDetailClient = ({ orderObject }: { orderObject: Order }) => {
 
   return (
     <div className='showOrderClient'>
+      <PageHead titlePage={`Estado de orden ${orderObject.envoice}`} />
       <header>
         <h1>¡Tu orden está siendo atendida!</h1>
         <p>Tu orden está en proceso...</p>

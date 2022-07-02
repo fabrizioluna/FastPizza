@@ -6,12 +6,14 @@ import { getDashboardProducts } from './services/product.service';
 import { ListProducts } from './components/dashboard.listProducts';
 import { DashboardContainer } from '../components/dashboard.container';
 import { CreateProduct } from './components/products.newproduct';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 
 export const DashboardProducts = () => {
   const { call } = useCallService(getDashboardProducts, productAdapter);
 
   return (
     <div>
+      <PageHead titlePage='Panel de Empleado: Productos' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faBurger} />
