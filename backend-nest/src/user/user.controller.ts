@@ -25,7 +25,8 @@ export class UserController {
   @Post('/login')
   @UsePipes(new ValidationPipe({ whitelist: true }))
   loginUser(@Body() body: UserLoginDto) {
-    return this.userServices.login(body.user_name, body.user_password);
+    // Including trim to prevent errors.
+    return this.userServices.login(body.user_name.trim(), body.user_password.trim());
   }
 
   @Get('/get/:id')
@@ -34,8 +35,16 @@ export class UserController {
   }
 
   @Post('/confirm_account')
-  confirmAccount(@Query('id') id: ObjectId, @Query('code') code: string){
+  confirmAccount(@Query('id') id: ObjectId, @Query('code') code: string) {
     return this.userServices.confirmEmail(id, code);
+  }
+
+  @Post('/confirm_accountbyusername')
+  confirmAccountByUsername(
+    @Query('name') name: string,
+    @Query('code') code: string,
+  ) {
+    return this.userServices.confirmEmailByUsername(name, code);
   }
 
   @Get('/getall')

@@ -17,7 +17,7 @@ export const Navigation = () => {
           <li>Inicio</li>
         </Link>
         <Link href='/all-products'>
-          <li>Menu</li>
+          <li>Nuestros productos</li>
         </Link>
         <Link href='/cart'>
           <li>Carrito de compras</li>
@@ -25,36 +25,53 @@ export const Navigation = () => {
         <div>
           <li>Tel +52 777 240 45 64</li>
           <li>Av. Vicente Guerrero Col. Cuernavaca Centro</li>
-        </div>
-        {loading && <p>Aqui esta cargando...</p>}
-        {!loading && userData.status ? (
-          <>
-            <p
-              onMouseOver={() => setSelectOptions(true)}
-              onMouseLeave={() => setSelectOptions(false)}
-            >
-              {userData.data?.name}
-            </p>
-            {showSelectOptions && (
-              <>
-                <p
-                  onClick={() => {
-                    authCookieStorage()?.clear();
-                    return Router.push('/home');
-                  }}
+          {loading && <p>Aqui esta cargando...</p>}
+          {!loading && userData.status ? (
+            <>
+              <p
+                onMouseOver={() => setSelectOptions(true)}
+                style={{ marginTop: '1rem' }}
+              >
+                {userData.data?.name}
+              </p>
+              {showSelectOptions && (
+                <div
+                  onMouseLeave={() => setSelectOptions(false)}
+                  className='userMenu'
                 >
-                  Salir
-                </p>
-              </>
-            )}
-          </>
-        ) : (
-          <Link href='/auth/singin'>
-            <li>
-              <button>Inicia sesión</button>
-            </li>
-          </Link>
-        )}
+                  <li
+                    onClick={() => {
+                      return Router.push('/profile');
+                    }}
+                  >
+                    Editar perfil
+                  </li>
+                  <li
+                    onClick={() => {
+                      return Router.push('/profile');
+                    }}
+                  >
+                    Ver ordenes
+                  </li>
+                  <li
+                    onClick={() => {
+                      authCookieStorage()?.clear();
+                      return Router.push('/home');
+                    }}
+                  >
+                    Salir
+                  </li>
+                </div>
+              )}
+            </>
+          ) : (
+            <Link href='/auth/singin'>
+              <li>
+                <button>Inicia sesión</button>
+              </li>
+            </Link>
+          )}
+        </div>
       </ul>
     </div>
   );

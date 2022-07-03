@@ -14,17 +14,17 @@
   );
   figure {
     @include Container(
-    81%,
-    50rem,
-    0px,
-    #14141c,
-    auto,
-    auto,
-    auto,
-    auto,
-    20px,
-    white
-  );
+      81%,
+      50rem,
+      0px,
+      #14141c,
+      auto,
+      auto,
+      auto,
+      auto,
+      20px,
+      white
+    );
     img {
       object-fit: scale-down;
       height: 50rem;
@@ -36,17 +36,17 @@
   }
   article {
     @include Container(
-    30%,
-    50rem,
-    1rem,
-    #14141c,
-    auto,
-    auto,
-    auto,
-    auto,
-    20px,
-    white
-  );
+      30%,
+      50rem,
+      1rem,
+      #14141c,
+      auto,
+      auto,
+      auto,
+      auto,
+      20px,
+      white
+    );
     h1 {
       @include font('Bebas', 4rem, white);
     }
@@ -67,5 +67,32 @@
     header {
       @include font('Bebas', 3rem, white);
     }
+  }
+}
+
+.homeFooter {
+  background-color: #000;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  @include font('Bebas', 1rem, white);
+  figure {
+    margin: 0;
+    margin-right: 2rem;
+    width: 6%;
+    img {
+      width: 100%;
+    }
+  }
+  div {
+    width: 70%;
+    li {
+      list-style: none;
+      cursor: pointer;
+    }
+  }
+  section {
+    width: 50%;
+    text-align: right;
   }
 }

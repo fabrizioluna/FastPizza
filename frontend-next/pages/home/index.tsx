@@ -21,11 +21,11 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async () => {
   const products = await getProducts();
 
-  const productsAdapted = products.map((product: any) => productAdapter(product));
+  const productsAdapted: any[] = products.map((product: any) => productAdapter(product));
 
   return {
     props: {
-      products: productsAdapted,
+      products: productsAdapted.slice(0, 9),
     },
   };
 };

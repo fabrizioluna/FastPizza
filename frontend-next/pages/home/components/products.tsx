@@ -3,16 +3,12 @@ import { getPriceWithDiscount } from '@/utils/getPrice/getPrice';
 import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useCallService } from 'hooks/useCallService';
 import { useState } from 'react';
-import { Product, productAdapter } from '../adapters/product.adapter';
-import { getProducts } from '../services/product.service';
+import { Product } from '../adapters/product.adapter';
 import { ProductsCategories } from './products-categories';
 
 export const Products = ({ products }: { products: any }) => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
-  const { call } = useCallService(getProducts, productAdapter);
-
   const addProduct = (product: any) => {
     localStorageHandler.set('cartShop', product);
     setShowMessage(true);
@@ -28,7 +24,8 @@ export const Products = ({ products }: { products: any }) => {
           <p>Este producto se agrego a tu carrito de compras.</p>
         </Notification>
       )}
-      <ProductsCategories />
+      {/* <ProductsCategories /> */}
+      <h4>Nuestros productos más vendidos</h4>
       <main>
         {products.map((product: Product, index: number) => (
           <section key={index} onClick={() => addProduct(product)}>

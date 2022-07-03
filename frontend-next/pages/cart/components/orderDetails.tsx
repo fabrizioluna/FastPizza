@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { OrderTypes, sendOrder } from '../services/order.service';
 import { ApplyDiscount } from './applyDiscount';
+import { ChangeAddress } from './changeAddress.cart';
 import { ListProductsProps } from './listProducts';
 
 export interface Amounts {
@@ -23,6 +24,13 @@ export interface Amounts {
 export const OrderDetails = ({ status, products }: ListProductsProps) => {
   const user = useSelector((store: AppStore) => store.user);
   const [showSpinner, setShowSpinner] = useState<boolean>(false);
+  const [changeAddress, setChangeAddress] = useState<{
+    change: boolean;
+    newAddress: string;
+  }>({
+    change: false,
+    newAddress: '',
+  });
   const [values, setValues] = useState<Amounts>({
     productsAmount: 0,
     deliveryPay: 50,
@@ -65,7 +73,9 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
       order_totalAmount: values.totalAmount,
       order_discountCode: 0,
       order_discountApplied: 0,
-      order_addressClient: user.address,
+      order_addressClient: changeAddress.change
+        ? changeAddress.newAddress
+        : user.address,
       order_products: orderProducts,
       order_buyer: cookie?.data.id,
       order_status: false,
@@ -75,7 +85,7 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
     socket.emit('sendOrder');
     localStorageHandler.clear('cartShop');
 
-    if(statusCode === STATUS_CODE.SUCCESS){
+    if (statusCode === STATUS_CODE.SUCCESS) {
       return Router.push(`/order-status/${data._id}`);
     }
     // if(Order.statusCode === STATUS_CODE.BAD_REQUEST)
@@ -100,23 +110,33 @@ export const OrderDetails = ({ status, products }: ListProductsProps) => {
         <Fragment>
           <section>
             <p>Dirección</p>
-            <span>Av Degollado, Cuernavaca, Morelos.</span>
+            <span>
+              {changeAddress.newAddress.length >= 1
+                ? changeAddress.newAddress
+                : user.address}
+            </span>
           </section>
           <ApplyDiscount
             orderAmount={values.totalAmount}
             changeTotalAmount={setValues}
             initialOrderPrice={values}
           />
+          {changeAddress.change && (
+            <ChangeAddress setChangeAddress={setChangeAddress} />
+          )}
           <footer>
             {showSpinner ? (
               <button>
                 <div className='spinner'></div>
               </button>
             ) : (
-              // <p>Procesando pago</p>
               <button onClick={() => processOrder()}>Realizar pago</button>
             )}
-            <button>Cambiar lugar de entrega</button>
+            <button
+              onClick={() => setChangeAddress({ change: true, newAddress: '' })}
+            >
+              Cambiar lugar de entrega
+            </button>
           </footer>
         </Fragment>
       ) : (

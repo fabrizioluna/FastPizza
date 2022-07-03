@@ -1,3 +1,4 @@
+import { Footer } from 'pages/home/components/layout/footer';
 import { Fragment, ReactNode } from 'react';
 import { Navigation } from '../../pages/home/components/layout/navigation';
 
@@ -13,7 +14,9 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       <main style={{backgroundColor: '#14141c'}}>
           {children}
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </Fragment>
   );
 };

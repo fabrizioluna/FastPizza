@@ -1,3 +1,17 @@
+.userMenu {
+  position: fixed;
+  @include font('RebotoBold', 1rem, #fff);
+  background-color: #1c1c26;
+  right: 8%;
+  width: 12% !important;
+  top: 5%;
+  height: 10rem;
+  display: block !important;
+  padding-left: 1rem;
+  text-align: right;
+  z-index: 10;
+}
+
 .messageWarning {
   background-color: rgba(255, 242, 0, 0.5);
   padding: 1rem;

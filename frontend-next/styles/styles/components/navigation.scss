@@ -18,8 +18,11 @@
         background-color: #3ecc3e;
         color: white;
         width: 100%;
+        font-weight: bold;
+        height: 2rem;
         margin: 0;
-        padding: 1rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
     }
     figure {
@@ -32,7 +35,7 @@
     }
     div {
       display: flex;
-      width: 50%;
+      width: 65%;
       justify-content: flex-end;
     }
   }
