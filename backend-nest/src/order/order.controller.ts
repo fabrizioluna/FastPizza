@@ -34,6 +34,11 @@ export class OrderController {
     return this.orderServices.updateOrder(id, body);
   }
 
+  @Get('/getorderbybuyer')
+  getOrdersByBuyer(@Query('id') buyerId: ObjectId) {
+    return this.orderServices.getOrderByUser(buyerId);
+  }
+
   @Get('/getall')
   @UsePipes(new ValidationPipe({ whitelist: true }))
   get(@Query() querys: OrderDtoGet) {
@@ -77,6 +82,10 @@ export class OrderController {
     @Query('month') month: string,
     @Query('year') year: string,
   ) {
-    return this.orderServices.getProductsSold(parseInt(day), month, parseInt(year));
+    return this.orderServices.getProductsSold(
+      parseInt(day),
+      month,
+      parseInt(year),
+    );
   }
 }

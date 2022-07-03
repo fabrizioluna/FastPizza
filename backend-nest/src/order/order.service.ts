@@ -81,6 +81,15 @@ export class OrderServices {
       .populate({ path: 'order_buyer', select: 'user_name' });
   }
 
+  getOrderByUser(buyerId: ObjectId) {
+    return this.orderModel
+      .find()
+      .where('order_buyer')
+      .equals(buyerId)
+      .populate({ path: 'order_products' })
+      .populate({ path: 'order_buyer', select: 'user_name' });
+  }
+
   getAll(orderQuery: OrderDtoGet) {
     return this.orderModel
       .find()
