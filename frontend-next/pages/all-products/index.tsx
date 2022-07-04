@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout';
+import { CustomMessage } from '@/components/message/message.component';
 import { PageHead } from '@/components/pageHead/pageHead.component';
 import { GetServerSideProps } from 'next';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
@@ -15,6 +16,7 @@ interface FormProps {
 
 const AllProducts = ({ products }: { products: Product[] }) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
+  const [productsNotFound, setProductsNotFound] = useState<boolean>(false);
   const [values, setValues] = useState<FormProps>({
     specificSearch: '',
     specificCategory: '',
@@ -37,24 +39,28 @@ const AllProducts = ({ products }: { products: Product[] }) => {
       values.specificMaxPrice == 0 &&
       setCurrentProducts([]);
 
-    values.specificSearch.length > 0 &&
-      setCurrentProducts(
-        applyProduct.getBySearch(
-          currentProducts.length > 0 ? currentProducts : products,
-          values.specificSearch
-        )
+    let resultFilter: Product[] = [];
+
+    if (values.specificSearch.length > 0) {
+      resultFilter = applyProduct.getBySearch(
+        resultFilter.length === 0 ? products : resultFilter,
+        values.specificSearch
       );
-    values.specificCategory.length > 0 &&
-      setCurrentProducts(
-        applyProduct.getByCategory(products, values.specificCategory)
+    }
+    if (values.specificCategory.length > 0) {
+      resultFilter = applyProduct.getByCategory(
+        resultFilter.length === 0 ? products : resultFilter,
+        values.specificCategory
       );
-    values.specificMaxPrice > 0 &&
-      setCurrentProducts(
-        applyProduct.getByLimitPrice(
-          currentProducts.length > 0 ? currentProducts : products,
-          values.specificMaxPrice
-        )
+    }
+    if (values.specificMaxPrice > 0) {
+      resultFilter = applyProduct.getByLimitPrice(
+        resultFilter.length === 0 ? products : resultFilter,
+        values.specificMaxPrice
       );
+    }
+    if (resultFilter.length === 0) setProductsNotFound(true);
+    setCurrentProducts(resultFilter);
   };
 
   return (
@@ -64,6 +70,12 @@ const AllProducts = ({ products }: { products: Product[] }) => {
         <aside>
           <form onSubmit={initializeFilter}>
             <p>Buscar por producto:</p>
+            {productsNotFound && (
+              <CustomMessage
+                message='No encontramos coincidencias en tu busqueda. Intenta nuevamente.'
+                type='ERROR'
+              />
+            )}
             <input
               name='specificSearch'
               placeholder='Buscar producto'
@@ -83,12 +95,12 @@ const AllProducts = ({ products }: { products: Product[] }) => {
               placeholder='Ingresa la cantidad'
               onChange={onChangeInputs}
             />
-            <button>Aplicar filtros</button>
+            <button onClick={() => setProductsNotFound(false)}>Aplicar filtros</button>
           </form>
 
-          <button onClick={() => setCurrentProducts([])}>
+          {/* <button onClick={() => setCurrentProducts([])}>
             Limpiar filtros
-          </button>
+          </button> */}
         </aside>
 
         <ShowProducts
