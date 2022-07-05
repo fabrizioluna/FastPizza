@@ -131,6 +131,8 @@ export class OrderServices {
       .find()
       .where('order_statusKitchenFinished')
       .equals(true)
+      .where('order_status')
+      .equals(false)
       .populate({ path: 'order_products' })
       .populate({ path: 'order_buyer', select: 'user_name' });
   }

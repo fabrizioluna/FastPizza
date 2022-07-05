@@ -6,7 +6,7 @@ export const DeliveryStageOne = ({
   sendDeliverys,
 }: {
   deliverys: Order[];
-  sendDeliverys: (client: string, status: boolean) => any;
+  sendDeliverys: (client: string, status: boolean, orderStatus: boolean) => any;
 }) => {
   return (
     <Fragment>
@@ -19,7 +19,7 @@ export const DeliveryStageOne = ({
           <p>{delivery.addressClient}</p>
         </div>
         <footer>
-          <button onClick={() => sendDeliverys(delivery._id, true)}>Tomar entrega</button>
+          <button onClick={() => sendDeliverys(delivery._id, true, false)}>Tomar entrega</button>
         </footer>
       </article>)}
     </Fragment>

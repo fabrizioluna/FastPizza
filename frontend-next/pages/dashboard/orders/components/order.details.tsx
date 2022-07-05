@@ -10,7 +10,6 @@ export const OrderDetails = ({
   resetDetails: (set: any) => void;
   sendCompleteOrder: (idOrder: string, statusKitchenFinished: boolean) => any;
 }) => {
-  console.log(details)
   return (
     <div className='dashboardOrder-details'>
       {details !== undefined ? (

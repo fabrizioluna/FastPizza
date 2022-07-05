@@ -40,6 +40,8 @@ interface FormProps {
   setValueInputs: (set: any) => void;
   values: any;
   inputs: Inputs[];
+  inputsDisable?: boolean;
+  inputsVisibility?: boolean;
   selects?: Selects[];
   formStyles: any;
   submitCallback: (e: React.FormEvent) => Promise<void>;
@@ -52,6 +54,8 @@ export const CustomForm = ({
   setValueInputs,
   values,
   inputs,
+  inputsDisable = false,
+  inputsVisibility = true,
   selects = [],
   formStyles,
   submitCallback,
@@ -102,14 +106,17 @@ export const CustomForm = ({
                   )}
                 </div>
               ) : (
-                <input
-                  key={key} // If not are radio input... just we create a normal input
-                  style={{ width: '100%' }}
-                  name={`${Input.name}`}
-                  type={`${Input.type}`}
-                  placeholder={`${Input.placeholder}`}
-                  onChange={onChangeInputs}
-                />
+                <>
+                  {inputsVisibility && <input
+                    key={key} // If not are radio input... just we create a normal input
+                    style={{ width: '100%' }}
+                    disabled={inputsDisable}
+                    name={`${Input.name}`}
+                    type={`${Input.type}`}
+                    placeholder={`${Input.placeholder}`}
+                    onChange={onChangeInputs}
+                  />}
+                </>
               )}
             </div>
           ))}
@@ -117,7 +124,9 @@ export const CustomForm = ({
             <>
               {selects.map((select: Selects) => (
                 <>
-                  <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>{select.label}</p>
+                  <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>
+                    {select.label}
+                  </p>
                   <select
                     style={select.selectStyles}
                     name={`${select.name}`}
