@@ -11,7 +11,6 @@ export const LowList = ({ inventoryList }: Props) => {
   // const getLowProducts = () => inventoryList.filter((inv) => inv.pieces <= 3);
   useEffect(() => setNextList(() => inventoryList.filter((inv) => inv.pieces <= 3)), []);
 
-  console.log(nextList)
   return (
     <div>
       {nextList.length > 0 ?

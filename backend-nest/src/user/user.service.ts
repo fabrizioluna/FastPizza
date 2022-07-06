@@ -82,6 +82,25 @@ export class UserServices {
     }
   }
 
+  async confirmEmailByUsername(name: string, code: string) {
+    const userEmail = await this.userModel.findOne({ user_name: name });
+    const { user_verifiedEmail } = userEmail;
+    if (user_verifiedEmail === code) {
+      const userUpdate = await this.userModel.findByIdAndUpdate(
+        userEmail._id,
+        { user_verifiedEmail: '' },
+        { new: true },
+      );
+
+      return {
+        message: 'User has been confirm',
+        user: userUpdate,
+      };
+    } else {
+      throw new HttpException('INVALID_CODE', 400);
+    }
+  }
+
   async get(id: UserGetDto): Promise<User[]> {
     return await this.userModel.findById(id);
   }

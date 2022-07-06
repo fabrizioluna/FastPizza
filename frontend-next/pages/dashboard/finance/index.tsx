@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetServerSideProps } from 'next';
@@ -15,6 +16,7 @@ const Dashboard_Finance = ({ financeObject }: { financeObject: Finance }) => {
   console.log(financeObject);
   return (
     <DashboardLayout>
+      <PageHead titlePage='Panel de Empleado: Finanzas' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faWallet} />

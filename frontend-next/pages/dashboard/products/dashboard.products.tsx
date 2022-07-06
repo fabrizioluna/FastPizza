@@ -6,12 +6,14 @@ import { getDashboardProducts } from './services/product.service';
 import { ListProducts } from './components/dashboard.listProducts';
 import { DashboardContainer } from '../components/dashboard.container';
 import { CreateProduct } from './components/products.newproduct';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 
 export const DashboardProducts = () => {
   const { call } = useCallService(getDashboardProducts, productAdapter);
 
   return (
     <div>
+      <PageHead titlePage='Panel de Empleado: Productos' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faBurger} />
@@ -33,13 +35,13 @@ export const DashboardProducts = () => {
         </DashboardContainer>
       </main>
       <main className='dashboardContainers'>
-        <DashboardContainer title='Registrar nuevo producto'>
-          <CreateProduct />
+        <DashboardContainer title='Lista de todos los productos'>
+          {call !== null && <ListProducts products={call} />}
         </DashboardContainer>
       </main>
       <main className='dashboardContainers'>
-        <DashboardContainer title='Lista de todos los productos'>
-          {call !== null && <ListProducts products={call} />}
+        <DashboardContainer title='Registrar nuevo producto'>
+          <CreateProduct />
         </DashboardContainer>
       </main>
     </div>

@@ -2,7 +2,6 @@ export interface InitialOrder {
   _id: string;
   order_envoice: string;
   order_status: boolean;
-  order_creationDay: Date;
   order_discountCode: number;
   order_discountApplied: number;
   order_addressClient: string;
@@ -10,6 +9,9 @@ export interface InitialOrder {
   order_statusKitchen: boolean;
   order_statusKitchenFinished: boolean;
   order_statusDelivery: boolean;
+  order_creationDay: number;
+  order_creationMonth: string;
+  order_creationYear: number;
   order_buyer: {
     user_name: string;
   };
@@ -20,7 +22,6 @@ export interface Order {
   _id: string;
   envoice: string;
   status: boolean;
-  creationDay: Date;
   discountCode: number;
   discountApplied: number;
   addressClient: string;
@@ -28,6 +29,9 @@ export interface Order {
   statusKitchen: boolean;
   statusDelivery: boolean;
   statusKitchenFinished: boolean;
+  creationDay: number;
+  creationMonth: string;
+  creationYear: number;
   buyer: string;
   products: OrderProduct[];
 }
@@ -59,7 +63,6 @@ export const orderAdapter = (orderObject: InitialOrder) => {
     _id: orderObject._id,
     status: orderObject.order_status,
     envoice: orderObject.order_envoice,
-    creationDay: orderObject.order_creationDay,
     discountCode: orderObject.order_discountCode,
     discountApplied: orderObject.order_discountApplied,
     statusKitchenFinished: orderObject.order_statusKitchenFinished,
@@ -67,6 +70,9 @@ export const orderAdapter = (orderObject: InitialOrder) => {
     statusKitchen: orderObject.order_statusKitchen,
     statusDelivery: orderObject.order_statusDelivery,
     totalAmount: orderObject.order_totalAmount,
+    creationDay: orderObject.order_creationDay,
+    creationMonth: orderObject.order_creationMonth,
+    creationYear: orderObject.order_creationYear,
     buyer: orderObject.order_buyer.user_name,
     products: orderObject.order_products.map((product) =>
       productAdapter(product)

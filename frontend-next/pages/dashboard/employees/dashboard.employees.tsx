@@ -1,3 +1,4 @@
+import { PageHead } from "@/components/pageHead/pageHead.component";
 import { useCallService } from "@/hooks/useCallService";
 import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +22,7 @@ export const DashboardEmployees = () => {
 
   return (
     <DashboardLayout>
+      <PageHead titlePage='Panel de Empleado: Empleados' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faBriefcase} />
@@ -30,6 +32,13 @@ export const DashboardEmployees = () => {
           <p>Lista y gestion de todos tus empleados.</p>
         </main>
       </header>
+      <main className='dashboardContainers'>
+        <DashboardContainer title='Lista de empleados activos'>
+          {call !== null && employeeList.length > 0 && (
+            <ListEmployees employees={employeeList as any} />
+          )}
+        </DashboardContainer>
+      </main>
       <main className='dashboardContainers'>
         <DashboardContainer title='Contratar nuevo empleado'>
           {call !== null && (
@@ -41,13 +50,6 @@ export const DashboardEmployees = () => {
         </DashboardContainer>
         <DashboardContainer title='Total de empleados'>
           {call !== null && <CountEmployees countEmployees={call.length} />}
-        </DashboardContainer>
-      </main>
-      <main className='dashboardContainers'>
-        <DashboardContainer title='Lista de empleados activos'>
-          {call !== null && employeeList.length > 0 && (
-            <ListEmployees employees={employeeList as any} />
-          )}
         </DashboardContainer>
       </main>
     </DashboardLayout>

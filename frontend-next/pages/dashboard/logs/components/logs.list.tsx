@@ -1,8 +1,10 @@
+import { Paginator } from '@/components/paginator/paginator';
 import { CustomTable } from '@/components/tables/table.component';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { LogAdapted } from '../types/logs.types';
 
 export const LogsList = ({ logs }: { logs: LogAdapted[] }) => {
+  const [pagination, setPagination] = useState<number>(0);
   return (
     <Fragment>
       <CustomTable
@@ -24,7 +26,7 @@ export const LogsList = ({ logs }: { logs: LogAdapted[] }) => {
           },
         ]}
       >
-        {logs.map((log: LogAdapted) => (
+        {logs.slice(pagination, pagination + 20).map((log: LogAdapted) => (
           <tr key={log.id}>
             <td>{log.action}</td>
             <td>{log.description}</td>
@@ -33,6 +35,12 @@ export const LogsList = ({ logs }: { logs: LogAdapted[] }) => {
             <td>{log.timestamps}</td>
           </tr>
         ))}
+        <Paginator
+          arr={logs}
+          changePage={setPagination}
+          currentPage={pagination}
+          numberItemsPerPage={20}
+        />
       </CustomTable>
     </Fragment>
   );

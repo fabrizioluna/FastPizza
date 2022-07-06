@@ -1,4 +1,5 @@
 import { Layout } from '@/components/layout';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import React, { useState } from 'react';
 import { ConfirmForm } from './components/confirmForm';
 import { RegisterForm } from './components/registerForm';
@@ -11,6 +12,7 @@ const SingUp = () => {
 
   return (
     <Layout>
+      <PageHead titlePage='Registrate gratis' />
       {!enterCode && (
         <RegisterForm
           setValues={setValues}

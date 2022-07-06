@@ -6,7 +6,7 @@ export const Header = () => {
       <article>
         <h1>¡Haz tu pedido a domicilio!</h1>
         <p>Haz tu primer pedido a domicilio y recibe un descuento del 40%.</p>
-        <Button config={{ type: false, color: 'primary', link: '/cart' }}>
+        <Button config={{ type: false, color: 'primary', link: '/auth/singup' }}>
           Registrate gratis
         </Button>
       </article>

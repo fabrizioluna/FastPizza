@@ -1,8 +1,8 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { localStorageHandler } from '@/utils/localStorage/localStorageHandler';
 import { useEffect, useState } from 'react';
 import { Layout } from '../../components/layout';
 import { ListProducts } from './components/listProducts';
-import { OrderDetails } from './components/orderDetails';
 
 const Cart = () => {
   const [cart, setCart] = useState<{ status: number; data: any }>({
@@ -20,6 +20,7 @@ const Cart = () => {
 
   return (
     <Layout>
+      <PageHead titlePage='Tu carrito de Compras' />
       <ListProducts status={cart.status} products={cart.data} />
     </Layout>
   );

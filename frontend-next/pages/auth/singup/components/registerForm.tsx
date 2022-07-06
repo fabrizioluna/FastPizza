@@ -21,8 +21,6 @@ export const RegisterForm = ({
       setPreviuosValues({ _id: data._id });
       return setEnterCode(true);
     }
-
-    console.log(data, statusCode)
   };
   return (
     <div className='user_singup'>

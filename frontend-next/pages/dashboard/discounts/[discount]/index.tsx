@@ -1,4 +1,5 @@
 import { CustomForm } from '@/components/form/form.component';
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -58,6 +59,10 @@ const DiscountPage = () => {
 
   return (
     <DashboardLayout>
+      {loading && <PageHead titlePage='Panel de Empleado: Cargando...' />}
+      {discount?.specialKey !== undefined && !loading && (
+        <PageHead titlePage={`Editando descuento ${discount.specialKey}`} />
+      )}
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faTags} />
@@ -115,7 +120,8 @@ const DiscountPage = () => {
                 />
                 <button
                   onClick={() => deleteDiscountHandler(discount.id as string)}
-                id='buttonDeleteDiscount'>
+                  id='buttonDeleteDiscount'
+                >
                   Borrar Descuento
                 </button>
               </div>

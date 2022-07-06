@@ -12,7 +12,6 @@ export const DashboardDelivery = ({
   delivery_data: Order[];
 }) => {
   const [deliverys, setDeliverys] = useState<Order[]>([]);
-  const [orderDetails, setOrderDetails] = useState<Order>();
 
   const socket = io('http://localhost:4000', {
     transports: ['websocket', 'polling'],
@@ -25,9 +24,14 @@ export const DashboardDelivery = ({
     return setDeliverys(Deliverys);
   });
 
-  const sendDeliverySocket = (orderId: string, newStatus: boolean) => {
+  const sendDeliverySocket = (
+    orderId: string,
+    newStatus: boolean,
+    statusOrder: boolean
+  ) => {
     socket.emit('orderChangeDelivery', {
       _id: orderId,
+      order_status: statusOrder,
       order_statusDelivery: newStatus,
     });
   };

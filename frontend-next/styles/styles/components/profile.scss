@@ -1,0 +1,87 @@
+.profileClient {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  header {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  article {
+    display: flex;
+    section {
+      padding: 1rem;
+      margin-right: 1rem;
+      background-color: #1c1c26;
+      width: 70%;
+    }
+    aside {
+      margin-right: 1rem;
+      background-color: #1c1c26;
+      width: 30%;
+      height: 25rem;
+      div {
+        margin-top: 1rem;
+        li {
+          cursor: pointer;
+          padding-right: 2rem;
+          padding-left: 2rem;
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+          @include font('RebotoBold', 1rem, #a1a1a1);
+          list-style: none;
+          transition: all 1.5s;
+          &:hover {
+            background-color: #3fbb68;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+  h2 {
+    @include font('RebotoBold', 2rem, #fff);
+    // #468aff
+  }
+  p {
+    color: #fff;
+  }
+}
+
+.profileOrders {
+  @include font('RebotoBold', 1rem, #a1a1a1);
+  width: 100%;
+  section {
+    display: flex;
+    // width: 100%;
+    p {
+      @include font('RebotoBold', 1rem, #a1a1a1);
+      width: 90%;
+    }
+    h2 {
+      text-align: right;
+      // width: 30%;
+      @include font('RebotoBold', 1rem, #a1a1a1);
+    }
+  }
+  footer {
+    display: flex;
+    p {
+      width: 35%;
+    }
+    button {
+      width: 70%;
+      margin-top: 2.5rem;
+      margin-bottom: 2rem;
+      height: 2.5rem;
+      border-color: transparent;
+      background-color: #3fbb68;
+      font-size: 17px;
+      color: rgb(255, 255, 255);
+      font-weight: bold;
+      transition: all 1.2s;
+      &:hover {
+        background-color: #2d8249;
+      }
+    }
+  }
+}

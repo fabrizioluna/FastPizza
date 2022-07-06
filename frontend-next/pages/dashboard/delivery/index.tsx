@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { useCallService } from '@/hooks/useCallService';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +10,8 @@ import { DashboardDelivery } from './components/dashboard.delivery';
 const Dashboard_Delivery = () => {
   const { call }: any = useCallService(getAllOrdersByDelivery, orderAdapter);
   return (
-      <DashboardLayout>
+    <DashboardLayout>
+      <PageHead titlePage='Panel de Empleado: Entregas' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faTruck} />
@@ -19,7 +21,7 @@ const Dashboard_Delivery = () => {
           <p>Lista de todas las entregas por realizar.</p>
         </main>
       </header>
-      {call !== null && <DashboardDelivery delivery_data={call} /> }
+      {call !== null && <DashboardDelivery delivery_data={call} />}
     </DashboardLayout>
   );
 };

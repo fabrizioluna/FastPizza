@@ -1,3 +1,4 @@
+import { PageHead } from '@/components/pageHead/pageHead.component';
 import { useCallService } from '@/hooks/useCallService';
 import { faShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,6 +19,7 @@ export const DashboardPermissions = () => {
 
   return (
     <div>
+      <PageHead titlePage='Panel de Empleado: Privilegios' />
       <header className='dashboardHeader'>
         <div>
           <FontAwesomeIcon icon={faShield} />

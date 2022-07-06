@@ -143,7 +143,6 @@
   }
 }
 
-
 .dashboardNav {
   color: rgb(161, 161, 161);
   background-color: #1c1c26;
@@ -157,7 +156,7 @@
     @include font('Bebas', 1.5rem, rgb(161, 161, 161));
   }
   li {
-    padding: 0rem 1rem .2rem;
+    padding: 0rem 1rem 0.2rem;
     margin-bottom: 5px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -169,7 +168,7 @@
       display: flex;
       font-size: 1rem;
       p {
-        padding-left: .5rem;
+        padding-left: 0.5rem;
       }
     }
     &:hover {
@@ -179,7 +178,7 @@
   }
   footer {
     p {
-      padding: 0rem 1rem .2rem;
+      padding: 0rem 1rem 0.2rem;
       @include font('Bebas', 1rem, rgb(161, 161, 161));
     }
   }
@@ -189,7 +188,7 @@
   width: 95%;
   margin-left: auto;
   margin-right: auto;
-  display: flex;  
+  display: flex;
   div {
     margin-top: 2rem;
     width: 33%;
@@ -209,7 +208,7 @@
       text-transform: uppercase;
     }
   }
-  
+
   section {
     margin-top: 2rem;
     @extend %card-Dashboard;
@@ -282,11 +281,95 @@ section .dashboardDeliveryTruck {
 #chartButtonStyle {
   background-color: rgb(128, 128, 128, 0.2);
   border-radius: 6px;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   font-size: 12px;
   color: #c0c0c0;
   transition: all 3s;
-  &:hover{
+  &:hover {
     background-color: rgb(128, 128, 128, 0.5);
+  }
+}
+
+.modalDashboard {
+  width: 100%;
+  top: 0;
+  height: 100vh;
+  z-index: 10;
+  backdrop-filter: blur(1rem);
+  position: fixed;
+  section {
+    width: 25%;
+    margin: auto;
+    height: 85%;
+    margin-top: 3.5%;
+    background-color: $DASHBOARD_PRIMARY_COLOR;
+    article {
+      padding: 1rem;
+      color: white;
+      div {
+        width: 100%;
+      }
+    }
+    header {
+      display: flex;
+      h1 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        padding-bottom: 1rem;
+        width: 50%;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+      h2 {
+        @include font('RebotoBold', 1rem, #878787);
+        border-bottom: 1px solid #bebebe;
+        padding-top: 1rem;
+        padding-right: 1rem;
+        text-align: right;
+        width: 50%;
+        cursor: pointer;
+        padding-bottom: 1rem;
+        font-weight: bold !important;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.buttonFInishDelivery {
+  width: 100%;
+  text-align: center !important;
+  margin-top: 0rem !important;
+  margin-bottom: 0rem !important;
+  height: 2.5rem;
+  border-color: transparent;
+  background-color: #3f52bb !important;
+  font-size: 17px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  transition: all 1.2s;
+  &:hover {
+    background-color: #3748a8 !important;
+  }
+  &:disabled {
+    background-color: #273376 !important;
+    color: grey;
+  }
+}
+
+.modalLegendContainer {
+  width: 60% !important;
+  margin: auto;
+  text-align: center
+}
+
+.modalLegend {
+  h5 {
+    @include font('RebotoBold', 1rem, #878787);
+  }
+  p {
+    @include font('RebotoBold', 1rem, #ffffff);
   }
 }
