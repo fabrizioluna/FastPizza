@@ -6,7 +6,7 @@
     @include font('RebotoBold', 1rem, #606060);
   }
   td {
-    @include font('Reboto', .8rem, #ffffff);
+    @include font('Reboto', 0.8rem, #ffffff);
     height: 2rem;
     font-weight: bold;
     div {
@@ -21,11 +21,30 @@
       }
     }
   }
-  button {
+  span {
     text-decoration: underline;
     background-color: transparent;
     border-color: transparent;
     font-weight: bolder;
+    padding-right: 1rem;
     @include font('Reboto', 1rem, rgb(162, 162, 162));
   }
+  button {
+    margin-top: 1rem;
+    margin-left: -1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+    font-weight: bolder;
+    float: left;
+    @include font('Reboto', 1rem, #3fbb68);
+    transition: all 1.2s;
+    &:hover {
+      background-color: #2d8249;
+      color: #ffffff;
+    }
+  }
 }
+
