@@ -63,8 +63,8 @@ export const RolesList = ({ currentList }: RolesProps) => {
             <td>{rol.permissionsRoles ? 'Si' : 'No'}</td>
             <td>{rol.permissionsStatustics ? 'Si' : 'No'}</td>
             <td>
-              <button>Ver información</button>
-              <button>Editar rol</button>
+              <span>Ver información</span>
+              <span>Editar rol</span>
             </td>
           </tr>
         ))}

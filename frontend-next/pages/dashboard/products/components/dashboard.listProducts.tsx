@@ -11,7 +11,7 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
       <CustomTable
         fields={[
           {
-            nameField: 'Nombre',
+            nameField: 'Producto',
           },
           {
             nameField: 'Categoria',
@@ -32,8 +32,13 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
       >
         {products.slice(pagination, pagination + 10).map((product: Product) => (
           <tr key={product._id}>
-            <td>{product.title}</td>
-            <td>{product.category}</td>
+            <td>
+                <div>
+                  <img src={product.image} />
+                  <p>{product.title}</p>
+                </div>
+              </td>
+            <td>{product.category.category_name}</td>
             <td>${product.price}</td>
             <td>{product.discount}%</td>
             <td>{product.description}</td>

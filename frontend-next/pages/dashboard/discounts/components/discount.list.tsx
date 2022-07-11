@@ -3,6 +3,25 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import { Discount } from '../adapters/discount.adapter';
 
+const StatusDiscount = {
+  active: {
+    value: 'Activo',
+    styles: {
+      background: 'rgb(63, 187, 104, 0.4)',
+      borderRadius: '15px',
+      textAlign: 'center' as 'center',
+    },
+  },
+  expire: {
+    value: 'Expirado',
+    styles: {
+      background: 'rgba(187, 63, 63, 0.4)',
+      borderRadius: '15px',
+      textAlign: 'center' as 'center',
+    },
+  },
+};
+
 export const ListDiscounts = ({ discounts }: { discounts: Discount[] }) => {
   return (
     <Fragment>
@@ -37,11 +56,21 @@ export const ListDiscounts = ({ discounts }: { discounts: Discount[] }) => {
             <td>{discount.percentage}%</td>
             <td>${discount.priceFloor}</td>
             <td>{discount.limitToApply}</td>
-            <td>{discount.status}</td>
+            <td
+              style={
+                discount.status
+                  ? StatusDiscount.active.styles
+                  : StatusDiscount.expire.styles
+              }
+            >
+              {discount.status
+                ? StatusDiscount.active.value
+                : StatusDiscount.expire.value}
+            </td>
             <td>{discount.expiresIn}</td>
             <td>
               <Link href={`discounts/${discount.id}`}>
-                <button>Editar descuento</button>
+                <span>Editar descuento</span>
               </Link>
             </td>
           </tr>

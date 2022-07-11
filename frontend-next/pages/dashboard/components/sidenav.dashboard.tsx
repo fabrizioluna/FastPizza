@@ -13,7 +13,7 @@ export const Sidenav = () => {
     <div className='dashboardSidebar'>
       <figure>
         <img
-          src='https://media.v2.siweb.es/uploaded_thumb_medium/75ced0231b30d5bbba39592fef39e64d/retratos_profesionales_corporativos_madrid_fotografo_089.jpg'
+          src='https://images.assetsdelivery.com/compings_v2/linelly/linelly1803/linelly180300024.jpg'
           alt='imagenPruebaPerfil'
         />
       </figure>

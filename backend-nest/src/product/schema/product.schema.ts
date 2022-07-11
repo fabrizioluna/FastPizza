@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export type ProductDoc = Product & Document;
 
@@ -23,8 +23,12 @@ export class Product {
   @Prop({ required: true })
   product_createdAt: Date;
   
-  @Prop({ required: true })
-  product_category: string;
+  @Prop({ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Categories',
+    required: true
+  })
+  product_category: mongoose.Types.ObjectId;
   
 }
 

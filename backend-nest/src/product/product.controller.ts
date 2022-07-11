@@ -1,6 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { ProductGet } from './dto/product.dto';
+import { ProductCreateDto, ProductGet } from './dto/product.dto';
 import { ProductServices } from './product.service';
 import { ProductDoc } from './schema/product.schema';
 
@@ -9,7 +20,7 @@ export class ProductController {
   constructor(private productServices: ProductServices) {}
 
   @Post('/create')
-  create(@Body() body: ProductDoc) {
+  create(@Body() body: ProductCreateDto) {
     return this.productServices.createProduct(body);
   }
 
@@ -26,12 +37,11 @@ export class ProductController {
 
   @Put('/update')
   updateUser(@Query('id') id: ObjectId, @Body() body: ProductDoc) {
-    return this.productServices.update(id, body)
+    return this.productServices.update(id, body);
   }
 
   @Delete('/delete')
   deleteUser(@Query('id') id: ObjectId) {
     return this.productServices.delete(id);
   }
-
 }

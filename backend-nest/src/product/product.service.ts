@@ -28,24 +28,32 @@ export class ProductServices {
     return productQuerys.hasOwnProperty('category')
       ? await this.productModel
           .find({ product_category: productQuerys.category })
+          .populate({ path: 'product_category' })
           .limit(
             productQuerys.hasOwnProperty('limit') ? productQuerys.limit : 0,
           )
       : await this.productModel
           .find()
+          .populate({ path: 'product_category' })
           .limit(
             productQuerys.hasOwnProperty('limit') ? productQuerys.limit : 0,
           );
   }
 
   get(productId: ProductGet) {
-    return this.productModel.findById(productId.id);
+    return this.productModel
+      .findById(productId.id)
+      .populate({ path: 'product_category' });
   }
 
   async update(productId: ObjectId, productObject: ProductDoc) {
-    const Product = await this.productModel.findByIdAndUpdate(productId, productObject, {
-      new: true,
-    });
+    const Product = await this.productModel.findByIdAndUpdate(
+      productId,
+      productObject,
+      {
+        new: true,
+      },
+    );
 
     this.productLog.triggerLog(
       'UPDATE',

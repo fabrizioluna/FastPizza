@@ -22,9 +22,8 @@ export class ProductCreateDto {
   @IsNotEmpty()
   product_discount: number;
 
-  @IsString()
   @IsNotEmpty()
-  product_category: string;
+  product_category: ObjectId;
   
   @IsString()
   @IsNotEmpty()

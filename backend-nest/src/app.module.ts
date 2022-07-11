@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CartModule } from './cart/cart.module';
+import { CategoriesModule } from './categories/categories.module';
 import { DiscountModule } from './discounts/discount.module';
 import { EmployeeModule } from './employee/employee.module';
 import { FinanceModule } from './finance/finance.module';
@@ -21,13 +21,13 @@ import { UserModule } from './user/user.module';
     ProductModule,
     OrderModule,
     EmployeeModule,
-    CartModule,
     DiscountModule,
     LogsModule,
     StatisticsModule,
     FinanceModule,
     RolesModule,
-    InventoryModule
+    InventoryModule,
+    CategoriesModule
   ],
   controllers: [AppController],
   providers: [AppService],
