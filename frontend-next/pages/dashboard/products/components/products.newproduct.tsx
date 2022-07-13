@@ -1,7 +1,7 @@
 import { CustomForm } from '@/components/form/form.component';
 import { Categories } from 'pages/all-products/types/allproducts.type';
 import { useState } from 'react';
-import { createDashboardProduct, createNewProduct } from '../services/product.service';
+import { createNewProduct } from '../services/product.service';
 
 export interface FormCreateProduct {
   product_name: string;
@@ -17,7 +17,6 @@ export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
     product_name: '',
     product_description: '',
     product_discount: '',
-    // product_image: '',
     product_price: '',
     product_category: ''
   });
@@ -31,14 +30,9 @@ export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
   const registerProductHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // const bodyFormData = new FormData(e.target as any);
-    console.log(values);
-    await createNewProduct(values);
+    const { data, statusCode } = await createNewProduct(values);
+    // TODO: Manejar excepciones
 
-    // TODO: Manejar las exepciones
-    // const { data, statusCode } = await createDashboardProduct(values as any);
-    // const employeeAdapted = employeeAdapter(data);
-    // setEmployees([...curretListEmployees, employeeAdapted]);
   };
   return (
     <div className='dashboardForm'>
