@@ -33,11 +33,13 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
         {products.slice(pagination, pagination + 10).map((product: Product) => (
           <tr key={product._id}>
             <td>
-                <div>
-                  <img src={product.image} />
-                  <p>{product.title}</p>
-                </div>
-              </td>
+              <div>
+                <img
+                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}${product.image}`}
+                />
+                <p>{product.title}</p>
+              </div>
+            </td>
             <td>{product.category.category_name}</td>
             <td>${product.price}</td>
             <td>{product.discount}%</td>

@@ -1,10 +1,26 @@
 import { CustomForm } from '@/components/form/form.component';
 import { Categories } from 'pages/all-products/types/allproducts.type';
 import { useState } from 'react';
-import { createDashboardProduct } from '../services/product.service';
+import { createDashboardProduct, createNewProduct } from '../services/product.service';
+
+export interface FormCreateProduct {
+  product_name: string;
+  product_description: string;
+  product_price: string;
+  product_discount: string;
+  product_image?: any;
+  product_category: string;
+}
 
 export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
-  const [values, setValues] = useState();
+  const [values, setValues] = useState<FormCreateProduct>({
+    product_name: '',
+    product_description: '',
+    product_discount: '',
+    // product_image: '',
+    product_price: '',
+    product_category: ''
+  });
 
   const createCategoriesArray = () =>
     categories.map((category: Categories) => {
@@ -15,8 +31,9 @@ export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
   const registerProductHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const bodyFormData = new FormData(values);
-    console.log(bodyFormData)
+    // const bodyFormData = new FormData(e.target as any);
+    console.log(values);
+    await createNewProduct(values);
 
     // TODO: Manejar las exepciones
     // const { data, statusCode } = await createDashboardProduct(values as any);
