@@ -54,3 +54,14 @@ export const deleteDashboardProduct = (productId: string) => {
       return { data: err.code, statusCode: err.response.status };
     });
 };
+
+export const createNewCategory = (category: any) => {
+  return client
+    .post(`categories/create?name=${category.category_name}`)
+    .then((data) => {
+      return { data: data.data, statusCode: 200 };
+    })
+    .catch((err) => {
+      return { data: err.code, statusCode: err.response.status };
+    });
+};

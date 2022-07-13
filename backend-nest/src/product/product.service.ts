@@ -12,8 +12,12 @@ export class ProductServices {
     private productLog: ProductLog,
   ) {}
 
-  createProduct(productObject: ProductCreateDto) {
-    const Product = { ...productObject, product_createdAt: new Date() };
+  createProduct(productObject: ProductCreateDto, imageStr: string) {
+    const Product = {
+      ...productObject,
+      product_createdAt: new Date(),
+      product_image: imageStr,
+    };
 
     this.productLog.triggerLog(
       'INSERT',

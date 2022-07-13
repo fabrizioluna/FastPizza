@@ -15,8 +15,11 @@ export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
   const registerProductHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const bodyFormData = new FormData(values);
+    console.log(bodyFormData)
+
     // TODO: Manejar las exepciones
-    const { data, statusCode } = await createDashboardProduct(values as any);
+    // const { data, statusCode } = await createDashboardProduct(values as any);
     // const employeeAdapted = employeeAdapter(data);
     // setEmployees([...curretListEmployees, employeeAdapted]);
   };
@@ -50,7 +53,7 @@ export const CreateProduct = ({ categories }: { categories: Categories[] }) => {
           },
           {
             name: 'product_image',
-            type: 'text',
+            type: 'file',
             placeholder: 'Imagen del Producto',
           },
         ]}

@@ -107,15 +107,17 @@ export const CustomForm = ({
                 </div>
               ) : (
                 <>
-                  {inputsVisibility && <input
-                    key={key} // If not are radio input... just we create a normal input
-                    style={{ width: '100%' }}
-                    disabled={inputsDisable}
-                    name={`${Input.name}`}
-                    type={`${Input.type}`}
-                    placeholder={`${Input.placeholder}`}
-                    onChange={onChangeInputs}
-                  />}
+                  {inputsVisibility && (
+                    <input
+                      key={key} // If not are radio input... just we create a normal input
+                      style={{ width: '100%' }}
+                      disabled={inputsDisable}
+                      name={`${Input.name}`}
+                      type={`${Input.type}`}
+                      placeholder={`${Input.placeholder}`}
+                      onChange={onChangeInputs}
+                    />
+                  )}
                 </>
               )}
             </div>
@@ -149,14 +151,28 @@ export const CustomForm = ({
               Input: Inputs,
               key: number // If the form has a default values
             ) => (
-              <input
-                key={key}
-                name={`${Input.name}`}
-                type={`${Input.type}`}
-                defaultValue={`${Input.prevValue}`}
-                placeholder={`${Input.placeholder}`}
-                onChange={onChangeInputs}
-              />
+              <>
+                {Input.type !== 'file' ? (
+                  <input
+                    key={key}
+                    name={`${Input.name}`}
+                    type={`${Input.type}`}
+                    defaultValue={`${Input.prevValue}`}
+                    placeholder={`${Input.placeholder}`}
+                    onChange={onChangeInputs}
+                  />
+                ) : (
+                  <input
+                    key={key}
+                    name={`${Input.name}`}
+                    type={`${Input.type}`}
+                    defaultValue={`${Input.prevValue}`}
+                    placeholder={`${Input.placeholder}`}
+                    onChange={onChangeInputs}
+                    className='custom-file-upload'
+                  />
+                )}
+              </>
             )
           )}
           <button>{buttonMessage}</button>

@@ -1,3 +1,13 @@
+input[type=file]::file-selector-button {
+  border: transparent;
+  padding: .2em .4em;
+  border-radius: .2em;
+  background-color: transparent;
+  transition: 1s;
+  color: white;
+  cursor: pointer;
+}
+
 .dashboardForm {
   form {
     width: 100%;

@@ -7,21 +7,37 @@ import {
   Post,
   Put,
   Query,
+  UploadedFile,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ObjectId } from 'mongoose';
+import { diskStorage } from 'multer';
 import { ProductCreateDto, ProductGet } from './dto/product.dto';
 import { ProductServices } from './product.service';
 import { ProductDoc } from './schema/product.schema';
+import { changeFilename } from './utils/changeFilename.utils';
 
 @Controller('/product')
 export class ProductController {
   constructor(private productServices: ProductServices) {}
 
   @Post('/create')
-  create(@Body() body: ProductCreateDto) {
-    return this.productServices.createProduct(body);
+  @UseInterceptors(
+    FileInterceptor('product_image', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: changeFilename,
+      }),
+    }),
+  )
+  create(
+    @Body() body: ProductCreateDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.productServices.createProduct(body, image.filename);
   }
 
   @Get('/getall')
