@@ -12,7 +12,7 @@ export class Employee {
   employee_lastname: string;
   
   @Prop()
-  employee_profileImg: string;
+  employee_profileimg: string;
 
   @Prop()
   employee_joined: Date;

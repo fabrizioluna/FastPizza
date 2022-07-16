@@ -29,7 +29,9 @@ export const ShowProducts = ({ currentProducts }: ShowProductsProps) => {
           currentProducts.map((product: Product, index: number) => (
             <section key={index} onClick={() => addProduct(product)}>
               <figure>
-                <img src={product.image} />
+                <img
+                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}${product.image}`}
+                />
                 <div className='products__hover'>
                   <span>{/* <FontAwesomeIcon icon={faShop} /> */}</span>
                 </div>
@@ -38,7 +40,8 @@ export const ShowProducts = ({ currentProducts }: ShowProductsProps) => {
                 <h2>{product.title}</h2>
                 <p>{product.description}</p>
                 <span>
-                  ${getPriceWithDiscount(product.price, product.discount)} MXN -%
+                  ${getPriceWithDiscount(product.price, product.discount)} MXN
+                  -%
                   {product.discount} de descuento
                 </span>
               </article>

@@ -28,7 +28,7 @@ export class ProductController {
   @UseInterceptors(
     FileInterceptor('product_image', {
       storage: diskStorage({
-        destination: './uploads',
+        destination: './uploads/products_assents',
         filename: changeFilename,
       }),
     }),

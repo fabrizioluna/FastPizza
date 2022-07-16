@@ -21,13 +21,13 @@ export class EmployeeServices {
     private jwtService: JwtService,
   ) {}
 
-  async createEmployee(employeeObject: EmployeeDoc) {
-    console.log(employeeObject)
+  async createEmployee(employeeObject: EmployeeDoc, imageStr: string) {
     const Employee = {
       ...employeeObject,
       employee_joined: new Date(),
       employee_uniqueCode: employeeUniqueCode(),
       employee_password: await hashSync(employeeObject.employee_password, 12),
+      employee_profileimg: imageStr,
     };
 
     this.employeeLog.triggerLog(
@@ -54,6 +54,7 @@ export class EmployeeServices {
       employee_id: employee_uniqueCode,
       name: employee.employee_name,
       lastname: employee.employee_lastname,
+      image: employee.employee_profileimg,
     };
     const jwTokenDashboard = this.jwtService.sign(payload);
 
@@ -74,6 +75,7 @@ export class EmployeeServices {
       employee_id: employee.employee_uniqueCode,
       name: employee.employee_name,
       lastname: employee.employee_lastname,
+      image: employee.employee_profileimg,
     });
 
     return {
@@ -83,20 +85,40 @@ export class EmployeeServices {
   }
 
   getEmployee(employeeId: ObjectId) {
-    return this.employeeModel.findById(employeeId).populate('employee_role');
+    return this.employeeModel
+      .findById(employeeId)
+      .populate({ path: 'employee_role' });
   }
 
   getAllEmployees(limit) {
     return this.employeeModel
       .find()
       .limit(limit !== 0 ? limit : 0)
-      .populate('employee_role');
+      .populate({ path: 'employee_role' });
   }
 
-  async updateEmployee(employeeId: ObjectId, employeeObject: EmployeeDoc) {
+  async updateEmployee(
+    employeeId: ObjectId,
+    employeeObject: EmployeeDoc,
+    imageStr: string,
+  ) {
     const Employee = await this.employeeModel.findByIdAndUpdate(
       employeeId,
-      employeeObject,
+      /* 
+      Just working if the password of the Employee has been change.
+      In there we'll encrypted the password and save it.
+    */
+      Object.hasOwnProperty.bind(employeeObject)('employee_password')
+        ? {
+            ...employeeObject,
+            employee_password: await hashSync(
+              employeeObject.employee_password,
+              12,
+            ),
+            employee_profileimg: imageStr,
+          }
+        : // If not... it will be ignored
+          { ...employeeObject, employee_profileimg: imageStr },
       {
         new: true,
       },

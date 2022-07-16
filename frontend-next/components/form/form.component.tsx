@@ -10,6 +10,7 @@ interface Inputs {
   radioLabel?: string;
   radioStyles?: any;
   radioLabelStyles?: any;
+  disableInput?: boolean;
 }
 
 // Types if we've inputs with type radio
@@ -123,7 +124,7 @@ export const CustomForm = ({
                     <input
                       key={key} // If not are radio input... just we create a normal input
                       style={{ width: '100%' }}
-                      disabled={inputsDisable}
+                      disabled={Input.disableInput}
                       name={`${Input.name}`}
                       type={`${Input.type}`}
                       placeholder={`${Input.placeholder}`}
@@ -169,6 +170,7 @@ export const CustomForm = ({
                     key={key}
                     name={`${Input.name}`}
                     type={`${Input.type}`}
+                    disabled={Input.disableInput}
                     defaultValue={`${Input.prevValue}`}
                     placeholder={`${Input.placeholder}`}
                     onChange={onChangeInputs}
@@ -178,7 +180,7 @@ export const CustomForm = ({
                     key={key}
                     name={`${Input.name}`}
                     type={`${Input.type}`}
-                    defaultValue={`${Input.prevValue}`}
+                    // defaultValue={`${Input.prevValue}`}
                     placeholder={`${Input.placeholder}`}
                     onChange={onChangeInputs}
                     className='custom-file-upload'

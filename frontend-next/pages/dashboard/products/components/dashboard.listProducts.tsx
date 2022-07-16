@@ -35,7 +35,7 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
             <td>
               <div>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}${product.image}`}
+                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/products_assents/${product.image}`}
                 />
                 <p>{product.title}</p>
               </div>

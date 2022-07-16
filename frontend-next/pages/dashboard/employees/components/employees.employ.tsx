@@ -6,6 +6,7 @@ import { useState } from 'react';
 import {
   Employee,
   employeeAdapter,
+  FormEmployee,
   InitialEmployee,
 } from '../adapters/employee.adapter';
 import { registerEmployee } from '../services/employee.service';
@@ -17,7 +18,7 @@ export const EmployEmployee = ({
   curretListEmployees: Employee[];
   setEmployees: (set: any) => void;
 }) => {
-  const [values, setValues] = useState();
+  const [values, setValues] = useState<FormEmployee>();
   const { call }: any = useCallService(getAllRoles, rolesAdapter);
 
   const employEmployeeHandler = async (e: React.FormEvent) => {
@@ -25,14 +26,15 @@ export const EmployEmployee = ({
 
     // TODO: Manejar las exepciones
     const { data, statusCode } = await registerEmployee(
-      values as unknown as InitialEmployee
+      values as unknown as FormEmployee
     );
     const employeeAdapted = employeeAdapter(data);
     setEmployees([...curretListEmployees, employeeAdapted]);
   };
 
   const createRolesArray = () =>
-    call.map((rol: any) => { // Create all roles we've in the database.
+    call.map((rol: any) => {
+      // Create all roles we've in the database.
       return { text: rol.name, value: rol.id };
     });
 
@@ -69,6 +71,11 @@ export const EmployEmployee = ({
               name: 'employee_payment',
               type: 'number',
               placeholder: 'Pago quincenal del Empleado',
+            },
+            {
+              name: 'employee_profileimg',
+              type: 'file',
+              placeholder: 'Imagen del Empleado',
             },
           ]}
           selects={[
