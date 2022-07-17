@@ -7,7 +7,18 @@ export const initialState: Employee = {
   joined: '',
   name: '',
   payment: 0,
-  role: ''
+  role: {
+    _id: '',
+    name: '',
+    permissionsOrders: false,
+    permissionsDelivery: false,
+    permissionsEmployees: false,
+    permissionsInventory: false,
+    permissionsFinance: false,
+    permissionsStatustics: false,
+    permissionsProducts: false,
+    permissionsDiscounts: false,
+  }
 };
 
 export const dashboardSlice = createSlice({

@@ -10,6 +10,7 @@ interface Inputs {
   radioLabel?: string;
   radioStyles?: any;
   radioLabelStyles?: any;
+  disableInput?: boolean;
 }
 
 // Types if we've inputs with type radio
@@ -65,7 +66,19 @@ export const CustomForm = ({
 }: FormProps) => {
   // Get all values of the inputs.
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // And pushed in a unique array.
+    if (event.target.type === 'file') {
+      /*
+        We use this condition cuz if the input type is an file, 
+        need to save it as a file not a normal value.
+
+        To prevent errors, just we return the variable setValues.
+      */
+      return setValueInputs({
+        ...values,
+        [event.target.name]: event.target.files![0],
+      });
+    }
+    // If is everything all right we pushed it in this unique array.
     setValueInputs({ ...values, [event.target.name]: event.target.value });
   };
 
@@ -107,15 +120,17 @@ export const CustomForm = ({
                 </div>
               ) : (
                 <>
-                  {inputsVisibility && <input
-                    key={key} // If not are radio input... just we create a normal input
-                    style={{ width: '100%' }}
-                    disabled={inputsDisable}
-                    name={`${Input.name}`}
-                    type={`${Input.type}`}
-                    placeholder={`${Input.placeholder}`}
-                    onChange={onChangeInputs}
-                  />}
+                  {inputsVisibility && (
+                    <input
+                      key={key} // If not are radio input... just we create a normal input
+                      style={{ width: '100%' }}
+                      disabled={Input.disableInput}
+                      name={`${Input.name}`}
+                      type={`${Input.type}`}
+                      placeholder={`${Input.placeholder}`}
+                      onChange={onChangeInputs}
+                    />
+                  )}
                 </>
               )}
             </div>
@@ -149,14 +164,29 @@ export const CustomForm = ({
               Input: Inputs,
               key: number // If the form has a default values
             ) => (
-              <input
-                key={key}
-                name={`${Input.name}`}
-                type={`${Input.type}`}
-                defaultValue={`${Input.prevValue}`}
-                placeholder={`${Input.placeholder}`}
-                onChange={onChangeInputs}
-              />
+              <>
+                {Input.type !== 'file' ? (
+                  <input
+                    key={key}
+                    name={`${Input.name}`}
+                    type={`${Input.type}`}
+                    disabled={Input.disableInput}
+                    defaultValue={`${Input.prevValue}`}
+                    placeholder={`${Input.placeholder}`}
+                    onChange={onChangeInputs}
+                  />
+                ) : (
+                  <input
+                    key={key}
+                    name={`${Input.name}`}
+                    type={`${Input.type}`}
+                    // defaultValue={`${Input.prevValue}`}
+                    placeholder={`${Input.placeholder}`}
+                    onChange={onChangeInputs}
+                    className='custom-file-upload'
+                  />
+                )}
+              </>
             )
           )}
           <button>{buttonMessage}</button>

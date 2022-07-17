@@ -1,4 +1,30 @@
+input[type=file]::file-selector-button {
+  border: transparent;
+  padding: .2em .4em;
+  border-radius: .2em;
+  background-color: transparent;
+  transition: 1s;
+  color: white;
+  cursor: pointer;
+}
+
 .dashboardForm {
+  figure {
+    width: 60%;
+    height: 15rem;
+    margin: auto;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    img {
+      width: 60%;
+      display: block;
+      height: 15rem;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
   form {
     width: 100%;
     margin: auto;

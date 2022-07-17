@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CartServices } from 'src/cart/cart.services';
-import { Cart, CartSchema } from 'src/cart/schema/cart.schema';
 import { LogsService } from 'src/log/logs.service';
 import { Logs, LogsSchema } from 'src/log/schema/logs.schema';
 import { MailModule } from 'src/service/mails/mail.module';
@@ -16,7 +14,6 @@ import { UserServices } from './user.service';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    MongooseModule.forFeature([{ name: Cart.name, schema: CartSchema }]),
     MongooseModule.forFeature([{ name: Logs.name, schema: LogsSchema }]),
     JwtModule.register({
       secret: 'MY_JSONWEB_TOKEN_SECRET9900019887272',
@@ -25,6 +22,6 @@ import { UserServices } from './user.service';
     MailModule,
   ],
   controllers: [UserController],
-  providers: [UserServices, CartServices, JwtStrategy, LogsService, UserLog],
+  providers: [UserServices, JwtStrategy, LogsService, UserLog],
 })
 export class UserModule {}

@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import { Employee } from '../adapters/employee.adapter';
 
 export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
+  console.log(employees);
   const [pagination, setPagination] = useState<number>(0);
   return (
     <Fragment>
@@ -35,13 +36,21 @@ export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
             <tr key={index}>
               <td>
                 <div>
-                  <img src='https://imagenes.heraldo.es/files/image_654_v1/uploads/imagenes/2017/08/12/_zidanejpg_bae27af8.jpg' />{' '}
+                  {employee.image === 'no-image' ? (
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/IMG-default_profile.jpg`}
+                    />
+                  ) : (
+                    <img
+                      src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/${employee.image}`}
+                    />
+                  )}
                   <p>{employee.name}</p>
                 </div>
               </td>
               <td>{employee.lastname}</td>
-              <td>Programador JR</td>
-              <td>16 de Mayo del 2022</td>
+              <td>{employee.role.name}</td>
+              <td>{employee.joined.slice(0, 10)}</td>
               <td>${employee.payment}</td>
               <td>
                 <span>Ver información</span>

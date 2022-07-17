@@ -29,9 +29,6 @@ export class User {
   // @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'role' } })
   // user_role: string;
 
-  @Prop([{ type: { type: mongoose.Schema.Types.ObjectId, ref: 'cart' } }])
-  user_cart: string;
-
   @Prop()
   user_createdAt: Date;
 }

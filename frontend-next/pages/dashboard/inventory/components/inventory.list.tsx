@@ -35,7 +35,7 @@ export const InventoryList = ({ inventoryList }: Props) => {
             <td>{inv.provider}</td>
             <td>{inv.pieces}</td>
             <td>
-              <button>Editar insumo</button>
+              <span>Editar insumo</span>
             </td>
           </tr>
         ))}

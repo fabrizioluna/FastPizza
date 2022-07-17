@@ -31,6 +31,10 @@ export const confirm_accountByUsername = (name: string, code: string) => {
 export const getUser = (userId: string) => {
   return client
     .get('user/get/' + userId)
-    .then((data) => data)
-    .catch((err) => err.response.status);
+    .then((data) => {
+      return { data: data.data, statusCode: 200 };
+    })
+    .catch((err) => {
+      return { data: err.code, statusCode: err.response.status };
+    });
 };

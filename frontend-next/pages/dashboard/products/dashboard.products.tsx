@@ -7,8 +7,15 @@ import { ListProducts } from './components/dashboard.listProducts';
 import { DashboardContainer } from '../components/dashboard.container';
 import { CreateProduct } from './components/products.newproduct';
 import { PageHead } from '@/components/pageHead/pageHead.component';
+import { Categories } from 'pages/all-products/types/allproducts.type';
+import { CategoriesList } from './components/products.categories';
+import { CreateCategory } from './components/products.createCategory';
 
-export const DashboardProducts = () => {
+export const DashboardProducts = ({
+  categories,
+}: {
+  categories: Categories[];
+}) => {
   const { call } = useCallService(getDashboardProducts, productAdapter);
 
   return (
@@ -41,7 +48,15 @@ export const DashboardProducts = () => {
       </main>
       <main className='dashboardContainers'>
         <DashboardContainer title='Registrar nuevo producto'>
-          <CreateProduct />
+          <CreateProduct categories={categories} />
+        </DashboardContainer>
+      </main>
+      <main className='dashboardContainers'>
+        <DashboardContainer title='Registra una nueva categoria'>
+          <CreateCategory />
+        </DashboardContainer>
+        <DashboardContainer title='Lista de todas las categorias'>
+          <CategoriesList categories={categories} />
         </DashboardContainer>
       </main>
     </div>

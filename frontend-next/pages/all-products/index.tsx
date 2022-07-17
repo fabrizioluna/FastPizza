@@ -5,7 +5,11 @@ import { GetServerSideProps } from 'next';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
 import { useState } from 'react';
 import { ShowProducts } from './components/showProducts';
-import { getAllProducts } from './services/allproducts.service';
+import {
+  getAllCategories,
+  getAllProducts,
+} from './services/allproducts.service';
+import { Categories } from './types/allproducts.type';
 import { applyProduct } from './utils/filterProducts';
 
 interface FormProps {
@@ -14,7 +18,13 @@ interface FormProps {
   specificMaxPrice: number;
 }
 
-const AllProducts = ({ products }: { products: Product[] }) => {
+const AllProducts = ({
+  products,
+  categories,
+}: {
+  products: Product[];
+  categories: Categories[];
+}) => {
   const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
   const [productsNotFound, setProductsNotFound] = useState<boolean>(false);
   const [values, setValues] = useState<FormProps>({
@@ -84,10 +94,11 @@ const AllProducts = ({ products }: { products: Product[] }) => {
             <p>Categoria:</p>
             <select name='specificCategory' onChange={onChangeSelect}>
               <option value=''>Todos los productos</option>
-              <option value='Pizzas'>Pizzas</option>
-              <option value='Hamburguesas'>Hamburguesas</option>
-              <option value='Tacos'>Tacos</option>
-              <option value='Bebidas'>Bebidas</option>
+              {categories.map((category, i) => (
+                <option key={i} value={category.category_name}>
+                  {category.category_name}
+                </option>
+              ))}
             </select>
             <p>Buscar por precio( precio máximo ):</p>
             <input
@@ -95,7 +106,9 @@ const AllProducts = ({ products }: { products: Product[] }) => {
               placeholder='Ingresa la cantidad'
               onChange={onChangeInputs}
             />
-            <button onClick={() => setProductsNotFound(false)}>Aplicar filtros</button>
+            <button onClick={() => setProductsNotFound(false)}>
+              Aplicar filtros
+            </button>
           </form>
 
           {/* <button onClick={() => setCurrentProducts([])}>
@@ -117,6 +130,7 @@ export default AllProducts;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const products = await getAllProducts();
+  const { data, statusCode } = await getAllCategories();
 
   const productsAdapted = products.map((product: any) =>
     productAdapter(product)
@@ -125,6 +139,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       products: productsAdapted,
+      categories: data,
     },
   };
 };

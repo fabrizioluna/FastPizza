@@ -4,7 +4,7 @@ import { AxiosInstance } from "axios";
 import { AxiosRequestConfig } from "axios";
 
 const config: AxiosRequestConfig = {
-    baseURL: 'http://localhost:4000',
+    baseURL: process.env.NEXT_PUBLIC_URL,
 };
 
 export const client: AxiosInstance = axios.create(config);
