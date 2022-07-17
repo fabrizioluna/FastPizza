@@ -1,28 +1,49 @@
 import { AppStore } from '@/redux/store';
 import { authSessionCookieStorage } from '@/utils/sessionStorage/localSessionStorage';
-import {
-  faBriefcase,
-  faBurger,
-  faChartLine,
-  faCopy,
-  faKitchenSet,
-  faShield,
-  faTags,
-  faTruck,
-  faWallet,
-  faWarehouse,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Link from 'next/link';
 import Router from 'next/router';
+import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import { ButtonWrapper } from './resources/buttonWrapper';
+import { NavigationWrapper } from './resources/navigationWrapper';
 
 export const NavigationDashboard = () => {
   const employee = useSelector((store: AppStore) => store.employee);
+
   return (
     <div className='dashboardNav'>
       <h1>Dashboard FastPizza</h1>
-      <Link href='/dashboard/stadistics'>
+      {NavigationWrapper.map((wrapper: any) => (
+        <Fragment>
+          {employee.role[wrapper.accessKey] === true && (
+            <ButtonWrapper
+              icon={wrapper.icon}
+              path={wrapper.path}
+              title={wrapper.title}
+            />
+          )}
+        </Fragment>
+      ))}
+      <footer>
+        {!!employee && (
+          <p>
+            {employee.name} {employee.lastname}
+          </p>
+        )}
+        <p
+          onClick={() => {
+            authSessionCookieStorage()?.destroy();
+            Router.push('/dashboard/auth');
+          }}
+        >
+          Salir
+        </p>
+      </footer>
+    </div>
+  );
+};
+
+{
+  /* <Link href='/dashboard/stadistics'>
         <li>
           <div>
             <FontAwesomeIcon icon={faChartLine} />
@@ -101,18 +122,5 @@ export const NavigationDashboard = () => {
             <p>Registros</p>
           </div>
         </li>
-      </Link>
-      <footer>
-        {!!employee && <p>{employee.name} {employee.lastname}</p>}
-        <p
-          onClick={() => {
-            authSessionCookieStorage()?.destroy();
-            Router.push('/dashboard/auth');
-          }}
-        >
-          Salir
-        </p>
-      </footer>
-    </div>
-  );
-};
+      </Link> */
+}

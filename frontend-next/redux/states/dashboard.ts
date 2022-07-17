@@ -7,6 +7,7 @@ export const initialState: Employee = {
   joined: '',
   name: '',
   payment: 0,
+  image: '',
   role: {
     _id: '',
     name: '',
@@ -18,6 +19,8 @@ export const initialState: Employee = {
     permissionsStatustics: false,
     permissionsProducts: false,
     permissionsDiscounts: false,
+    permissionsLogs: false,
+    permissionsRoles: false,
   }
 };
 

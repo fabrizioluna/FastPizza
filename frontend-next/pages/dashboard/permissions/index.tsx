@@ -1,7 +1,8 @@
+import { DashboardPrivateRoute } from '@/config/dashboard.private.routes';
 import { DashboardLayout } from '../components/dashboard.layout';
 import { DashboardPermissions } from './dashboard.permissions';
 
-const Permissions = () => {
+const Dashboard_Permissions = () => {
   return (
     <DashboardLayout>
       <DashboardPermissions />
@@ -9,4 +10,7 @@ const Permissions = () => {
   );
 };
 
-export default Permissions;
+// Dashboard Private Page and Rol Guard
+Dashboard_Permissions.AuthDashboard = DashboardPrivateRoute;
+
+export default Dashboard_Permissions;

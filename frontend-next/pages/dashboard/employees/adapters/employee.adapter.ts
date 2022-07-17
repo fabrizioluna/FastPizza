@@ -41,6 +41,8 @@ export interface InitialEmployeeRole {
   role_permissionsStatustics: boolean;
   role_permissionsProducts: boolean;
   role_permissionsDiscounts: boolean;
+  role_permissionsLogs: boolean;
+  role_permissionsRoles: boolean;
 }
 
 export interface EmployeeRole {
@@ -54,6 +56,8 @@ export interface EmployeeRole {
   permissionsStatustics: boolean;
   permissionsProducts: boolean;
   permissionsDiscounts: boolean;
+  permissionsLogs: boolean;
+  permissionsRoles: boolean;
 }
 
 export const employeeAdapter = (employeeObject: InitialEmployee) => {
@@ -81,6 +85,8 @@ export const employeeAdapter = (employeeObject: InitialEmployee) => {
         employeeObject.employee_role.role_permissionsProducts,
       permissionsDiscounts:
         employeeObject.employee_role.role_permissionsDiscounts,
+      permissionsLogs: employeeObject.employee_role.role_permissionsLogs,
+      permissionsRoles: employeeObject.employee_role.role_permissionsRoles,
     },
   };
 };
@@ -113,6 +119,8 @@ export const employeeWithTokenAdapter = (
         employeeObject.employee_role.role_permissionsProducts,
       permissionsDiscounts:
         employeeObject.employee_role.role_permissionsDiscounts,
+      permissionsLogs: employeeObject.employee_role.role_permissionsLogs,
+      permissionsRoles: employeeObject.employee_role.role_permissionsRoles,
     },
     token,
   };

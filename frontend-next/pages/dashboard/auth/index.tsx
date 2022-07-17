@@ -27,7 +27,7 @@ const DashboardAuth = () => {
     authSessionCookieStorage()?.set(data.token, data.employee._id);
 
     // TODO: Cambiar el Router dependiendo de los permisos que tenga el empleado.
-    Router.push('/dashboard/finance');
+    Router.push('/dashboard/account');
   };
 
   return (

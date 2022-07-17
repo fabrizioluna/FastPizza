@@ -3,13 +3,12 @@ import { AppStore } from '@/redux/store';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import { DashboardContainer } from '../components/dashboard.container';
 import { DashboardLayout } from '../components/dashboard.layout';
-import { AccountForm } from './components/account.accountForm';
 import { DashboardAccount } from './dashboard.account';
 
 const Account = () => {
   const employee = useSelector((store: AppStore) => store.employee);
+  console.log(employee)
   return (
     <DashboardLayout>
       <PageHead titlePage={`Perfil de ${employee.name} ${employee.lastname}`} />
