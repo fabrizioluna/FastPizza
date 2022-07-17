@@ -2,7 +2,10 @@ import { CustomForm } from '@/components/form/form.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faBurger } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { GetServerSideProps } from 'next';
 import Router, { useRouter } from 'next/router';
+import { getAllCategories } from 'pages/all-products/services/allproducts.service';
+import { Categories } from 'pages/all-products/types/allproducts.type';
 import { CUstomChart } from 'pages/dashboard/components/dashboard.customChart';
 import { DashboardLayout } from 'pages/dashboard/components/dashboard.layout';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
@@ -12,12 +15,13 @@ import {
   getDashboardProduct,
   updateDashboardProduct,
 } from '../services/product.service';
+import { ProductDelete } from './components/product.delete';
+import { ProductEdit } from './components/product.edit';
 
-const DashboardShowProduct = () => {
+const DashboardShowProduct = ({ categories }: { categories: Categories[] }) => {
   const { query } = useRouter();
   const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState<boolean>(true);
-  const [values, setValues] = useState();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -27,34 +31,13 @@ const DashboardShowProduct = () => {
       );
       if (statusCode == STATUS_CODE.BAD_REQUEST) return;
 
-      const adaptedProduct = productAdapter(data);
+      const adaptedProduct: Product = productAdapter(data);
       setProduct(adaptedProduct);
       setLoading(false);
     };
 
     query.hasOwnProperty('productId') && getProduct();
   }, [query]);
-
-  const productHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const { data, statusCode } = await updateDashboardProduct(
-      query.productId as string,
-      values
-    );
-
-    // TODO: Manejar excepciones
-    if (statusCode == STATUS_CODE.BAD_REQUEST) return;
-  };
-
-  const deleteProductHandler = async () => {
-    const { statusCode } = await deleteDashboardProduct(
-      query.productId as string
-    );
-
-    if (statusCode == STATUS_CODE.SUCCESS)
-      return Router.push('/dashboard/products');
-  };
 
   return (
     <DashboardLayout>
@@ -73,55 +56,12 @@ const DashboardShowProduct = () => {
           <section>
             <h2>Editar producto {product.title}</h2>
             <div className='dashboardForm'>
-              <CustomForm
-                setValueInputs={setValues}
-                values={values}
-                formStyles={{ display: 'block' }}
-                isEditingForm={true}
-                inputs={[
-                  {
-                    name: 'product_name',
-                    type: 'text',
-                    placeholder: 'Nombre del Producto',
-                    prevValue: product.title,
-                  },
-                  {
-                    name: 'product_description',
-                    type: 'text',
-                    placeholder: 'Descripción del Producto',
-                    prevValue: product.description,
-                  },
-                  {
-                    name: 'product_price',
-                    type: 'number',
-                    placeholder: 'Precio del Producto',
-                    prevValue: product.price,
-                  },
-                  {
-                    name: 'product_discount',
-                    type: 'number',
-                    placeholder: 'Descuento del Producto',
-                    prevValue: product.discount,
-                  },
-                  {
-                    name: 'product_category',
-                    type: 'text',
-                    placeholder: 'Categoria del Producto',
-                    prevValue: product.category,
-                  },
-                  {
-                    name: 'product_image',
-                    type: 'text',
-                    placeholder: 'URL de la image',
-                    prevValue: product.image,
-                  },
-                ]}
-                submitCallback={productHandler}
-                buttonMessage={'Guardar cambios'}
+              <ProductEdit
+                productId={query.productId as string}
+                productPayload={product}
+                categoriesPayload={categories}
               />
-              <button onClick={() => deleteProductHandler()}>
-                Borrar Producto
-              </button>
+              <ProductDelete productId={query.productId as string} />
             </div>
           </section>
           <section>
@@ -139,6 +79,16 @@ const DashboardShowProduct = () => {
       )}
     </DashboardLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await getAllCategories();
+
+  return {
+    props: {
+      categories: data,
+    },
+  };
 };
 
 export default DashboardShowProduct;

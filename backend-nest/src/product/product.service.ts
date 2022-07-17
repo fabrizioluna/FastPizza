@@ -50,10 +50,14 @@ export class ProductServices {
       .populate({ path: 'product_category' });
   }
 
-  async update(productId: ObjectId, productObject: ProductDoc) {
+  async update(
+    productId: ObjectId,
+    productObject: ProductDoc,
+    imageStr: string,
+  ) {
     const Product = await this.productModel.findByIdAndUpdate(
       productId,
-      productObject,
+      { ...productObject, employee_profileimg: imageStr },
       {
         new: true,
       },

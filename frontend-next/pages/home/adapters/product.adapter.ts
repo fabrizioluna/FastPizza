@@ -17,7 +17,10 @@ export interface ProductDatabase {
   product_description: string;
   product_image: string;
   product_price: number;
-  product_category: string;
+  product_category: {
+    _id: string;
+    category_name: string;
+  };
   product_discount: number;
 }
 

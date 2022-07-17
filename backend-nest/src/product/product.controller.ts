@@ -40,6 +40,23 @@ export class ProductController {
     return this.productServices.createProduct(body, image.filename);
   }
 
+  @Put('/update')
+  @UseInterceptors(
+    FileInterceptor('product_image', {
+      storage: diskStorage({
+        destination: './uploads/products_assents',
+        filename: changeFilename,
+      }),
+    }),
+  )
+  updateUser(
+    @Query('id') id: ObjectId,
+    @Body() body: ProductDoc,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.productServices.update(id, body, image.filename);
+  }
+
   @Get('/getall')
   getAll(@Query() querys: ProductDoc) {
     return this.productServices.getAll(querys);
@@ -49,11 +66,6 @@ export class ProductController {
   @UsePipes(new ValidationPipe({ whitelist: true }))
   get(@Param() params: ProductGet) {
     return this.productServices.get(params);
-  }
-
-  @Put('/update')
-  updateUser(@Query('id') id: ObjectId, @Body() body: ProductDoc) {
-    return this.productServices.update(id, body);
   }
 
   @Delete('/delete')
