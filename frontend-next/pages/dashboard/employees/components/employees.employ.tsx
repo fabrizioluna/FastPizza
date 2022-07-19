@@ -1,35 +1,91 @@
 import { CustomForm } from '@/components/form/form.component';
 import { useCallService } from '@/hooks/useCallService';
+import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
 import { rolesAdapter } from 'pages/dashboard/permissions/adapters/permissions.adapter';
 import { getAllRoles } from 'pages/dashboard/permissions/service/permissions.service';
 import { useState } from 'react';
-import {
-  Employee,
-  employeeAdapter,
-  FormEmployee,
-  InitialEmployee,
-} from '../adapters/employee.adapter';
+import { EmployeeRole, FormEmployee } from '../types/employee.types';
 import { registerEmployee } from '../services/employee.service';
+import {
+  ResponseFormValues,
+  ResponseHandler,
+} from '@/components/form/formHandler/form.types.formHandler';
+import { employeeAdapter } from '../adapters/employee.adapter';
 
 export const EmployEmployee = ({
   curretListEmployees,
   setEmployees,
 }: {
-  curretListEmployees: Employee[];
+  curretListEmployees: EmployeeRole[];
   setEmployees: (set: any) => void;
 }) => {
-  const [values, setValues] = useState<FormEmployee>();
+  const [values, setValues] = useState<FormEmployee>({
+    _id: '',
+    employee_address: '',
+    employee_joined: '',
+    employee_lastname: '',
+    employee_name: '',
+    employee_password: '',
+    employee_payment: 0,
+    employee_profileimg: '',
+    employee_role: ''
+  });
   const { call }: any = useCallService(getAllRoles, rolesAdapter);
 
   const employEmployeeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TODO: Manejar las exepciones
-    const { data, statusCode } = await registerEmployee(
-      values as unknown as FormEmployee
-    );
-    const employeeAdapted = employeeAdapter(data);
-    setEmployees([...curretListEmployees, employeeAdapted]);
+    // We use this to handler values of the custom form.
+    FormValuesHandler.check([
+      {
+        type: 'string',
+        max: 30,
+        min: 10,
+        value: values.employee_address,
+        key: 'employee_address',
+      },
+      {
+        type: 'string',
+        value: values.employee_name,
+        max: 15,
+        min: 5,
+        key: 'employee_name',
+      },
+      {
+        type: 'string',
+        value: values.employee_lastname,
+        max: 25,
+        min: 5,
+        key: 'employee_lasname',
+      },
+      {
+        type: 'string',
+        value: values.employee_password,
+        max: 35,
+        min: 5,
+        key: 'employee_password',
+      },
+      {
+        type: 'number',
+        value: values.employee_payment,
+        max: 20,
+        min: 2,
+        key: 'employee_payment',
+      },
+    ])
+      .then(async () => {
+        // TODO: Manejar las exepciones
+        const { data, statusCode } = await registerEmployee(
+          values as unknown as FormEmployee
+        );
+
+        const employeeAdapted = employeeAdapter(data);
+        setEmployees([...curretListEmployees, employeeAdapted]);
+      })
+      .catch(({ hasErrors, results }: ResponseFormValues) => {
+        // And then if has errors...
+        results.map((field: ResponseHandler) => console.log(field));
+      });
   };
 
   const createRolesArray = () =>
