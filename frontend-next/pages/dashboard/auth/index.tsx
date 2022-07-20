@@ -3,7 +3,7 @@ import { CustomForm } from '@/components/form/form.component';
 import { createDashboardUser } from '@/redux/states/dashboard';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { authSessionCookieStorage } from '@/utils/sessionStorage/localSessionStorage';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { employeeWithTokenAdapter } from '../employees/adapters/employee.adapter';
 import { loginDashboard } from './service/dashboardAuth.service';
@@ -14,6 +14,7 @@ const DashboardAuth = () => {
 
   const [values, setValues] = useState();
   const [errorAuth, setErrorAuth] = useState<boolean>(false);
+  const formFieldsRef = useRef<any>([]);
 
   const authHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +45,7 @@ const DashboardAuth = () => {
         <div className='dashboardFormAuth'>
           <CustomForm
             formStyles={{}}
+            formFieldsRef={formFieldsRef}
             setValueInputs={setValues}
             values={values}
             isEditingForm={false}

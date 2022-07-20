@@ -11,6 +11,7 @@ import {
   ResponseHandler,
 } from '@/components/form/formHandler/form.types.formHandler';
 import { employeeAdapter } from '../adapters/employee.adapter';
+import { employee_validation } from '../forms/employee.validation';
 
 export const EmployEmployee = ({
   curretListEmployees,
@@ -37,58 +38,7 @@ export const EmployEmployee = ({
     e.preventDefault();
 
     // We use this to handler values of the custom form.
-    FormValuesHandler.check([
-      {
-        type: 'string',
-        value: values.employee_name.trim(),
-        max: 15,
-        min: 5,
-        key: 'employee_name',
-      },
-      {
-        type: 'string',
-        value: values.employee_lastname.trim(),
-        max: 25,
-        min: 5,
-        key: 'employee_lastname',
-      },
-      {
-        type: 'string',
-        max: 30,
-        min: 10,
-        value: values.employee_address.trim(),
-        key: 'employee_address',
-      },
-      {
-        type: 'string',
-        value: values.employee_password.trim(),
-        max: 35,
-        min: 5,
-        key: 'employee_password',
-      },
-      {
-        type: 'string',
-        value: parseInt(values.employee_payment),
-        max: 20,
-        min: 2,
-        custom: () => /^[0-9]*$/.exec(values.employee_payment),
-        key: 'employee_payment',
-      },
-      {
-        type: 'file',
-        value: values.employee_profileimg,
-        max: 35,
-        min: 2,
-        key: 'employee_profileimg',
-      },
-      {
-        type: 'string',
-        value: values.employee_role.trim(),
-        max: 35,
-        min: 2,
-        key: 'employee_role',
-      },
-    ])
+    FormValuesHandler.check(employee_validation(values))
       .then(async () => {
         // TODO: Manejar las exepciones
         const { data, statusCode } = await registerEmployee(

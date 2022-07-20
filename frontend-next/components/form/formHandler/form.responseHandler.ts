@@ -1,17 +1,12 @@
 export class HandlerResults {
-  constructor(
-    private response: string,
-    private key: string,
-    private error: any,
-    private testPassed: boolean,
-  ) {}
+  constructor() {}
 
-  getResult() {
+  static getResult(response: string, key: string, error: any, testPassed: boolean) {
     return {
-      response: this.response,
-      key: this.key,
-      error: this.error,
-      testPassed: this.testPassed,
+      response: response,
+      key: key,
+      error: error,
+      testPassed: testPassed,
     };
   }
 }
