@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 interface Message {
   message: string;
@@ -26,5 +26,13 @@ export const CustomMessage = ({ message, type = 'INFO' }: Message) => {
         </Fragment>
       )}
     </Fragment>
+  );
+};
+
+export const CustomSendErrors = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className='messageError'>
+      <p>{children}</p>
+    </div>
   );
 };

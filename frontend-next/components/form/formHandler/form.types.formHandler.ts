@@ -4,6 +4,7 @@ export interface FieldsArray {
   min: number;
   type: any;
   key: string;
+  custom?: () => RegExpExecArray | null;
 }
 
 export interface ResponseHandler {

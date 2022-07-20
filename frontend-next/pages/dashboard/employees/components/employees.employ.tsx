@@ -1,9 +1,9 @@
-import { CustomForm } from '@/components/form/form.component';
+import { CustomForm, FormCustom } from '@/components/form/form.component';
 import { useCallService } from '@/hooks/useCallService';
 import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
 import { rolesAdapter } from 'pages/dashboard/permissions/adapters/permissions.adapter';
 import { getAllRoles } from 'pages/dashboard/permissions/service/permissions.service';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { EmployeeRole, FormEmployee } from '../types/employee.types';
 import { registerEmployee } from '../services/employee.service';
 import {
@@ -28,8 +28,9 @@ export const EmployEmployee = ({
     employee_password: '',
     employee_payment: 0,
     employee_profileimg: '',
-    employee_role: ''
+    employee_role: '',
   });
+  const formFieldsRef = useRef<any>([]);
   const { call }: any = useCallService(getAllRoles, rolesAdapter);
 
   const employEmployeeHandler = async (e: React.FormEvent) => {
@@ -39,38 +40,53 @@ export const EmployEmployee = ({
     FormValuesHandler.check([
       {
         type: 'string',
-        max: 30,
-        min: 10,
-        value: values.employee_address,
-        key: 'employee_address',
-      },
-      {
-        type: 'string',
-        value: values.employee_name,
+        value: values.employee_name.trim(),
         max: 15,
         min: 5,
         key: 'employee_name',
       },
       {
         type: 'string',
-        value: values.employee_lastname,
+        value: values.employee_lastname.trim(),
         max: 25,
         min: 5,
-        key: 'employee_lasname',
+        key: 'employee_lastname',
       },
       {
         type: 'string',
-        value: values.employee_password,
+        max: 30,
+        min: 10,
+        value: values.employee_address.trim(),
+        key: 'employee_address',
+      },
+      {
+        type: 'string',
+        value: values.employee_password.trim(),
         max: 35,
         min: 5,
         key: 'employee_password',
       },
       {
-        type: 'number',
-        value: values.employee_payment,
+        type: 'string',
+        value: parseInt(values.employee_payment),
         max: 20,
         min: 2,
+        custom: () => /^[0-9]*$/.exec(values.employee_payment),
         key: 'employee_payment',
+      },
+      {
+        type: 'file',
+        value: values.employee_profileimg,
+        max: 35,
+        min: 2,
+        key: 'employee_profileimg',
+      },
+      {
+        type: 'string',
+        value: values.employee_role.trim(),
+        max: 35,
+        min: 2,
+        key: 'employee_role',
       },
     ])
       .then(async () => {
@@ -82,9 +98,14 @@ export const EmployEmployee = ({
         const employeeAdapted = employeeAdapter(data);
         setEmployees([...curretListEmployees, employeeAdapted]);
       })
-      .catch(({ hasErrors, results }: ResponseFormValues) => {
+      .catch(({ results }: ResponseFormValues) => {
+        console.log(results)
         // And then if has errors...
-        results.map((field: ResponseHandler) => console.log(field));
+        formFieldsRef.current
+          .filter((formField: any) =>
+            results.some((field) => formField.name === field.key))
+          .map((formField: any) => (formField.style.borderColor = 'red'));
+        // We setting a borderColor in all inputs on have errors.
       });
   };
 
@@ -97,8 +118,9 @@ export const EmployEmployee = ({
   return (
     <div className='dashboardForm'>
       {call !== null && (
-        <CustomForm
+        <FormCustom
           setValueInputs={setValues}
+          formFieldsRef={formFieldsRef}
           values={values}
           isEditingForm={false}
           formStyles={{ display: 'block' }}
@@ -125,7 +147,7 @@ export const EmployEmployee = ({
             },
             {
               name: 'employee_payment',
-              type: 'number',
+              type: 'text',
               placeholder: 'Pago quincenal del Empleado',
             },
             {
