@@ -1,4 +1,8 @@
-import { CustomForm, FormCustom } from '@/components/form/form.component';
+import {
+  CustomForm,
+  FormCustom,
+  resetInputs,
+} from '@/components/form/form.component';
 import { useCallService } from '@/hooks/useCallService';
 import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
 import { rolesAdapter } from 'pages/dashboard/permissions/adapters/permissions.adapter';
@@ -46,14 +50,15 @@ export const EmployEmployee = ({
         );
 
         const employeeAdapted = employeeAdapter(data);
+        resetInputs(formFieldsRef.current);
         setEmployees([...curretListEmployees, employeeAdapted]);
       })
       .catch(({ results }: ResponseFormValues) => {
-        console.log(results)
         // And then if has errors...
         formFieldsRef.current
           .filter((formField: any) =>
-            results.some((field) => formField.name === field.key))
+            results.some((field) => formField.name === field.key)
+          )
           .map((formField: any) => (formField.style.borderColor = 'red'));
         // We setting a borderColor in all inputs on have errors.
       });

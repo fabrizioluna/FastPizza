@@ -35,6 +35,10 @@ export const employee_validation = (values: FormEmployee) => {
       value: parseInt(values.employee_payment),
       max: 100000,
       min: 1,
+      /* 
+        We can also use regular expressions to get custom validation.
+        You just need a function and its regular expression condition. 
+      */
       custom: () => /^[0-9]*$/.exec(values.employee_payment),
       key: 'employee_payment',
     },

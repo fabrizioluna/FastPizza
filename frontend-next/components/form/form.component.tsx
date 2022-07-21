@@ -1,59 +1,6 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment } from 'react';
 import { FormSelects } from './form.selects';
-
-// Types of Inputs
-interface Inputs {
-  name: string;
-  type: string;
-  placeholder?: string;
-  prevValue?: any;
-  radioOptions?: RadioInputs[];
-  radioLabel?: string;
-  radioStyles?: any;
-  radioLabelStyles?: any;
-  disableInput?: boolean;
-}
-
-// Types if we've inputs with type radio
-interface RadioInputs {
-  name: string;
-  label: string;
-  value: any;
-  radioInputLabelStyles?: any;
-  radioInputStyles?: any;
-}
-
-// If we've selects
-export interface Selects {
-  label: string;
-  selectStyles?: any;
-  name: string;
-  values: SelectsValues[];
-}
-
-// Types of Values of the Select
-interface SelectsValues {
-  value: any;
-  text: string;
-}
-
-// Main types of the custom form.
-interface FormProps {
-  setValueInputs: (set: any) => void;
-  values: any;
-  inputs: Inputs[];
-  inputsDisable?: boolean;
-  inputsVisibility?: boolean;
-  selects?: Selects[];
-  formStyles: any;
-  submitCallback: (e: React.FormEvent) => Promise<void>;
-  buttonMessage: string;
-  inputsWithFlex?: string;
-  isEditingForm: boolean;
-  formFieldsRef: {
-    current: Array<any>;
-  };
-}
+import { FormProps, Inputs, RadioInputs } from './form.types';
 
 export const CustomForm = ({
   setValueInputs,
@@ -216,6 +163,10 @@ export const CustomForm = ({
       )}
     </Fragment>
   );
+};
+
+export const resetInputs = (inputs: Array<any>) => {
+  return inputs.map((input: any) => (input.value = ''));
 };
 
 export const FormCustom = React.memo(CustomForm);

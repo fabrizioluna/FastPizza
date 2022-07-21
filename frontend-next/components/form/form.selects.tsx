@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Selects } from './form.component';
+import React from 'react';
+import { Selects } from './form.types';
 
 interface SelectsProps {
   selects: Selects[];
@@ -18,33 +18,28 @@ export const CustomFormSelects = ({
 }: SelectsProps) => {
   return (
     <>
-      {
-        selects.map((select: Selects, index: number) => (
-          <>
-            <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>
-              {select.label}
-            </p>
-            <select
-              style={select.selectStyles}
-              name={`${select.name}`}
-              onMouseEnter={() =>
-                (formFieldsRef.current[
-                    formFieldsRefLength+index
-                ].style.borderColor = '#adadad80')
-              }
-              ref={(re) =>
-                (formFieldsRef.current[formFieldsRefLength+index] = re)
-              }
-              onChange={onChangeSelects}
-            >
-              {select.values.map((val) => (
-                <option value={val.value}>
-                  {val.text}
-                </option>
-              ))}
-            </select>
-          </>
-        ))}
+      {selects.map((select: Selects, index: number) => (
+        <>
+          <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>{select.label}</p>
+          <select
+            style={select.selectStyles}
+            name={`${select.name}`}
+            onMouseEnter={() =>
+              (formFieldsRef.current[
+                formFieldsRefLength + index
+              ].style.borderColor = '#adadad80')
+            }
+            ref={(re) =>
+              (formFieldsRef.current[formFieldsRefLength + index] = re)
+            }
+            onChange={onChangeSelects}
+          >
+            {select.values.map((val) => (
+              <option value={val.value}>{val.text}</option>
+            ))}
+          </select>
+        </>
+      ))}
     </>
   );
 };
