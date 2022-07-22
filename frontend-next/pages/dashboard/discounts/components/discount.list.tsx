@@ -1,7 +1,7 @@
 import { CustomTable } from '@/components/tables/table.component';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { Discount } from '../adapters/discount.adapter';
+import { Discount } from '../types/discounts.types';
 
 const StatusDiscount = {
   active: {

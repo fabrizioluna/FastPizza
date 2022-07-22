@@ -1,8 +1,14 @@
-import { CustomForm } from '@/components/form/form.component';
+import { CustomForm, resetInputs } from '@/components/form/form.component';
+import { ResponseFormValues } from '@/components/form/formHandler/form.types.formHandler';
+import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
+import { CustomMessage } from '@/components/message/message.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
-import { useState } from 'react';
-import { Roles, rolesAdapter } from '../adapters/permissions.adapter';
+import { useRef, useState } from 'react';
+import { rolesAdapter } from '../adapters/permissions.adapter';
 import { createRole } from '../service/permissions.service';
+import { FormRoles, Roles } from '../types/roles.types';
+import { RolesInputs } from './forms/roles.inputs';
+import { roles_validation } from './forms/roles.validation';
 
 export const NewRole = ({
   currentRolesList,
@@ -11,400 +17,78 @@ export const NewRole = ({
   currentRolesList: Roles[];
   setNewRolesList: (set: any) => void;
 }) => {
-  const [values, setValues] = useState();
-  const [error, setError] = useState<boolean>(false);
+  const [values, setValues] = useState<FormRoles>({
+    role_name: '',
+    role_permissionsDelivery: false,
+    role_permissionsDiscounts: false,
+    role_permissionsEmployees: false,
+    role_permissionsFinance: false,
+    role_permissionsInventory: false,
+    role_permissionsLogs: false,
+    role_permissionsOrders: false,
+    role_permissionsProducts: false,
+    role_permissionsRoles: false,
+    role_permissionsStatustics: false,
+  });
+  const [showError, setShowError] = useState<{
+    show: boolean;
+    message: string;
+    type: string;
+  }>({ show: false, message: '', type: '' });
+  const formFieldsRef = useRef<any>([]);
 
   const createRoleHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { data, statusCode } = await createRole(values as unknown as any);
-    if (statusCode === STATUS_CODE.BAD_REQUEST) return setError(true);
+    FormValuesHandler.check(roles_validation(values))
+      .then(async () => {
+        const { data, statusCode } = await createRole(values);
 
-    // Is all is cool... we pushed the new role 
-    // in the roles Array to refresh the component RolesList.
-    setNewRolesList([...currentRolesList, rolesAdapter(data)]);
+        if (statusCode !== STATUS_CODE.SUCCESS) {
+          return setShowError({
+            show: true,
+            type: 'ERROR',
+            message:
+              'Ocurrió un error al registrar este Rol. Por favor intentelo nuevamente.',
+          });
+        }
+
+        setShowError({
+          show: true,
+          message: 'El Rol fue registrado correctamente.',
+          type: 'SUCCESS',
+        });
+        resetInputs(formFieldsRef.current);
+        setNewRolesList([...currentRolesList, rolesAdapter(data)]);
+      })
+      .catch(({ results }: ResponseFormValues) => {
+        console.log(results)
+        formFieldsRef.current
+          .filter((formField: any) =>
+            results.some((field) => formField.name === field.key)
+          )
+          .map((formField: any) => (formField.style.borderColor = 'red'));
+        setShowError({
+          show: true,
+          type: 'ERROR',
+          message:
+            'Ocurrió un error. Verifica que hayas seleccionado al menos una casilla por opción para continuar.',
+        });
+      });
   };
 
   return (
     <div className='dashboardForm'>
-      {error && (
-        <h4>
-          Ocurrió un error al registrar este Rol. Verifica que este marcadas
-          todas las casillas
-        </h4>
+      {showError.show && (
+        <CustomMessage type={showError.type} message={showError.message} />
       )}
       <CustomForm
         setValueInputs={setValues}
+        formFieldsRef={formFieldsRef}
         values={values}
         isEditingForm={false}
         formStyles={{ display: 'grid' }}
-        inputs={[
-          {
-            name: 'role_name',
-            type: 'text',
-            placeholder: 'Nombre del Rol',
-          },
-          {
-            name: 'role_permissionsOrders',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Ordenes?',
-            radioLabelStyles: { fontSize: '20px', paddingTop: '1.5rem' },
-            radioOptions: [
-              {
-                name: 'role_permissionsOrders',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsOrders',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsDelivery',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Entregas?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsDelivery',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsDelivery',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsEmployees',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Empleados?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsEmployees',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsEmployees',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsInventory',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Inventario?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsInventory',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsInventory',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsFinance',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Finanzas?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsFinance',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsFinance',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsStatustics',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Estadisticas?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsStatustics',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsStatustics',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsProducts',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Productos?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsProducts',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsProducts',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsDiscounts',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Descuentos?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsDiscounts',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsDiscounts',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsLogs',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Registros?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsLogs',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsLogs',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-          {
-            name: 'role_permissionsRoles',
-            type: 'radio',
-            radioLabel: '¿Deseas dar acceso a Privilegios?',
-            radioLabelStyles: { fontSize: '20px' },
-            radioOptions: [
-              {
-                name: 'role_permissionsRoles',
-                label: 'Permitir',
-                value: true,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-              {
-                name: 'role_permissionsRoles',
-                label: 'Denegar',
-                value: false,
-                radioInputLabelStyles: {
-                  fontSize: '15px',
-                  paddingLeft: '1rem',
-                },
-                radioInputStyles: {
-                  width: '18px',
-                  marginTop: '0rem',
-                  marginLeft: '1rem',
-                },
-              },
-            ],
-          },
-        ]}
+        inputs={RolesInputs}
         submitCallback={createRoleHandler}
         buttonMessage={'Registrar nuevo rol'}
       />

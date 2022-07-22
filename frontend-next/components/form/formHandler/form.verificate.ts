@@ -93,12 +93,28 @@ export class VerificatedField {
   }
 
   public custom(cb: Function) {
+    if (!cb()) {
+      return HandlerResults.getResult(
+        'Error: Custom function',
+        this.field.key,
+        {
+          in: 'Custom',
+          value: this.field.value,
+          expected: this.field.type,
+        },
+        false
+      );
+    }
+    return HandlerResults.getResult('', this.field.key, {}, true);
+  }
+
+  public regex(cb: Function) {
     if (cb() == null) {
       return HandlerResults.getResult(
         'Error: Regex',
         this.field.key,
         {
-          in: 'Custom',
+          in: 'Regex',
           value: this.field.value,
           expected: this.field.type,
         },

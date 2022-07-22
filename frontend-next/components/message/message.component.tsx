@@ -19,9 +19,17 @@ export const CustomMessage = ({ message, type = 'INFO' }: Message) => {
               <p>{message}</p>
             </div>
           ) : (
-            <div className='messageWarning'>
-              <p>{message}</p>
-            </div>
+            <Fragment>
+              {type === 'SUCCESS' ? (
+                <div className='messageSuccess'>
+                  <p>{message}</p>
+                </div>
+              ) : (
+                <div className='messageWarning'>
+                  <p>{message}</p>
+                </div>
+              )}
+            </Fragment>
           )}
         </Fragment>
       )}

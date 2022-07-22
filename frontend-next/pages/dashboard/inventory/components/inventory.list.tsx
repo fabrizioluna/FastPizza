@@ -1,6 +1,6 @@
 import { CustomTable } from '@/components/tables/table.component';
 import { Fragment } from 'react';
-import { Inventory } from '../adapters/inventory.adapter';
+import { Inventory } from '../types/inventory.types';
 
 interface Props {
   inventoryList: Inventory[];

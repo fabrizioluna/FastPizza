@@ -1,15 +1,7 @@
 import { client } from '@/config/axios.config';
-import { InitialDiscount } from '../adapters/discount.adapter';
+import { FormDiscount } from '../types/discounts.types';
 
-interface DiscountObject {
-  discount_specialKey: string;
-  discount_priceFloor: number;
-  discount_limitToApply: number;
-  discount_percentage: number;
-  discount_expiresIn: string;
-}
-
-export const createDiscount = (discountObject: DiscountObject) => {
+export const createDiscount = (discountObject: FormDiscount) => {
   return client
     .post('discount/create', discountObject)
     .then((data) => {
@@ -44,7 +36,7 @@ export const getDiscounts = () => {
 
 export const updateDiscount = (
   discountId: string,
-  discountObject: InitialDiscount
+  discountObject: FormDiscount
 ) => {
   return client
     .put(`discount/update?id=${discountId}`, discountObject)

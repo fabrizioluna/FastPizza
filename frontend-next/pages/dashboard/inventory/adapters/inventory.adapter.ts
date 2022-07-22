@@ -1,16 +1,4 @@
-export interface InitialInventory {
-  inventory_uniqueNum: string;
-  inventory_name: string;
-  inventory_provider: string;
-  inventory_pieces: number;
-}
-
-export interface Inventory {
-  uniqueNum: string;
-  name: string;
-  provider: string;
-  pieces: number;
-}
+import { InitialInventory, Inventory } from "../types/inventory.types";
 
 export const inventoryAdapter = (
   inventoryObject: InitialInventory

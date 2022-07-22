@@ -24,8 +24,6 @@ export const ProductEdit = ({
   const productHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    e.preventDefault();
-
     if (values == undefined)
       return setShowMessage({
         show: true,

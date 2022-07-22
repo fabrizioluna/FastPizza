@@ -47,12 +47,6 @@ export const NavigationWrapper = [
     path: 'employees',
     title: 'Empleados',
     icon: <FontAwesomeIcon icon={faBriefcase} />,
-    accessKey: 'permissionsInventory',
-  },
-  {
-    path: 'employees',
-    title: 'Empleados',
-    icon: <FontAwesomeIcon icon={faBriefcase} />,
     accessKey: 'permissionsEmployees',
   },
   {

@@ -16,6 +16,8 @@ import {
 } from '@/components/form/formHandler/form.types.formHandler';
 import { employeeAdapter } from '../adapters/employee.adapter';
 import { employee_validation } from '../forms/employee.validation';
+import { CustomMessage } from '@/components/message/message.component';
+import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 
 export const EmployEmployee = ({
   curretListEmployees,
@@ -35,6 +37,11 @@ export const EmployEmployee = ({
     employee_profileimg: '',
     employee_role: '',
   });
+  const [showError, setShowError] = useState<{
+    show: boolean;
+    message: string;
+    type: string;
+  }>({ show: false, message: '', type: '' });
   const formFieldsRef = useRef<any>([]);
   const { call }: any = useCallService(getAllRoles, rolesAdapter);
 
@@ -44,13 +51,26 @@ export const EmployEmployee = ({
     // We use this to handler values of the custom form.
     FormValuesHandler.check(employee_validation(values))
       .then(async () => {
-        // TODO: Manejar las exepciones
-        const { data, statusCode } = await registerEmployee(
-          values as unknown as FormEmployee
-        );
+        const { data, statusCode } = await registerEmployee(values);
+
+        if (statusCode !== STATUS_CODE.SUCCESS) {
+          return setShowError({
+            show: true,
+            type: 'ERROR',
+            message:
+              'Ocurrió un error al registrar este empleado. Por favor intentelo nuevamente.',
+          });
+        }
 
         const employeeAdapted = employeeAdapter(data);
+        setShowError({
+          show: true,
+          message: 'El empleado fue dado de alta satisfactoriamente.',
+          type: 'SUCCESS',
+        });
+        // Clean inputs.
         resetInputs(formFieldsRef.current);
+        // Returns data employee in the response, then we'll push in to the array.
         setEmployees([...curretListEmployees, employeeAdapted]);
       })
       .catch(({ results }: ResponseFormValues) => {
@@ -72,6 +92,9 @@ export const EmployEmployee = ({
 
   return (
     <div className='dashboardForm'>
+      {showError.show && (
+        <CustomMessage type='ERROR' message={showError.message} />
+      )}
       {call !== null && (
         <FormCustom
           setValueInputs={setValues}
