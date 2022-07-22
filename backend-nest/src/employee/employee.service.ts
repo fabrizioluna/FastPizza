@@ -43,9 +43,11 @@ export class EmployeeServices {
 
   async loginEmployee(employeeObject: EmployeeDoc) {
     const { employee_uniqueCode, employee_password } = employeeObject;
-    const employee = await this.employeeModel.findOne({
-      employee_uniqueCode: employee_uniqueCode,
-    });
+    const employee = await this.employeeModel
+      .findOne({
+        employee_uniqueCode: employee_uniqueCode,
+      })
+      .populate({ path: 'employee_role' });
 
     if (!compareSync(employee_password, employee.employee_password))
       throw new HttpException('INVALID_PASSWORD', 400);
@@ -68,9 +70,11 @@ export class EmployeeServices {
     const employeeDecode: EmployeeToken = (await this.jwtService.decode(
       token,
     )) as unknown as EmployeeToken;
-    const employee = await this.employeeModel.findOne({
-      employee_uniqueCode: employeeDecode.employee_id,
-    });
+    const employee = await this.employeeModel
+      .findOne({
+        employee_uniqueCode: employeeDecode.employee_id,
+      })
+      .populate({ path: 'employee_role' });
     const jwTokenDashboard = this.jwtService.sign({
       employee_id: employee.employee_uniqueCode,
       name: employee.employee_name,

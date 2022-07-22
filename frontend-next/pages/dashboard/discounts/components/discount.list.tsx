@@ -1,7 +1,7 @@
 import { CustomTable } from '@/components/tables/table.component';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import { Discount } from '../adapters/discount.adapter';
+import { Discount } from '../types/discounts.types';
 
 const StatusDiscount = {
   active: {
@@ -70,7 +70,7 @@ export const ListDiscounts = ({ discounts }: { discounts: Discount[] }) => {
             <td>{discount.expiresIn}</td>
             <td>
               <Link href={`discounts/${discount.id}`}>
-                <span>Editar descuento</span>
+                <span style={{ cursor: 'pointer' }}>Editar descuento</span>
               </Link>
             </td>
           </tr>

@@ -1,20 +1,16 @@
-import { CustomForm } from '@/components/form/form.component';
+import { DashboardPrivateRoute } from '@/config/dashboard.private.routes';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faBurger } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GetServerSideProps } from 'next';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { getAllCategories } from 'pages/all-products/services/allproducts.service';
 import { Categories } from 'pages/all-products/types/allproducts.type';
 import { CUstomChart } from 'pages/dashboard/components/dashboard.customChart';
 import { DashboardLayout } from 'pages/dashboard/components/dashboard.layout';
 import { Product, productAdapter } from 'pages/home/adapters/product.adapter';
 import { useEffect, useState } from 'react';
-import {
-  deleteDashboardProduct,
-  getDashboardProduct,
-  updateDashboardProduct,
-} from '../services/product.service';
+import { getDashboardProduct } from '../services/product.service';
 import { ProductDelete } from './components/product.delete';
 import { ProductEdit } from './components/product.edit';
 
@@ -90,5 +86,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   };
 };
+
+// Dashboard Private Page and Rol Guard
+// DashboardShowProduct.AuthDashboard = DashboardPrivateRoute;
 
 export default DashboardShowProduct;

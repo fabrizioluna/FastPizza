@@ -1,34 +1,31 @@
 import { useDashboardLogin } from '@/hooks/useDashboardLogin';
+import { AppStore } from '@/redux/store';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export const Sidenav = () => {
-  const [loading, employeeData, hasPayload] = useDashboardLogin();
-
-  useEffect(() => {
-    if (!loading && !hasPayload && !employeeData.status)
-      Router.push('/dashboard/auth');
-  }, [loading]);
+  const employee = useSelector((store: AppStore) => store.employee);
 
   return (
     <div className='dashboardSidebar'>
       <figure>
-        {employeeData.data.image === 'no-image' ? (
+        {employee._id.length >= 1 && employee.image === 'no-image' ? (
           <img
             src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/IMG-default_profile.jpg`}
-            alt='imagenPruebaPerfil'
+            alt='IMG-default_profile.jpg'
           />
         ) : (
           <img
-            src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/${employeeData.data.image}`}
-            alt='imagenPruebaPerfil'
+            src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/${employee.image}`}
+            alt={employee.image}
           />
         )}
       </figure>
       <ul>
-        {!loading && (
-          <li> {`${employeeData.data.name} ${employeeData.data.lastname}`} </li>
+        {employee._id.length >= 1 && (
+          <li> {`${employee.name} ${employee.lastname}`} </li>
         )}
         <Link href={'/dashboard/account'}>
           <li style={{ color: '#3fbb68', cursor: 'pointer' }}>Ver mi perfil</li>

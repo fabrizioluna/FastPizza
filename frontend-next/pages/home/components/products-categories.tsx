@@ -1,14 +1,30 @@
+import { GetServerSideProps } from 'next';
+import { getAllCategories } from 'pages/all-products/services/allproducts.service';
+import { Categories } from 'pages/all-products/types/allproducts.type';
 import { Fragment } from 'react';
-import { products_categories } from '../../../resources';
 
-export const ProductsCategories = () => {
+export const ProductsCategories = ({
+  categories,
+}: {
+  categories: Categories[];
+}) => {
   return (
     <header>
-      {products_categories.map((category) => (
+      {categories.map((category) => (
         <Fragment>
-          <li>{category}</li>
+          <li>{category.category_name}</li>
         </Fragment>
       ))}
     </header>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await getAllCategories();
+
+  return {
+    props: {
+      categories: data,
+    },
+  };
 };

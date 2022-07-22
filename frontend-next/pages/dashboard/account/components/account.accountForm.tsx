@@ -1,9 +1,9 @@
 import { CustomForm } from '@/components/form/form.component';
 import { CustomMessage } from '@/components/message/message.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
-import { Employee } from 'pages/dashboard/employees/adapters/employee.adapter';
 import { updateEmployee } from 'pages/dashboard/employees/services/employee.service';
-import { useState } from 'react';
+import { Employee } from 'pages/dashboard/employees/types/employee.types';
+import { useRef, useState } from 'react';
 
 export const AccountForm = ({
   employeePayload,
@@ -16,6 +16,7 @@ export const AccountForm = ({
     message: string;
     type: string;
   }>({ show: false, message: '', type: '' });
+  const formFieldsRef = useRef<any>([]);
 
   const updateEmployeeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +58,7 @@ export const AccountForm = ({
       <CustomForm
         setValueInputs={setValues}
         values={values}
+        formFieldsRef={formFieldsRef}
         isEditingForm={true}
         formStyles={{ display: 'block' }}
         inputs={[
@@ -91,6 +93,7 @@ export const AccountForm = ({
             name: 'employee_profileimg',
             type: 'file',
             placeholder: 'Imagen de Perfil',
+            prevValue: ''
           },
         ]}
         // selects={[

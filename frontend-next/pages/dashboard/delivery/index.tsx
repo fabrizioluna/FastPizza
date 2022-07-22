@@ -1,4 +1,5 @@
 import { PageHead } from '@/components/pageHead/pageHead.component';
+import { DashboardPrivateRoute } from '@/config/dashboard.private.routes';
 import { useCallService } from '@/hooks/useCallService';
 import { faTruck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,5 +26,8 @@ const Dashboard_Delivery = () => {
     </DashboardLayout>
   );
 };
+
+// Dashboard Private Page and Rol Guard
+Dashboard_Delivery.AuthDashboard = DashboardPrivateRoute;
 
 export default Dashboard_Delivery;

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { DashboardContainer } from '../components/dashboard.container';
-import { Employee } from '../employees/adapters/employee.adapter';
+import { Employee } from '../employees/types/employee.types';
 import { AccountForm } from './components/account.accountForm';
 
 export const DashboardAccount = ({ employee }: { employee: Employee }) => {

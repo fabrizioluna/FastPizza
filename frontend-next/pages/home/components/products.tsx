@@ -5,7 +5,6 @@ import { faShop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Product } from '../adapters/product.adapter';
-import { ProductsCategories } from './products-categories';
 
 export const Products = ({ products }: { products: any }) => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -30,7 +29,10 @@ export const Products = ({ products }: { products: any }) => {
         {products.map((product: Product, index: number) => (
           <section key={index} onClick={() => addProduct(product)}>
             <figure>
-              <img src={product.image} />
+              <img
+                src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/products_assents/${product.image}`}
+                alt={product.title}
+              />
               <div className='products__hover'>
                 <span>
                   <FontAwesomeIcon icon={faShop} />

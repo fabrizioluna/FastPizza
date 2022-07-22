@@ -32,7 +32,7 @@ export class DiscountService {
 
     return this.discountModel.create({
       ...discountObject,
-      discount_status: false,
+      discount_status: true,
     });
   }
 

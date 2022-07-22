@@ -1,9 +1,11 @@
 import { CustomForm } from '@/components/form/form.component';
 import { UserAdapted } from 'pages/auth/singup/adapters/singup.adapter';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
+// TODO: Agregar un endpoint para actualizar algo de la cuenta.
 export const Profile = ({ user }: { user: UserAdapted }) => {
   const [values, setValues] = useState();
+  const formFieldsRef = useRef<any>([]);
 
   const editProfileHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ export const Profile = ({ user }: { user: UserAdapted }) => {
       <CustomForm
         setValueInputs={setValues}
         values={values}
+        formFieldsRef={formFieldsRef}
         isEditingForm={true}
         formStyles={{}}
         inputs={[

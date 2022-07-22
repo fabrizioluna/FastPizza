@@ -4,26 +4,23 @@ import { join } from "path";
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { MailServices } from "./mail.services";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { env } from "process";
 
 @Module({
     imports: [
       MailerModule.forRootAsync({
         imports: [ConfigModule],
-        // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
-        // or
         useFactory: async (config: ConfigService) => ({
         transport: {
-          host: 'smtp.gmail.com',
+          host: process.env.MAIL_HOST,
           port: 465,
           secure: true,
           auth: {
-            user: 'newsurgens.royale@gmail.com',
-            pass: 'ndgyggmtxoykkoxy',
+            user: process.env.MAIL_EMAIL,
+            pass: process.env.MAIL_PASSWORD,
           },
         },
         defaults: {
-          from: `"No Reply" <'newsurgens.royale@gmail.com'>`,
+          from: `"No Reply" <'${process.env.MAIL_EMAIL}'>`,
         },
         template: {
           dir: join(__dirname, 'templates'),

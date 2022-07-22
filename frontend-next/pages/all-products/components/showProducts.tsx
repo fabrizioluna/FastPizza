@@ -30,7 +30,7 @@ export const ShowProducts = ({ currentProducts }: ShowProductsProps) => {
             <section key={index} onClick={() => addProduct(product)}>
               <figure>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}${product.image}`}
+                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/products_assents/${product.image}`}
                 />
                 <div className='products__hover'>
                   <span>{/* <FontAwesomeIcon icon={faShop} /> */}</span>

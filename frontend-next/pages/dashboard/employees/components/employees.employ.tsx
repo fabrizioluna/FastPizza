@@ -1,35 +1,87 @@
-import { CustomForm } from '@/components/form/form.component';
+import {
+  CustomForm,
+  FormCustom,
+  resetInputs,
+} from '@/components/form/form.component';
 import { useCallService } from '@/hooks/useCallService';
+import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
 import { rolesAdapter } from 'pages/dashboard/permissions/adapters/permissions.adapter';
 import { getAllRoles } from 'pages/dashboard/permissions/service/permissions.service';
-import { useState } from 'react';
-import {
-  Employee,
-  employeeAdapter,
-  FormEmployee,
-  InitialEmployee,
-} from '../adapters/employee.adapter';
+import { useRef, useState } from 'react';
+import { EmployeeRole, FormEmployee } from '../types/employee.types';
 import { registerEmployee } from '../services/employee.service';
+import {
+  ResponseFormValues,
+  ResponseHandler,
+} from '@/components/form/formHandler/form.types.formHandler';
+import { employeeAdapter } from '../adapters/employee.adapter';
+import { employee_validation } from '../forms/employee.validation';
+import { CustomMessage } from '@/components/message/message.component';
+import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 
 export const EmployEmployee = ({
   curretListEmployees,
   setEmployees,
 }: {
-  curretListEmployees: Employee[];
+  curretListEmployees: EmployeeRole[];
   setEmployees: (set: any) => void;
 }) => {
-  const [values, setValues] = useState<FormEmployee>();
+  const [values, setValues] = useState<FormEmployee>({
+    _id: '',
+    employee_address: '',
+    employee_joined: '',
+    employee_lastname: '',
+    employee_name: '',
+    employee_password: '',
+    employee_payment: 0,
+    employee_profileimg: '',
+    employee_role: '',
+  });
+  const [showError, setShowError] = useState<{
+    show: boolean;
+    message: string;
+    type: string;
+  }>({ show: false, message: '', type: '' });
+  const formFieldsRef = useRef<any>([]);
   const { call }: any = useCallService(getAllRoles, rolesAdapter);
 
   const employEmployeeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // TODO: Manejar las exepciones
-    const { data, statusCode } = await registerEmployee(
-      values as unknown as FormEmployee
-    );
-    const employeeAdapted = employeeAdapter(data);
-    setEmployees([...curretListEmployees, employeeAdapted]);
+    // We use this to handler values of the custom form.
+    FormValuesHandler.check(employee_validation(values))
+      .then(async () => {
+        const { data, statusCode } = await registerEmployee(values);
+
+        if (statusCode !== STATUS_CODE.SUCCESS) {
+          return setShowError({
+            show: true,
+            type: 'ERROR',
+            message:
+              'Ocurrió un error al registrar este empleado. Por favor intentelo nuevamente.',
+          });
+        }
+
+        const employeeAdapted = employeeAdapter(data);
+        setShowError({
+          show: true,
+          message: 'El empleado fue dado de alta satisfactoriamente.',
+          type: 'SUCCESS',
+        });
+        // Clean inputs.
+        resetInputs(formFieldsRef.current);
+        // Returns data employee in the response, then we'll push in to the array.
+        setEmployees([...curretListEmployees, employeeAdapted]);
+      })
+      .catch(({ results }: ResponseFormValues) => {
+        // And then if has errors...
+        formFieldsRef.current
+          .filter((formField: any) =>
+            results.some((field) => formField.name === field.key)
+          )
+          .map((formField: any) => (formField.style.borderColor = 'red'));
+        // We setting a borderColor in all inputs on have errors.
+      });
   };
 
   const createRolesArray = () =>
@@ -40,9 +92,13 @@ export const EmployEmployee = ({
 
   return (
     <div className='dashboardForm'>
+      {showError.show && (
+        <CustomMessage type={showError.type} message={showError.message} />
+      )}
       {call !== null && (
-        <CustomForm
+        <FormCustom
           setValueInputs={setValues}
+          formFieldsRef={formFieldsRef}
           values={values}
           isEditingForm={false}
           formStyles={{ display: 'block' }}
@@ -69,7 +125,7 @@ export const EmployEmployee = ({
             },
             {
               name: 'employee_payment',
-              type: 'number',
+              type: 'text',
               placeholder: 'Pago quincenal del Empleado',
             },
             {

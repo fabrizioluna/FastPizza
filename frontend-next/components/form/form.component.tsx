@@ -1,55 +1,6 @@
-import { Fragment } from 'react';
-
-// Types of Inputs
-interface Inputs {
-  name: string;
-  type: string;
-  placeholder?: string;
-  prevValue?: any;
-  radioOptions?: RadioInputs[];
-  radioLabel?: string;
-  radioStyles?: any;
-  radioLabelStyles?: any;
-  disableInput?: boolean;
-}
-
-// Types if we've inputs with type radio
-interface RadioInputs {
-  name: string;
-  label: string;
-  value: any;
-  radioInputLabelStyles?: any;
-  radioInputStyles?: any;
-}
-
-// If we've selects
-interface Selects {
-  label: string;
-  selectStyles?: any;
-  name: string;
-  values: SelectsValues[];
-}
-
-// Types of Values of the Select
-interface SelectsValues {
-  value: any;
-  text: string;
-}
-
-// Main types of the custom form.
-interface FormProps {
-  setValueInputs: (set: any) => void;
-  values: any;
-  inputs: Inputs[];
-  inputsDisable?: boolean;
-  inputsVisibility?: boolean;
-  selects?: Selects[];
-  formStyles: any;
-  submitCallback: (e: React.FormEvent) => Promise<void>;
-  buttonMessage: string;
-  inputsWithFlex?: string;
-  isEditingForm: boolean;
-}
+import React, { Fragment } from 'react';
+import { FormSelects } from './form.selects';
+import { FormProps, Inputs, RadioInputs } from './form.types';
 
 export const CustomForm = ({
   setValueInputs,
@@ -63,6 +14,7 @@ export const CustomForm = ({
   buttonMessage,
   inputsWithFlex = 'flex',
   isEditingForm,
+  formFieldsRef,
 }: FormProps) => {
   // Get all values of the inputs.
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,6 +61,11 @@ export const CustomForm = ({
                         <input
                           key={keyRadio}
                           name={`${radioInput.name}`}
+                          onClick={() =>
+                            (formFieldsRef.current[key].style.borderColor =
+                              '#adadad80')
+                          }
+                          ref={(re) => (formFieldsRef.current[key] = re)}
                           type='radio'
                           style={radioInput.radioInputStyles}
                           value={radioInput.value}
@@ -127,6 +84,20 @@ export const CustomForm = ({
                       disabled={Input.disableInput}
                       name={`${Input.name}`}
                       type={`${Input.type}`}
+                      /*
+                        When the user click on the input and this have a borderColor 
+                        in red... will be change on a grey color to default. 
+                      */
+                      onClick={() =>
+                        (formFieldsRef.current[key].style.borderColor =
+                          '#adadad80')
+                      }
+                      /* 
+                        This create a DOM reference of the all inputs in the component.
+                        So, with this we get full properties of those
+                        inputs to work on it en ever single component when use them.
+                      */
+                      ref={(re) => (formFieldsRef.current[key] = re)}
                       placeholder={`${Input.placeholder}`}
                       onChange={onChangeInputs}
                     />
@@ -136,24 +107,12 @@ export const CustomForm = ({
             </div>
           ))}
           {selects?.length >= 1 && ( // If is are a select array... we create it
-            <>
-              {selects.map((select: Selects) => (
-                <>
-                  <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>
-                    {select.label}
-                  </p>
-                  <select
-                    style={select.selectStyles}
-                    name={`${select.name}`}
-                    onChange={onChangeSelects}
-                  >
-                    {select.values.map((val) => (
-                      <option value={val.value}>{val.text}</option>
-                    ))}
-                  </select>
-                </>
-              ))}
-            </>
+            <FormSelects
+              formFieldsRef={formFieldsRef}
+              formFieldsRefLength={inputs.length}
+              onChangeSelects={onChangeSelects}
+              selects={selects}
+            />
           )}
           <button>{buttonMessage}</button>
         </form>
@@ -171,6 +130,11 @@ export const CustomForm = ({
                     name={`${Input.name}`}
                     type={`${Input.type}`}
                     disabled={Input.disableInput}
+                    onClick={() =>
+                      (formFieldsRef.current[key].style.borderColor =
+                        '#adadad80')
+                    }
+                    ref={(re) => (formFieldsRef.current[key] = re)}
                     defaultValue={`${Input.prevValue}`}
                     placeholder={`${Input.placeholder}`}
                     onChange={onChangeInputs}
@@ -180,7 +144,12 @@ export const CustomForm = ({
                     key={key}
                     name={`${Input.name}`}
                     type={`${Input.type}`}
-                    // defaultValue={`${Input.prevValue}`}
+                    onClick={() =>
+                      (formFieldsRef.current[key].style.borderColor =
+                        '#adadad80')
+                    }
+                    ref={(re) => (formFieldsRef.current[key] = re)}
+                    defaultValue={`${Input.prevValue}`}
                     placeholder={`${Input.placeholder}`}
                     onChange={onChangeInputs}
                     className='custom-file-upload'
@@ -195,3 +164,9 @@ export const CustomForm = ({
     </Fragment>
   );
 };
+
+export const resetInputs = (inputs: Array<any>) => {
+  return inputs.map((input: any) => (input.value = ''));
+};
+
+export const FormCustom = React.memo(CustomForm);

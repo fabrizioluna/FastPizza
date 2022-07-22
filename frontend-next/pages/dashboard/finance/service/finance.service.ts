@@ -1,5 +1,5 @@
 import { client } from "@/config/axios.config";
-import { Expense } from "../types/finance.types";
+import { FormExpense } from "../types/finance.types";
 
 export const getAllFinance = () => {
   return client
@@ -12,7 +12,7 @@ export const getAllFinance = () => {
     });
 };
 
-export const createExpense = (expenseObject: Expense) => {
+export const createExpense = (expenseObject: FormExpense) => {
   return client
     .post('finance/expense_create', expenseObject)
     .then((data) => {

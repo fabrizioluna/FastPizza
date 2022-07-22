@@ -1,7 +1,7 @@
 import { CustomForm } from '@/components/form/form.component';
 import { Modal } from '@/components/portals/modal.portal';
 import { Order } from 'pages/dashboard/adapters/order.adapter';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initialPropsOrder } from './delivery.stage2';
 
 export const ModalDelivery = ({
@@ -20,6 +20,7 @@ export const ModalDelivery = ({
     order_methodPay: any;
   }>({ number_enter: 0, order_methodPay: 1 });
   const [turned, setTurned] = useState<any>(0);
+  const formFieldsRef = useRef<any>([])
 
   useEffect(() => {
     if (parseInt(values.order_methodPay) != 1) {
@@ -85,6 +86,7 @@ export const ModalDelivery = ({
               <CustomForm
                 setValueInputs={setValues}
                 values={values}
+                formFieldsRef={formFieldsRef}
                 isEditingForm={false}
                 formStyles={{}}
                 inputsVisibility={changeMethodPay}

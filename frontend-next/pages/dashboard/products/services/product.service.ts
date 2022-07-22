@@ -1,6 +1,6 @@
 import { client } from '@/config/axios.config';
 import axios from 'axios';
-import { FormCreateProduct } from '../components/products.newproduct';
+import { FormProduct } from '../types/products.types';
 
 export const createDashboardProduct = (values: any) => {
   return client
@@ -35,17 +35,6 @@ export const getDashboardProduct = (productId: string) => {
     });
 };
 
-// export const updateDashboardProduct = (productId: string, values: any) => {
-//   return client
-//     .put(`product/update?id=${productId}`, values)
-//     .then((data) => {
-//       return { data: data.data, statusCode: 200 };
-//     })
-//     .catch((err) => {
-//       return { data: err.code, statusCode: err.response.status };
-//     });
-// };
-
 export const deleteDashboardProduct = (productId: string) => {
   return client
     .delete(`product/delete?id=${productId}`)
@@ -68,7 +57,7 @@ export const createNewCategory = (category: any) => {
     });
 };
 
-export const createNewProduct = (productObject: FormCreateProduct) => {
+export const createNewProduct = (productObject: FormProduct) => {
   const formdata = new FormData();
   formdata.append('product_name', productObject.product_name);
   formdata.append('product_price', productObject.product_price);

@@ -3,8 +3,9 @@ import { CustomMessage } from '@/components/message/message.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { Categories } from 'pages/all-products/types/allproducts.type';
 import { Product } from 'pages/home/adapters/product.adapter';
-import { Fragment, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { updateDashboardProduct } from '../../services/product.service';
+import { FormProduct } from '../../types/products.types';
 
 export const ProductEdit = ({
   productId,
@@ -15,15 +16,15 @@ export const ProductEdit = ({
   productPayload: Product;
   categoriesPayload: Categories[];
 }) => {
-  const [values, setValues] = useState();
+  const [values, setValues] = useState<FormProduct>();
   const [showMessage, setShowMessage] = useState<{
     show: boolean;
     message: string;
     type: string;
   }>({ show: false, message: '', type: '' });
-  const productHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const formFieldsRef = useRef<any>([]);
 
+  const productHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (values == undefined)
@@ -33,27 +34,32 @@ export const ProductEdit = ({
         type: 'ERROR',
       });
 
-    const { data, statusCode } = await updateDashboardProduct(
+    const { statusCode } = await updateDashboardProduct(
       productId,
       values as any
     );
 
-    if (statusCode === STATUS_CODE.SUCCESS)
+    if (statusCode !== STATUS_CODE.SUCCESS) {
       return setShowMessage({
         show: true,
-        message: 'La información del producto se actualizó correctamente.',
-        type: 'INFO',
+        message:
+          'Ocurrió un error al actualizar este producto. Por favor intentelo nuevamente.',
+        type: 'ERROR',
       });
+    }
 
-    // TODO: Manejar excepciones
-    if (statusCode == STATUS_CODE.BAD_REQUEST) return;
+    setShowMessage({
+      show: true,
+      message: 'El producto fue actualizado satisfactoriamente.',
+      type: 'SUCCESS',
+    });
   };
 
-  //   const createCategoriesArray = () =>
-  //     categoriesPayload.map((category: Categories) => {
-  //       // Create all categories we've in the database.
-  //       return { text: category.category_name, value: category._id };
-  //     });
+  const createCategoriesArray = () =>
+    categoriesPayload.map((category: Categories) => {
+      // Create all categories we've in the database.
+      return { text: category.category_name, value: category._id };
+    });
   return (
     <Fragment>
       <figure>
@@ -68,6 +74,7 @@ export const ProductEdit = ({
       <CustomForm
         setValueInputs={setValues}
         values={values}
+        formFieldsRef={formFieldsRef}
         formStyles={{ display: 'block' }}
         isEditingForm={true}
         inputs={[
@@ -99,17 +106,17 @@ export const ProductEdit = ({
             name: 'product_image',
             type: 'file',
             placeholder: 'Imagen del Producto',
-            prevValue: productPayload.image,
+            prevValue: '',
           },
         ]}
-        // selects={[
-        //   {
-        //     label: 'Escoge la categoria del producto',
-        //     name: 'product_category',
-        //     selectStyles: { width: '100%' },
-        //     values: createCategoriesArray(), // Using own function to send the values in the custom form
-        //   },
-        // ]}
+        selects={[
+          {
+            label: 'Escoge la categoria del producto',
+            name: 'product_category',
+            selectStyles: { width: '100%' },
+            values: createCategoriesArray(), // Using own function to send the values in the custom form
+          },
+        ]}
         submitCallback={productHandler}
         buttonMessage={'Guardar cambios'}
       />

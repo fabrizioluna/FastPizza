@@ -38,6 +38,12 @@ export interface InitialExpense {
   expense_customExpense: boolean;
 }
 
+export interface FormExpense {
+  expense_amount: any;
+  expense_title: string;
+  expense_description: string;
+}
+
 export interface Expense {
   id: string;
   update: string;
@@ -60,7 +66,7 @@ export interface MonthStatistics {
   totalEarnedThisMonth: number;
   totalOrdersThisMonth: number;
   totalOrdersByMonth: Month[];
-} 
+}
 
 export interface Month {
   day: number;
