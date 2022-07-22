@@ -59,7 +59,7 @@ export const authCookieStorage = () => {
       }
       
       const clear = () => {
-          return localStorage.clear('authUser')
+          return localStorage.clear()
       }
       
       return { get, set, clear };
