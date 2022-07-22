@@ -67,8 +67,8 @@ export const OrderDetailClient = ({ orderObject }: { orderObject: Order }) => {
         </section>
         <section>
           <h2>Detalle de la orden</h2>
-          {orderObject.products.map((product: OrderProduct) => (
-            <div>
+          {orderObject.products.map((product: OrderProduct, index: number) => (
+            <div key={index}>
               <figure>
                 <img src={product.image} alt={product.name} />
               </figure>

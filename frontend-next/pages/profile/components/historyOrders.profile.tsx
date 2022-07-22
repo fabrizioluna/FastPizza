@@ -3,8 +3,8 @@ import { Order } from 'pages/dashboard/adapters/order.adapter';
 export const HistoryOrders = ({ orders }: { orders: Order[] }) => {
   return (
     <div>
-      {orders.map((order: Order) => (
-        <div className='profileOrders'>
+      {orders.map((order: Order, index: number) => (
+        <div className='profileOrders' key={index}>
           <section>
             <p>{order.envoice}</p>
             <h2>{`${order.creationDay} ${order.creationMonth} del ${order.creationYear}`}</h2>
