@@ -1,5 +1,5 @@
 import { client } from '@/config/axios.config';
-import { InitialInventory } from '../adapters/inventory.adapter';
+import { InitialInventory } from '../types/inventory.types';
 
 export const getInventory = () => {
   return client

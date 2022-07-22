@@ -14,7 +14,7 @@ export const HomeLayout = ({ children }: { children: ReactNode }) => {
       </header>
       <main>{children}</main>
       <footer>
-        <Footer />
+        {/* <Footer /> */}
       </footer>
     </Fragment>
   );

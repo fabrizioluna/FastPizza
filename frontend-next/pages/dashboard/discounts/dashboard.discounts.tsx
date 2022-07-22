@@ -3,10 +3,11 @@ import { faTags } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { DashboardContainer } from '../components/dashboard.container';
-import { Discount, discountAdapter } from './adapters/discount.adapter';
+import { discountAdapter } from './adapters/discount.adapter';
 import { RegisterDiscount } from './components/discount.create';
 import { ListDiscounts } from './components/discount.list';
 import { getDiscounts } from './services/discount.service';
+import { Discount } from './types/discounts.types';
 
 export const DashboardDiscounts = () => {
   const { call } = useCallService(getDiscounts, discountAdapter);

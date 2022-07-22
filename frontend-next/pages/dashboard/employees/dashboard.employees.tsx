@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { DashboardContainer } from "../components/dashboard.container";
 import { DashboardLayout } from "../components/dashboard.layout";
-import { Employee, employeeAdapter } from "./adapters/employee.adapter";
+import { employeeAdapter } from "./adapters/employee.adapter";
 import { CountEmployees } from "./components/employee.count";
 import { EmployEmployee } from "./components/employees.employ";
 import { ListEmployees } from "./components/employees.list";
 import { getAllEmployees } from "./services/employee.service";
+import { Employee } from "./types/employee.types";
 
 
 export const DashboardEmployees = () => {

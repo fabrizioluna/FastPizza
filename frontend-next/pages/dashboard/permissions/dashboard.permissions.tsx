@@ -4,10 +4,11 @@ import { faShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { DashboardContainer } from '../components/dashboard.container';
-import { Roles, rolesAdapter } from './adapters/permissions.adapter';
+import { rolesAdapter } from './adapters/permissions.adapter';
 import { NewRole } from './components/dashboard.newrole';
 import { RolesList } from './components/dashboard.roleslist';
 import { getAllRoles } from './service/permissions.service';
+import { Roles } from './types/roles.types';
 
 export const DashboardPermissions = () => {
   const { call }: any = useCallService(getAllRoles, rolesAdapter);

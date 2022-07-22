@@ -1,6 +1,6 @@
 import { CustomTable } from '@/components/tables/table.component';
 import { Fragment } from 'react';
-import { Roles } from '../adapters/permissions.adapter';
+import { Roles } from '../types/roles.types';
 
 interface RolesProps {
   currentList: Roles[];

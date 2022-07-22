@@ -7,8 +7,8 @@ import { useRef, useState } from 'react';
 import { rolesAdapter } from '../adapters/permissions.adapter';
 import { createRole } from '../service/permissions.service';
 import { FormRoles, Roles } from '../types/roles.types';
-import { RolesInputs } from './forms/roles.inputs';
-import { roles_validation } from './forms/roles.validation';
+import { RolesInputs } from '../forms/roles.inputs';
+import { roles_validation } from '../forms/roles.validation';
 
 export const NewRole = ({
   currentRolesList,

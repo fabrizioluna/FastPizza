@@ -1,4 +1,4 @@
-import { FormRoles } from '../../types/roles.types';
+import { FormRoles } from '../types/roles.types';
 
 export const roles_validation = (values: FormRoles) => {
   return [
