@@ -8,27 +8,43 @@ import { useDispatch } from 'react-redux';
 import { employeeWithTokenAdapter } from '../employees/adapters/employee.adapter';
 import { loginDashboard } from './service/dashboardAuth.service';
 import { PageHead } from '@/components/pageHead/pageHead.component';
+import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
+import { FormAuth } from './types/auth.types';
+import { auth_validation } from './forms/auth.validation';
+import { ResponseFormValues } from '@/components/form/formHandler/form.types.formHandler';
+import { showFormErrors } from '@/components/form/form.showErrors';
 
 const DashboardAuth = () => {
   const dispatch = useDispatch();
 
-  const [values, setValues] = useState();
+  const [values, setValues] = useState<FormAuth>({
+    employee_password: '',
+    employee_uniqueCode: '',
+  });
   const [errorAuth, setErrorAuth] = useState<boolean>(false);
   const formFieldsRef = useRef<any>([]);
 
   const authHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { data, statusCode } = await loginDashboard(values);
+    FormValuesHandler.check(auth_validation(values as unknown as FormAuth))
+      .then(async () => {
+        const { data, statusCode } = await loginDashboard(values);
 
-    if (statusCode === STATUS_CODE.BAD_REQUEST) return setErrorAuth(true);
+        if (statusCode !== STATUS_CODE.SUCCESS) return setErrorAuth(true);
 
-    const employeeAdapted = employeeWithTokenAdapter(data.employee, data.token);
-    dispatch(createDashboardUser(employeeAdapted));
-    authSessionCookieStorage()?.set(data.token, data.employee._id);
+        const employeeAdapted = employeeWithTokenAdapter(
+          data.employee,
+          data.token
+        );
+        dispatch(createDashboardUser(employeeAdapted));
+        authSessionCookieStorage()?.set(data.token, data.employee._id);
 
-    // TODO: Cambiar el Router dependiendo de los permisos que tenga el empleado.
-    Router.push('/dashboard/account');
+        Router.push('/dashboard/account');
+      })
+      .catch(({ results }: ResponseFormValues) => {
+        showFormErrors(formFieldsRef, results);
+      });
   };
 
   return (

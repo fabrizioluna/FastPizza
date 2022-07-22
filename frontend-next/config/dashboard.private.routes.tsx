@@ -39,6 +39,10 @@ const Guards = [
     param: 'permissionsProducts',
   },
   {
+    path: '/dashboard/products/',
+    param: 'permissionsProducts',
+  },
+  {
     path: '/dashboard/logs',
     param: 'permissionsLogs',
   },

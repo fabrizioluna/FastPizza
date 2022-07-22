@@ -45,12 +45,8 @@ export const ListProducts = ({ products }: { products: Product[] }) => {
             <td>{product.discount}%</td>
             <td>{product.description}</td>
             <td>
-              {/* TODO: Cuando este lista la vista de Producto de client, agregarlo. */}
-              <Link href={``}>
-                <span>Ver producto en tienda</span>
-              </Link>
               <Link href={`products/${product._id}`}>
-                <span>Editar producto</span>
+                <span style={{ cursor: 'pointer' }}>Editar producto</span>
               </Link>
             </td>
           </tr>

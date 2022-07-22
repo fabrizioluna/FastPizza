@@ -8,7 +8,6 @@ import { DashboardAccount } from './dashboard.account';
 
 const Account = () => {
   const employee = useSelector((store: AppStore) => store.employee);
-  console.log(employee)
   return (
     <DashboardLayout>
       <PageHead titlePage={`Perfil de ${employee.name} ${employee.lastname}`} />

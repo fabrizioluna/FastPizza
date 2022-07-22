@@ -70,7 +70,7 @@ export const ListDiscounts = ({ discounts }: { discounts: Discount[] }) => {
             <td>{discount.expiresIn}</td>
             <td>
               <Link href={`discounts/${discount.id}`}>
-                <span>Editar descuento</span>
+                <span style={{ cursor: 'pointer' }}>Editar descuento</span>
               </Link>
             </td>
           </tr>
