@@ -1,5 +1,5 @@
 import { client } from '@/config/axios.config';
-import { InitialInventory } from '../types/inventory.types';
+import { FormInventory } from '../types/inventory.types';
 
 export const getInventory = () => {
   return client
@@ -12,7 +12,7 @@ export const getInventory = () => {
     });
 };
 
-export const newInventory = (inventoryObject: InitialInventory) => {
+export const newInventory = (inventoryObject: FormInventory) => {
   return client
     .post('inventory/create', inventoryObject)
     .then((data) => {

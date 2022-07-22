@@ -8,7 +8,6 @@ interface Props {
 export const LowList = ({ inventoryList }: Props) => {
   const [nextList, setNextList] = useState<Inventory[]>([]);
 
-  // const getLowProducts = () => inventoryList.filter((inv) => inv.pieces <= 3);
   useEffect(() => setNextList(() => inventoryList.filter((inv) => inv.pieces <= 3)), []);
 
   return (
