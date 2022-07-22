@@ -7,7 +7,7 @@ import { ButtonWrapper } from './resources/buttonWrapper';
 import { NavigationWrapper } from './resources/navigationWrapper';
 
 export const NavigationDashboard = () => {
-  const employee = useSelector((store: AppStore) => store.employee);
+  const employee: any = useSelector((store: AppStore) => store.employee);
 
   return (
     <div className='dashboardNav'>
