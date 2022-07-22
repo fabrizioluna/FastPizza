@@ -95,6 +95,10 @@ export const DashboardPrivateRoute = ({
         msg: 'Employee authenticate',
       });
 
+      if(asPath.toString() === '/dashboard/account'){
+        return;
+      }
+
       // We comprobate is this user have access to the resource
       Guards.map((guard) => {
         if (guard.path === asPath.toString()) {

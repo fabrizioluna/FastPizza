@@ -93,6 +93,7 @@ export const AccountForm = ({
             name: 'employee_profileimg',
             type: 'file',
             placeholder: 'Imagen de Perfil',
+            prevValue: ''
           },
         ]}
         // selects={[

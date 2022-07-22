@@ -1,10 +1,9 @@
 import { Paginator } from '@/components/paginator/paginator';
 import { CustomTable } from '@/components/tables/table.component';
 import { Fragment, useState } from 'react';
-import { Employee } from '../adapters/employee.adapter';
+import { Employee } from '../types/employee.types';
 
 export const ListEmployees = ({ employees }: { employees: Employee[] }) => {
-  console.log(employees);
   const [pagination, setPagination] = useState<number>(0);
   return (
     <Fragment>

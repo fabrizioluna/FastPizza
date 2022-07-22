@@ -1,4 +1,5 @@
 import { CustomForm } from '@/components/form/form.component';
+import { useRef } from 'react';
 import { Credentials, singup } from '../services/singup.service';
 
 interface RegisterProps {
@@ -14,6 +15,8 @@ export const RegisterForm = ({
   setPreviuosValues,
   setEnterCode,
 }: RegisterProps) => {
+  const formFieldsRef = useRef<any>([]);
+
   const registerUserHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     const { data, statusCode } = await singup(values as unknown as Credentials);
@@ -28,6 +31,7 @@ export const RegisterForm = ({
       <CustomForm
         isEditingForm={false}
         formStyles={{}}
+        formFieldsRef={formFieldsRef}
         setValueInputs={setValues}
         values={values}
         inputs={[

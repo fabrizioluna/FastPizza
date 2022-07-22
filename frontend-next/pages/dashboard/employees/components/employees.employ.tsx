@@ -93,7 +93,7 @@ export const EmployEmployee = ({
   return (
     <div className='dashboardForm'>
       {showError.show && (
-        <CustomMessage type='ERROR' message={showError.message} />
+        <CustomMessage type={showError.type} message={showError.message} />
       )}
       {call !== null && (
         <FormCustom

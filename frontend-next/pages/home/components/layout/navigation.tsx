@@ -23,8 +23,8 @@ export const Navigation = () => {
           <li>Carrito de compras</li>
         </Link>
         <div>
-          <li>Tel +52 777 240 45 64</li>
-          <li>Av. Vicente Guerrero Col. Cuernavaca Centro</li>
+          <li>Tel {process.env.NEXT_PUBLIC_PHONE_NUMBER}</li>
+          <li>{process.env.NEXT_PUBLIC_ADDRESS}</li>
           {loading && <p>Aqui esta cargando...</p>}
           {!loading && userData.status ? (
             <>

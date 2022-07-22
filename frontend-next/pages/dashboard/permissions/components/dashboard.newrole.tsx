@@ -62,7 +62,6 @@ export const NewRole = ({
         setNewRolesList([...currentRolesList, rolesAdapter(data)]);
       })
       .catch(({ results }: ResponseFormValues) => {
-        console.log(results)
         formFieldsRef.current
           .filter((formField: any) =>
             results.some((field) => formField.name === field.key)

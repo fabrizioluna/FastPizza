@@ -14,12 +14,12 @@ export const Sidenav = () => {
         {employee._id.length >= 1 && employee.image === 'no-image' ? (
           <img
             src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/IMG-default_profile.jpg`}
-            alt='imagenPruebaPerfil'
+            alt='IMG-default_profile.jpg'
           />
         ) : (
           <img
             src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/employees_assents/${employee.image}`}
-            alt='imagenPruebaPerfil'
+            alt={employee.image}
           />
         )}
       </figure>

@@ -33,7 +33,10 @@ export const ListProducts = ({ status, products }: ListProductsProps) => {
               >
                 x
               </button>
-              <img src={product.image} alt='image' />
+              <img
+                src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/products_assents/${product.image}`}
+                alt={product.title}
+              />
               <p>{product.title}</p>
               <p>${product.price}</p>
               <p>1</p>

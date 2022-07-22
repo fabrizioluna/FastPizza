@@ -35,7 +35,7 @@ export const products_validation = (values: FormProduct) => {
       max: 10000,
       min: 1,
       value: parseInt(values.product_price),
-      custom: () => /^[0-9]*$/.exec(values.product_price),
+      regex: () => /^[0-9]*$/.exec(values.product_price),
       key: 'product_price',
     },
     {
@@ -43,7 +43,7 @@ export const products_validation = (values: FormProduct) => {
       max: 10000,
       min: 0,
       value: parseInt(values.product_discount),
-      custom: () => /^[0-9]*$/.exec(values.product_discount),
+      regex: () => /^[0-9]*$/.exec(values.product_discount),
       key: 'product_discount',
     },
   ];

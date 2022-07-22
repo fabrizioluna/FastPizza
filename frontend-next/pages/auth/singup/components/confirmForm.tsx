@@ -1,7 +1,7 @@
 import { CustomForm } from '@/components/form/form.component';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import Router from 'next/router';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { confirm_email } from '../services/singup.service';
 
 interface ConfirmProps {
@@ -16,6 +16,7 @@ export const ConfirmForm = ({
   previuosValues,
 }: ConfirmProps) => {
   const [error, setError] = useState<boolean>(false);
+  const formFieldsRef = useRef<any>([]);
   const enterCodeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -38,10 +39,15 @@ export const ConfirmForm = ({
         Revisa tu bandeja de entrada de tu correo electronico e introduce el
         código que recibiste.
       </p>
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>El código de verificación no es válido.</p>}
+      {error && (
+        <p style={{ color: 'red', textAlign: 'center' }}>
+          El código de verificación no es válido.
+        </p>
+      )}
       <CustomForm
         isEditingForm={false}
         formStyles={{}}
+        formFieldsRef={formFieldsRef}
         setValueInputs={setValuesSecond}
         values={valuesSecond}
         inputs={[

@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomForm } from '@/components/form/form.component';
 import { Layout } from '@/components/layout';
 import { authCookieStorage } from '@/utils/localStorage/localStorageHandler';
@@ -7,7 +7,11 @@ import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { useDispatch } from 'react-redux';
 import { createUser } from 'redux/states/user';
 import { UserAdapter } from '../singup/adapters/singup.adapter';
-import { confirm_accountByUsername, singin, SinginCredentials } from './services/singin.service';
+import {
+  confirm_accountByUsername,
+  singin,
+  SinginCredentials,
+} from './services/singin.service';
 import { PageHead } from '@/components/pageHead/pageHead.component';
 
 const SingIn = () => {
@@ -16,6 +20,7 @@ const SingIn = () => {
   const [valuesConfirm, setValuesConfirm] = useState({ email_code: '' });
   const [errors, setErrors] = useState<string>();
   const [showConfirmEmail, setShowConfirmEmail] = useState<boolean>(false);
+  const formFieldsRef = useRef<any>([]);
 
   const loginUserHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,8 +35,8 @@ const SingIn = () => {
       setErrors(
         'Tu cuenta no ha sido confirmada. Revisa tu bandeja de entrada de tu correo electronico.'
       );
-      setValuesConfirm({ email_code: '' })
-      return setShowConfirmEmail(true)
+      setValuesConfirm({ email_code: '' });
+      return setShowConfirmEmail(true);
     }
 
     authCookieStorage()?.set(data.token, data.user._id);
@@ -52,9 +57,9 @@ const SingIn = () => {
       return setErrors('El código de verificación no es válido.');
     }
 
-    setValues({ user_name: '', user_password: '' })
+    setValues({ user_name: '', user_password: '' });
     setErrors('');
-    return setShowConfirmEmail(false)
+    return setShowConfirmEmail(false);
   };
 
   return (
@@ -67,6 +72,7 @@ const SingIn = () => {
           <CustomForm
             formStyles={{}}
             setValueInputs={setValues}
+            formFieldsRef={formFieldsRef}
             isEditingForm={false}
             values={values}
             inputs={[
@@ -74,7 +80,7 @@ const SingIn = () => {
                 name: 'user_name',
                 type: 'text',
                 placeholder: 'Ingresa tu Usuario',
-                prevValue: ''
+                prevValue: '',
               },
               {
                 name: 'user_password',
@@ -99,6 +105,7 @@ const SingIn = () => {
           <CustomForm
             isEditingForm={false}
             formStyles={{}}
+            formFieldsRef={formFieldsRef}
             setValueInputs={setValuesConfirm}
             values={valuesConfirm}
             inputs={[
@@ -106,7 +113,7 @@ const SingIn = () => {
                 name: 'email_code',
                 type: 'text',
                 placeholder: 'Ingresa tu código',
-                prevValue: ''
+                prevValue: '',
               },
             ]}
             submitCallback={enterCodeHandler}
