@@ -15,10 +15,16 @@ import { RolesModule } from './roles/roles.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { UserModule } from './user/user.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/FastPizza_Database'),
+    // Env configuration
+    ConfigModule.forRoot({
+      // Env accessible globally
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(process.env.DB_DATABASE),
     // We use on it to get the static images
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
