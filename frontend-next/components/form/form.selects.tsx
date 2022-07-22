@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Selects } from './form.types';
 
 interface SelectsProps {
@@ -19,7 +19,7 @@ export const CustomFormSelects = ({
   return (
     <>
       {selects.map((select: Selects, index: number) => (
-        <>
+        <Fragment key={index}>
           <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>{select.label}</p>
           <select
             style={select.selectStyles}
@@ -38,7 +38,7 @@ export const CustomFormSelects = ({
               <option value={val.value}>{val.text}</option>
             ))}
           </select>
-        </>
+        </Fragment>
       ))}
     </>
   );

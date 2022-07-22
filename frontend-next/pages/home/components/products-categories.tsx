@@ -10,11 +10,11 @@ export const ProductsCategories = ({
 }) => {
   return (
     <header>
-      {categories.map((category) => (
-        <Fragment>
-          <li>{category.category_name}</li>
-        </Fragment>
-      ))}
+      <Fragment>
+        {categories.map((category, index: number) => (
+          <li key={index}>{category.category_name}</li>
+        ))}
+      </Fragment>
     </header>
   );
 };

@@ -50,11 +50,8 @@ export const CustomForm = ({
                 <div style={Input.radioStyles}>
                   <p style={Input.radioLabelStyles}>{Input.radioLabel}</p>
                   {Input.radioOptions?.map(
-                    (
-                      radioInput: RadioInputs,
-                      keyRadio: number // Create all radio inputs
-                    ) => (
-                      <div style={{ display: `${inputsWithFlex}` }}>
+                    (radioInput: RadioInputs, keyRadio: number) => (
+                      <div key={keyRadio} style={{ display: `${inputsWithFlex}` }}>
                         <p style={radioInput.radioInputLabelStyles}>
                           {radioInput.label}
                         </p>

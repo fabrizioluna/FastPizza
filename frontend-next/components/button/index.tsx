@@ -59,6 +59,7 @@ const GenerateButton = ({ type, params, children }: ParamsTypes) => {
     <a
       className={GenerateColor(params.color)}
       target='_blank'
+      rel='noreferrer'
       href={params.link}
     >
       {children}
