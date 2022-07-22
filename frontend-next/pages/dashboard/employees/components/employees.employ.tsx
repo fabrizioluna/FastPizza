@@ -1,8 +1,4 @@
-import {
-  CustomForm,
-  FormCustom,
-  resetInputs,
-} from '@/components/form/form.component';
+import { FormCustom, resetInputs } from '@/components/form/form.component';
 import { useCallService } from '@/hooks/useCallService';
 import { FormValuesHandler } from '@/components/form/formHandler/form.valuesHandler';
 import { rolesAdapter } from 'pages/dashboard/permissions/adapters/permissions.adapter';
@@ -10,10 +6,7 @@ import { getAllRoles } from 'pages/dashboard/permissions/service/permissions.ser
 import { useRef, useState } from 'react';
 import { EmployeeRole, FormEmployee } from '../types/employee.types';
 import { registerEmployee } from '../services/employee.service';
-import {
-  ResponseFormValues,
-  ResponseHandler,
-} from '@/components/form/formHandler/form.types.formHandler';
+import { ResponseFormValues } from '@/components/form/formHandler/form.types.formHandler';
 import { employeeAdapter } from '../adapters/employee.adapter';
 import { employee_validation } from '../forms/employee.validation';
 import { CustomMessage } from '@/components/message/message.component';

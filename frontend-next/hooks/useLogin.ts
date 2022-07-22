@@ -3,7 +3,6 @@ import { AppStore } from '@/redux/store';
 import { authCookieStorage } from '@/utils/localStorage/localStorageHandler';
 import { getUser } from 'pages/auth/singin/services/singin.service';
 import {
-  User,
   UserAdapted,
   UserAdapter,
 } from 'pages/auth/singup/adapters/singup.adapter';
