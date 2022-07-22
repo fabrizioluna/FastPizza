@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Employee } from 'pages/dashboard/employees/adapters/employee.adapter';
+import { Employee } from 'pages/dashboard/employees/types/employee.types';
 
 export const initialState: Employee = {
   _id: '',
