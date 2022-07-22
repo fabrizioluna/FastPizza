@@ -1,10 +1,6 @@
 import { client } from '@/config/axios.config';
 import axios from 'axios';
-import {
-  Employee,
-  FormEmployee,
-  InitialEmployee,
-} from '../adapters/employee.adapter';
+import { FormEmployee } from '../types/employee.types';
 
 export const getAllEmployees = () => {
   return client

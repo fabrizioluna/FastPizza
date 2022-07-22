@@ -1,5 +1,4 @@
 import { Order, OrderProduct } from 'pages/dashboard/adapters/order.adapter';
-import { Fragment } from 'react';
 
 export const OrderDetails = ({
   details,

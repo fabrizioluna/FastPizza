@@ -1,5 +1,4 @@
 import { Order } from 'pages/dashboard/adapters/order.adapter';
-import { Fragment } from 'react';
 
 export const OrderStageTwo = ({
   orders,

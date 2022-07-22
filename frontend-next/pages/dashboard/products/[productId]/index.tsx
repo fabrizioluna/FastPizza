@@ -1,4 +1,3 @@
-import { DashboardPrivateRoute } from '@/config/dashboard.private.routes';
 import { STATUS_CODE } from '@/utils/responseStatus/responseStatus';
 import { faBurger } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
