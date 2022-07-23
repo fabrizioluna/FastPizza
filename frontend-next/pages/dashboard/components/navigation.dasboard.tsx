@@ -12,8 +12,8 @@ export const NavigationDashboard = () => {
   return (
     <div className='dashboardNav'>
       <h1>Dashboard FastPizza</h1>
-      {NavigationWrapper.map((wrapper: any) => (
-        <Fragment>
+      {NavigationWrapper.map((wrapper: any, index: number) => (
+        <Fragment key={index}>
           {employee.role[wrapper.accessKey] === true && (
             <ButtonWrapper
               icon={wrapper.icon}

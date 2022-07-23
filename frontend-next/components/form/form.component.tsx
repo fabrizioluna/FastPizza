@@ -45,7 +45,7 @@ export const CustomForm = ({
       {!isEditingForm ? (
         <form onSubmit={submitCallback} style={formStyles}>
           {inputs.map((Input: Inputs, key: number) => (
-            <div>
+            <div key={key}>
               {Input.type.toLocaleLowerCase() === 'radio' ? ( // If the type is radio...
                 <div style={Input.radioStyles}>
                   <p style={Input.radioLabelStyles}>{Input.radioLabel}</p>
@@ -73,7 +73,7 @@ export const CustomForm = ({
                   )}
                 </div>
               ) : (
-                <>
+                <Fragment key={key}>
                   {inputsVisibility && (
                     <input
                       key={key} // If not are radio input... just we create a normal input
@@ -99,7 +99,7 @@ export const CustomForm = ({
                       onChange={onChangeInputs}
                     />
                   )}
-                </>
+                </Fragment>
               )}
             </div>
           ))}
@@ -120,7 +120,7 @@ export const CustomForm = ({
               Input: Inputs,
               key: number // If the form has a default values
             ) => (
-              <>
+              <Fragment key={key}>
                 {Input.type !== 'file' ? (
                   <input
                     key={key}
@@ -152,7 +152,7 @@ export const CustomForm = ({
                     className='custom-file-upload'
                   />
                 )}
-              </>
+              </Fragment>
             )
           )}
           <button>{buttonMessage}</button>
