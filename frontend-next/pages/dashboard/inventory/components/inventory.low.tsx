@@ -13,8 +13,8 @@ export const LowList = ({ inventoryList }: Props) => {
   return (
     <div>
       {nextList.length > 0 ?
-        nextList.map((inv) => (
-          <div>
+        nextList.map((inv, index: number) => (
+          <div key={index}>
             <li>{inv.name}</li>
             <li>{inv.pieces}</li>
           </div>

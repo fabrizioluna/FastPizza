@@ -20,8 +20,11 @@ export const CustomFormSelects = ({
     <>
       {selects.map((select: Selects, index: number) => (
         <Fragment key={index}>
-          <p style={{ paddingTop: '1rem', fontSize: '1rem' }}>{select.label}</p>
+          <p key={index} style={{ paddingTop: '1rem', fontSize: '1rem' }}>
+            {select.label}
+          </p>
           <select
+            key={index}
             style={select.selectStyles}
             name={`${select.name}`}
             onMouseEnter={() =>
