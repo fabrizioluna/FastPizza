@@ -37,8 +37,10 @@ export const CustomFormSelects = ({
             }
             onChange={onChangeSelects}
           >
-            {select.values.map((val) => (
-              <option value={val.value}>{val.text}</option>
+            {select.values.map((val, key: number) => (
+              <option value={val.value} key={key}>
+                {val.text}
+              </option>
             ))}
           </select>
         </Fragment>
