@@ -1,6 +1,8 @@
 {
   "name": "backend-nestjs",
-  "node": "16.13.0",
+  "engines": {
+    "node": "16.x"
+  },
   "version": "0.0.1",
   "description": "",
   "author": "",
