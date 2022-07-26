@@ -10,8 +10,9 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderDetails, setOrderDetails] = useState<Order>();
 
-  const socket = io('http://localhost:4000', {
+  const socket = io(`${process.env.NEXT_PUBLIC_URL}`, {
     transports: ['websocket', 'polling'],
+
   });
 
   socket.on('orderChangeKitchen', async (ordersUpdated) => {

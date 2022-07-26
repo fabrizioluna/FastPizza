@@ -28,8 +28,9 @@ const DashboardAuth = () => {
     e.preventDefault();
 
     FormValuesHandler.check(auth_validation(values as unknown as FormAuth))
-      .then(async () => {
+      .then(async() => {
         const { data, statusCode } = await loginDashboard(values);
+        console.log(data)
 
         if (statusCode !== STATUS_CODE.SUCCESS) return setErrorAuth(true);
 
@@ -42,9 +43,26 @@ const DashboardAuth = () => {
 
         Router.push('/dashboard/account');
       })
-      .catch(({ results }: ResponseFormValues) => {
-        showFormErrors(formFieldsRef, results);
-      });
+      // .catch(() => console.log('its no okey'));
+    // await FormValuesHandler.check(auth_validation(values as unknown as FormAuth))
+    //   .then(async () => {
+    //     const { data, statusCode } = await loginDashboard(values);
+
+    //     if (statusCode !== STATUS_CODE.SUCCESS) return setErrorAuth(true);
+
+    //     const employeeAdapted = employeeWithTokenAdapter(
+    //       data.employee,
+    //       data.token
+    //     );
+    //     dispatch(createDashboardUser(employeeAdapted));
+    //     authSessionCookieStorage()?.set(data.token, data.employee._id);
+
+    //     Router.push('/dashboard/account');
+    //   })
+    //   .catch(({ results }: ResponseFormValues) => {
+    //     console.log('Entra en el catch', results)
+
+    //   });
   };
 
   return (

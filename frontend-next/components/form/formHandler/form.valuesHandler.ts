@@ -9,10 +9,11 @@ export class FormValuesHandler {
   constructor() {}
 
   // We use a static method cuz in this wave not need to instance the class.
-  static check(fieldsArr: FieldsArray[]): Promise<ResponseFormValues> {
+  static async check(fieldsArr: FieldsArray[]): Promise<ResponseFormValues> {
+    console.log(fieldsArr)
     let results: ResponseHandler[] = [];
 
-    fieldsArr.map((field: FieldsArray) => {
+    await fieldsArr.map((field: FieldsArray) => {
       // Instance of VerificatedField and then we'll invoke
       // methods 'value' to check if the type is correct
       // and length to verified the enter word is correct.
@@ -28,11 +29,14 @@ export class FormValuesHandler {
       }
     });
 
+    
+
     // Result if not have errors to show.
     const hasErrorsArr: boolean = results.some(
-      (result: ResponseHandler) => !result.testPassed
+      (result: ResponseHandler) => result.testPassed === false
     );
-    if (!hasErrorsArr) {
+    console.log('The results ', results, hasErrorsArr)
+    if (hasErrorsArr === false) {
       return Promise.resolve({ hasErrors: false, results: [] });
     }
     return Promise.reject({
