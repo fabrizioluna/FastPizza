@@ -12,7 +12,6 @@ export const DashboardOrders = ({ order_data }: { order_data: Order[] }) => {
 
   const socket = io(`${process.env.NEXT_PUBLIC_URL}`, {
     transports: ['websocket', 'polling'],
-
   });
 
   socket.on('orderChangeKitchen', async (ordersUpdated) => {
