@@ -9,7 +9,6 @@ import { useMemo } from 'react';
 import { ProgressStatusOrder } from './progressBar.orderStatus';
 
 export const OrderDetailClient = ({ orderObject }: { orderObject: Order }) => {
-    
   const porcentageBar = useMemo(() => {
     let porcentage: any = { porcentage: 0 };
     const { statusDelivery, statusKitchen, statusKitchenFinished, status } =
@@ -25,18 +24,10 @@ export const OrderDetailClient = ({ orderObject }: { orderObject: Order }) => {
       return (porcentage = { porcentage: 35 });
     else if (
       !statusDelivery ||
-      statusDelivery &&
-      statusKitchen &&
-      statusKitchenFinished &&
-      !status
+      (statusDelivery && statusKitchen && statusKitchenFinished && !status)
     )
       return (porcentage = { porcentage: 65 });
-    else if (
-      statusDelivery &&
-      statusKitchen &&
-      statusKitchenFinished &&
-      status
-    )
+    else if (statusDelivery && statusKitchen && statusKitchenFinished && status)
       return (porcentage = { porcentage: 100 });
 
     return (porcentage = { porcentage: 0 });
@@ -70,7 +61,10 @@ export const OrderDetailClient = ({ orderObject }: { orderObject: Order }) => {
           {orderObject.products.map((product: OrderProduct, index: number) => (
             <div key={index}>
               <figure>
-                <img src={product.image} alt={product.name} />
+                <img
+                  src={`${process.env.NEXT_PUBLIC_URL_DEVELOPMENT}/products_assents/${product.image}`}
+                  alt={product.name}
+                />
               </figure>
               <section>
                 <p>{product.name}</p>
