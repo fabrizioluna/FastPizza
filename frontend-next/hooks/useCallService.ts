@@ -11,6 +11,7 @@ export const useCallService = (
     const callService = async () => {
       // Esto podria descomponer el de Products
       const { data } = await callback(request);
+      console.log(data)
 
       //   Si la data es un array... entonces hace un map del callback del Adapter.
       setCall(
